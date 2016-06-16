@@ -6,13 +6,15 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import meta.Data;
 
 public class Field extends Button {
-	private boolean isMine = false;
+	private boolean mine = false;
 	private boolean flagged = false;
 	private boolean hidden = true;
+	private int neighbourMines = 0;
 	
 	private Field tl = null; //Top Left
 	private Field tc = null; //Top Center
@@ -36,46 +38,99 @@ public class Field extends Button {
 	}
 	
 	public void setMine(){
-		isMine = true;
+		mine = true;
 	}
 	
 	public void open(){
 		hidden = false;
-		if (isMine){
+		this.disableProperty().set(true);
+		this
+		if (mine){
 			if (Data.firstClick){
 				Data.firstClick = false;
 				System.out.println("First Click was a Mine!");
-				isMine = false;
+				mine = false;
 				((GamePane)(this.getParent())).setMines(1);
 			} else {
 				ImageView bomb = new ImageView(new Image(getClass().getResourceAsStream("/bomb.png")));
 				bomb.preserveRatioProperty().set(true);
 				bomb.setFitWidth(this.getWidth()-0.25*this.getWidth());
 				this.setGraphic(bomb);
-				this.disableProperty().set(true);
+			}
+		} else {
+			if (Data.firstClick){
+				Data.firstClick = false;
+			}
+			countNeighbourMines();
+			if (flagged) unflag();
+			if (neighbourMines == 0){
+				if (tl != null && tl.isHidden()) tl.open();
+				if (tc != null && tc.isHidden()) tc.open();
+				if (tr != null && tr.isHidden()) tr.open();
+				if (ml != null && ml.isHidden()) ml.open();
+				if (mr != null && mr.isHidden()) mr.open();
+				if (bl != null && bl.isHidden()) bl.open();
+				if (bc != null && bc.isHidden()) bc.open();
+				if (br != null && br.isHidden()) br.open();
+			} else {
+				displayMineNum();
 			}
 		}
 	}
 	
 	public void flag(){
-		ImageView flag = new ImageView(new Image(getClass().getResourceAsStream("/flag.png")));
-		flag.preserveRatioProperty().set(true);
-		flag.setFitHeight(this.getHeight()-0.25*this.getHeight());
-		flag.minHeight(0);
-		flag.minWidth(0);
-		this.setGraphic(flag);
-		flagged = true;
-		Data.setFlagsSet(Data.getFlagsSet() + 1);
+		if (!flagged){
+			ImageView flag = new ImageView(new Image(getClass().getResourceAsStream("/flag.png")));
+			flag.preserveRatioProperty().set(true);
+			flag.setFitHeight(this.getHeight()-0.25*this.getHeight());
+			flag.minHeight(0);
+			flag.minWidth(0);
+			this.setGraphic(flag);
+			flagged = true;
+			Data.setFlagsSet(Data.getFlagsSet() + 1);
+		}
 	}
 	
 	public void unflag(){
-		this.setGraphic(null);
-		flagged = false;
-		Data.setFlagsSet(Data.getFlagsSet() - 1);
+		if (flagged){
+			this.setGraphic(null);
+			flagged = false;
+			Data.setFlagsSet(Data.getFlagsSet() - 1);
+		}
 	}
 	
+	public void countNeighbourMines(){
+		if (tl != null && tl.isMine()) neighbourMines ++;
+		if (tc != null && tc.isMine()) neighbourMines ++;
+		if (tr != null && tr.isMine()) neighbourMines ++;
+		if (ml != null && ml.isMine()) neighbourMines ++;
+		if (mr != null && mr.isMine()) neighbourMines ++;
+		if (bl != null && bl.isMine()) neighbourMines ++;
+		if (bc != null && bc.isMine()) neighbourMines ++;
+		if (br != null && br.isMine()) neighbourMines ++;
+	}
+	
+	public void displayMineNum(){
+		this.setText(String.valueOf(neighbourMines));
+		this.setFont(Font.font("Courier New", 50));
+		switch(neighbourMines){
+		case 1: this.setTextFill(Color.YELLOWGREEN); break;
+		case 2: this.setTextFill(Color.DODGERBLUE); break;
+		case 3: this.setTextFill(Color.YELLOW); break;
+		case 4: this.setTextFill(Color.ORANGE); break;
+		case 5: this.setTextFill(Color.RED); break;
+		case 6: this.setTextFill(Color.DARKRED); break;
+		case 7: this.setTextFill(Color.MEDIUMVIOLETRED); break;
+		case 8: this.setTextFill(Color.BLUEVIOLET); break;
+		}
+	}
+	
+	//--------------------------------------------------------------------------\\
+	//------------------ Getter and Setter Methods start here ------------------\\
+	//--------------------------------------------------------------------------\\
+	
 	public boolean isMine(){
-		return isMine;
+		return mine;
 	}
 	
 	public boolean isHidden(){
