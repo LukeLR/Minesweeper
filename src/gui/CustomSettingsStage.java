@@ -11,7 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import meta.Constraints;
+import meta.Data;
 
 public class CustomSettingsStage extends Stage {
 	public CustomSettingsStage() throws Exception{
@@ -30,32 +30,25 @@ public class CustomSettingsStage extends Stage {
 		Label yTilesLabel = new Label("Height:");
 		Label minesLabel = new Label("Mines:");
 		
-		Spinner<Integer> xTilesSpinner = new Spinner<Integer>(10, 100, Constraints.xFields);
-		Spinner<Integer> yTilesSpinner = new Spinner<Integer>(10, 100, Constraints.yFields);
-		Spinner<Integer> minesSpinner = new Spinner<Integer>(1, 100, Constraints.mines);
+		Spinner<Integer> xTilesSpinner = new Spinner<Integer>(10, 100, Data.xFields);
+		Spinner<Integer> yTilesSpinner = new Spinner<Integer>(10, 100, Data.yFields);
+		Spinner<Integer> minesSpinner = new Spinner<Integer>(1, 100, Data.mines);
 		
 		xTilesSpinner.setEditable(true);
 		yTilesSpinner.setEditable(true);
 		minesSpinner.setEditable(true);
 		
 		xTilesSpinner.valueProperty().addListener((observable, old, current) -> {
-			if (old != current) Constraints.xFields = current;
+			if (old != current) Data.xFields = current;
 		});
 		
 		yTilesSpinner.valueProperty().addListener((observable, old, current) -> {
-			if (old != current) Constraints.yFields = current;
+			if (old != current) Data.yFields = current;
 		});
 		
 		minesSpinner.valueProperty().addListener((observable, old, current) -> {
-			if (old != current) Constraints.mines = current;
+			if (old != current) Data.mines = current;
 		});
-		
-//		xTilesLabel.setVisible(false);
-//		yTilesLabel.setVisible(false);
-//		minesLabel.setVisible(false);
-//		xTilesSpinner.setVisible(false);
-//		yTilesSpinner.setVisible(false);
-//		minesSpinner.setVisible(false);
 		
 		root.add(xTilesLabel, 0, 0);
 		root.add(yTilesLabel, 0, 1);
