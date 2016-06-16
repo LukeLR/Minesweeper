@@ -81,4 +81,68 @@ public class Field extends Button {
 	public boolean isHidden(){
 		return hidden;
 	}
+
+	public Field getTl() {
+		return tl;
+	}
+
+	public void setTl(Field tl) {
+		this.tl = tl;
+	}
+
+	public Field getTc() {
+		return tc;
+	}
+
+	public void setTc(Field tc) {
+		this.tc = tc;
+	}
+
+	public Field getTr() {
+		return tr;
+	}
+
+	public void setTr(Field tr) {
+		this.tr = tr;
+	}
+
+	public Field getMl() {
+		return ml;
+	}
+
+	public void setMl(Field ml) {
+		this.ml = ml;
+	}
+
+	public Field getMr() {
+		return mr;
+	}
+
+	public void setMr(Field mr) {
+		this.mr = mr;
+	}
+
+	public Field getBl() {
+		return bl;
+	}
+
+	public void setBl(Field bl) {
+		this.bl = bl;
+	}
+
+	public Field getBc() {
+		return bc;
+	}
+
+	public void setBc(Field bc) {
+		this.bc = bc;
+	}
+
+	public Field getBr() {
+		return br;
+	}
+
+	public void setBr(Field br) {
+		this.br = br;
+	}
 }
