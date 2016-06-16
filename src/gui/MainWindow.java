@@ -7,15 +7,19 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import meta.Constraints;
 
 public class MainWindow extends Application {
 
@@ -26,73 +30,56 @@ public class MainWindow extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		primaryStage.setTitle("Minesweeper w/ JavaFX");
-		AnchorPane aP = new AnchorPane();
-		GridPane root = new GridPane();
-		Scene mainMenu = new Scene(aP, 500, 500);
+//		AnchorPane aP = new AnchorPane();
+		BorderPane root = new BorderPane();
+		GridPane menues = new GridPane();
+		GridPane mainMenu = new GridPane();
+		GridPane difficultyMenu = new GridPane();
+		Scene mainScene = new Scene(root, 800, 800);
 		
-		root.setAlignment(Pos.CENTER);
-		root.setHgap(10);
-		root.setVgap(10);
+		menues.setAlignment(Pos.CENTER);
+		menues.setHgap(10d);
+		menues.setVgap(10d);
+		mainMenu.setAlignment(Pos.CENTER);
+		mainMenu.setHgap(10d);
+		mainMenu.setVgap(10d);
+		difficultyMenu.setAlignment(Pos.CENTER);
+		difficultyMenu.setHgap(10d);
+		difficultyMenu.setVgap(10d);
 		root.setPadding(new Insets(25, 25, 25, 25));
 		
-		Text title = new Text("Willkommen bei Minesweeper!");
-		title.setFont(Font.font("Verdana", 20));
-		root.add(title, 0, 0, 2, 1);
+		ComboBox difficulty = new ComboBox();
+		difficulty.getItems().addAll("Easy", "Intermediate", "Hard", "Custom");
+		difficulty.setValue("Easy");
 		
-		Label level = new Label("Level:");
-		root.add(level, 0, 1, 1, 1);
+		Label xTilesLabel = new Label ("Width:");
+		Label yTilesLabel = new Label ("Height:");
+		Label minesLabel = new Label ("Mines:");
 		
-		ToggleGroup levelGroup = new ToggleGroup();
-		RadioButton levelEasy = new RadioButton("Easy");
-		RadioButton levelMedium = new RadioButton("Intermediate");
-		RadioButton levelHard = new RadioButton("Hard");
-		RadioButton levelCustom = new RadioButton("Custom");
+		Spinner<Integer> xTilesSpinner = new Spinner<Integer>(10, 100, Constraints.xFields);
+		Spinner<Integer> yTilesSpinner = new Spinner<Integer>(10, 100, Constraints.yFields);
+		Spinner<Integer> minesSpinner = new Spinner<Integer>(1, 100, Constraints.mines);
 		
-		levelEasy.setToggleGroup(levelGroup);
-		levelMedium.setToggleGroup(levelGroup);
-		levelHard.setToggleGroup(levelGroup);
-		levelCustom.setToggleGroup(levelGroup);
+		difficultyMenu.add(xTilesLabel, 0, 0);
+		difficultyMenu.add(xTilesSpinner, 1, 0);
+		difficultyMenu.add(yTilesLabel, 2, 0);
+		difficultyMenu.add(yTilesSpinner, 3, 0);
+		difficultyMenu.add(minesLabel, 4, 0);
+		difficultyMenu.add(minesSpinner, 5, 0);
 		
-		Button levelCustomSettings = new Button ("Settings...");
-		
-		CustomSettingsStage csw = new CustomSettingsStage();
-		
-		levelCustom.selectedProperty().addListener((observable, old, now) -> {
-			if (now && !old) csw.show();
+		difficulty.valueProperty().addListener((ov, old, current) -> {
+			if (current.equals("Custom")){
+				
+			}
 		});
 		
-		levelCustomSettings.setOnAction((event) -> {
-			csw.show();
-			levelCustom.setSelected(true);
-		});
+		mainMenu.add(difficulty, 0, 0);
 		
-		levelEasy.setSelected(true);
+		menues.add(mainMenu, 0, 0, 1, 1);
+		menues.add(difficultyMenu, 0, 1, 1, 1);
+		root.setTop(menues);
 		
-		root.add(levelEasy, 1, 1, 1, 1);
-		root.add(levelMedium, 1, 2, 1, 1);
-		root.add(levelHard, 1, 3, 1, 1);
-		root.add(levelCustom, 1, 4, 1, 1);
-		root.add(levelCustomSettings, 2, 4, 1, 1);
-		
-		Button start = new Button("Start!");
-		
-		aP.getChildren().add(root);
-		aP.getChildren().add(start);
-		
-		aP.setRightAnchor(root, 0.0);
-		aP.setLeftAnchor(root, 0.0);
-		aP.setTopAnchor(root, 0.0);
-		aP.setBottomAnchor(root, 0.0);
-		
-		aP.setBottomAnchor(start, 10d);
-		aP.setRightAnchor(start, 10d);
-		
-		primaryStage.setScene(mainMenu);
+		primaryStage.setScene(mainScene);
 		primaryStage.show();
 	}
-	
-	public static void showCustomControls(){
-		
-	}
-
 }
