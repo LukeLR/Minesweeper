@@ -10,7 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import meta.Data;
 
-public class Field extends Button {
+public class Field extends StackPane {
 	private boolean mine = false;
 	private boolean flagged = false;
 	private boolean hidden = true;
