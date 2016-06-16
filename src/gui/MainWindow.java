@@ -20,6 +20,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -42,19 +43,22 @@ public class MainWindow extends Application {
 	private Spinner<Integer> xTilesSpinner;
 	private Spinner<Integer> yTilesSpinner;
 	private Spinner<Integer> minesSpinner;
+	private Text mineNum;
 
 	public static void main(String args) {
 		launch(args);
 	}
 
+	@SuppressWarnings("unchecked")
 	public void start(Stage primaryStage) throws Exception {
+		Data.setMainWindow(this);
 		primaryStage.setTitle("Minesweeper w/ JavaFX");
 		// AnchorPane aP = new AnchorPane();
 		root = new BorderPane();
 		menues = new GridPane();
 		mainMenu = new GridPane();
 		difficultyMenu = new GridPane();
-		mainScene = new Scene(root, Data.width, Data.height);
+		mainScene = new Scene(root, Data.getWidth(), Data.getHeight());
 
 		menues.setAlignment(Pos.CENTER);
 		menues.setHgap(10d);
@@ -67,6 +71,11 @@ public class MainWindow extends Application {
 		difficultyMenu.setVgap(10d);
 		root.setPadding(new Insets(25, 25, 25, 25));
 
+		mineNum = new Text();
+		updateMineNum();
+		mineNum.setFont(Font.font("Courier New", 50));
+		mineNum.setFill(Color.RED);
+		
 		difficultyLabel = new Label("Difficulty:");
 		nameLabel = new Label("Your name:");
 
@@ -84,9 +93,9 @@ public class MainWindow extends Application {
 		yTilesLabel = new Label("Height:");
 		minesLabel = new Label("Mines:");
 
-		xTilesSpinner = new Spinner<Integer>(1, 100, Data.xFields);
-		yTilesSpinner = new Spinner<Integer>(1, 100, Data.yFields);
-		minesSpinner = new Spinner<Integer>(1, 100, Data.mines);
+		xTilesSpinner = new Spinner<Integer>(1, 100, Data.getXFields());
+		yTilesSpinner = new Spinner<Integer>(1, 100, Data.getYFields());
+		minesSpinner = new Spinner<Integer>(1, 100, Data.getMines());
 
 		xTilesSpinner.setEditable(true);
 		yTilesSpinner.setEditable(true);
@@ -94,26 +103,26 @@ public class MainWindow extends Application {
 
 		proportional.selectedProperty().addListener((ov, old, current) -> {
 			if (current) {
-				yTilesSpinner.getValueFactory().setValue(Data.xFields);
+				yTilesSpinner.getValueFactory().setValue(Data.getXFields());
 			}
 		});
 
 		xTilesSpinner.valueProperty().addListener((ov, old, current) -> {
-			Data.xFields = xTilesSpinner.getValueFactory().getValue();
+			Data.setXFields(xTilesSpinner.getValueFactory().getValue());
 			if (proportional.isSelected()) {
-				yTilesSpinner.getValueFactory().setValue(Data.xFields);
+				yTilesSpinner.getValueFactory().setValue(Data.getXFields());
 			}
 		});
 
 		yTilesSpinner.valueProperty().addListener((ov, old, current) -> {
-			Data.yFields = yTilesSpinner.getValueFactory().getValue();
+			Data.setYFields(yTilesSpinner.getValueFactory().getValue());
 			if (proportional.isSelected()) {
-				xTilesSpinner.getValueFactory().setValue(Data.yFields);
+				xTilesSpinner.getValueFactory().setValue(Data.getYFields());
 			}
 		});
 
 		minesSpinner.valueProperty().addListener((ov, old, current) -> {
-			Data.mines = minesSpinner.getValueFactory().getValue();
+			Data.setMines(minesSpinner.getValueFactory().getValue());
 		});
 
 		difficultyMenu.add(proportional, 0, 0);
@@ -125,20 +134,38 @@ public class MainWindow extends Application {
 		difficultyMenu.add(minesSpinner, 6, 0);
 
 		difficultyMenu.setVisible(false);
-
+		
 		difficulty.valueProperty().addListener((ov, old, current) -> {
-			if (current.equals("Custom")) {
-				difficultyMenu.setVisible(true);
-			} else {
+			switch(current.toString()){
+			case "Easy":
+				Data.setMode(Data.EASY);
 				difficultyMenu.setVisible(false);
+				newGame();
+				break;
+			case "Intermediate":
+				Data.setMode(Data.INTERMEDIATE);
+				difficultyMenu.setVisible(false);
+				newGame();
+				break;
+			case "Hard":
+				Data.setMode(Data.HARD);
+				difficultyMenu.setVisible(false);
+				newGame();
+				break;
+			case "Custom":
+				Data.setMode(Data.CUSTOM);
+				difficultyMenu.setVisible(true); 
+				break;
+			default: break;
 			}
 		});
 
-		mainMenu.add(difficultyLabel, 0, 0);
-		mainMenu.add(difficulty, 1, 0);
-		mainMenu.add(nameLabel, 2, 0);
-		mainMenu.add(name, 3, 0);
-		mainMenu.add(newGame, 4, 0);
+		mainMenu.add(mineNum, 0, 0);
+		mainMenu.add(difficultyLabel, 1, 0);
+		mainMenu.add(difficulty, 2, 0);
+		mainMenu.add(nameLabel, 3, 0);
+		mainMenu.add(name, 4, 0);
+		mainMenu.add(newGame, 5, 0);
 
 		menues.add(mainMenu, 0, 0, 1, 1);
 		menues.add(difficultyMenu, 0, 1, 1, 1);
@@ -156,10 +183,18 @@ public class MainWindow extends Application {
 
 	public void newGame() {
 		if (gp == null) {
-			gp = new GamePane(Data.xFields, Data.yFields, Data.mines);
+			gp = new GamePane(Data.getXFields(), Data.getYFields(), Data.getMines());
 		} else {
-			gp.newGame(Data.xFields, Data.yFields, Data.mines);
+			gp.newGame(Data.getXFields(), Data.getYFields(), Data.getMines());
 		}
 		root.setCenter(gp);
+	}
+	
+	public GamePane getGamePane(){
+		return gp;
+	}
+	
+	public void updateMineNum(){
+		mineNum.setText("Mines: " + (Data.getMinesInGame() - Data.getFlagsSet()));
 	}
 }
