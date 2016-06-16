@@ -11,6 +11,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Spinner;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -48,9 +49,16 @@ public class MainWindow extends Application {
 		difficultyMenu.setVgap(10d);
 		root.setPadding(new Insets(25, 25, 25, 25));
 		
+		Label difficultyLabel = new Label("Difficulty:");
+		Label nameLabel = new Label("Your name:");
+		
 		ComboBox difficulty = new ComboBox();
 		difficulty.getItems().addAll("Easy", "Intermediate", "Hard", "Custom");
 		difficulty.setValue("Easy");
+		
+		TextField name = new TextField("Max Mustermann");
+		
+		Button newGame = new Button("New Game");
 		
 		Label xTilesLabel = new Label ("Width:");
 		Label yTilesLabel = new Label ("Height:");
@@ -67,13 +75,21 @@ public class MainWindow extends Application {
 		difficultyMenu.add(minesLabel, 4, 0);
 		difficultyMenu.add(minesSpinner, 5, 0);
 		
+		difficultyMenu.setVisible(false);
+		
 		difficulty.valueProperty().addListener((ov, old, current) -> {
 			if (current.equals("Custom")){
-				
+				difficultyMenu.setVisible(true);
+			} else {
+				difficultyMenu.setVisible(false);
 			}
 		});
 		
-		mainMenu.add(difficulty, 0, 0);
+		mainMenu.add(difficultyLabel, 0, 0);
+		mainMenu.add(difficulty, 1, 0);
+		mainMenu.add(nameLabel, 2, 0);
+		mainMenu.add(name, 3, 0);
+		mainMenu.add(newGame, 4, 0);
 		
 		menues.add(mainMenu, 0, 0, 1, 1);
 		menues.add(difficultyMenu, 0, 1, 1, 1);
