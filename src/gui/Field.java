@@ -44,7 +44,6 @@ public class Field extends Button {
 	public void open(){
 		hidden = false;
 		this.disableProperty().set(true);
-		this
 		if (mine){
 			if (Data.firstClick){
 				Data.firstClick = false;
