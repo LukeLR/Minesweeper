@@ -7,6 +7,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -23,7 +24,11 @@ import javafx.stage.Stage;
 import meta.Constraints;
 
 public class MainWindow extends Application {
-
+	BorderPane root;
+	GridPane menues, mainMenu, difficultyMenu;
+	Scene mainScene;
+	GamePane gp;
+	
 	public static void main(String args){
 		launch(args);
 	}
@@ -32,11 +37,11 @@ public class MainWindow extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		primaryStage.setTitle("Minesweeper w/ JavaFX");
 //		AnchorPane aP = new AnchorPane();
-		BorderPane root = new BorderPane();
-		GridPane menues = new GridPane();
-		GridPane mainMenu = new GridPane();
-		GridPane difficultyMenu = new GridPane();
-		Scene mainScene = new Scene(root, 800, 800);
+		root = new BorderPane();
+		menues = new GridPane();
+		mainMenu = new GridPane();
+		difficultyMenu = new GridPane();
+		mainScene = new Scene(root, 1000, 1000);
 		
 		menues.setAlignment(Pos.CENTER);
 		menues.setHgap(10d);
@@ -60,20 +65,51 @@ public class MainWindow extends Application {
 		
 		Button newGame = new Button("New Game");
 		
+		CheckBox proportional = new CheckBox("Proportional");
+		
 		Label xTilesLabel = new Label ("Width:");
 		Label yTilesLabel = new Label ("Height:");
 		Label minesLabel = new Label ("Mines:");
 		
-		Spinner<Integer> xTilesSpinner = new Spinner<Integer>(10, 100, Constraints.xFields);
-		Spinner<Integer> yTilesSpinner = new Spinner<Integer>(10, 100, Constraints.yFields);
+		Spinner<Integer> xTilesSpinner = new Spinner<Integer>(1, 100, Constraints.xFields);
+		Spinner<Integer> yTilesSpinner = new Spinner<Integer>(1, 100, Constraints.yFields);
 		Spinner<Integer> minesSpinner = new Spinner<Integer>(1, 100, Constraints.mines);
 		
-		difficultyMenu.add(xTilesLabel, 0, 0);
-		difficultyMenu.add(xTilesSpinner, 1, 0);
-		difficultyMenu.add(yTilesLabel, 2, 0);
-		difficultyMenu.add(yTilesSpinner, 3, 0);
-		difficultyMenu.add(minesLabel, 4, 0);
-		difficultyMenu.add(minesSpinner, 5, 0);
+		xTilesSpinner.setEditable(true);
+		yTilesSpinner.setEditable(true);
+		minesSpinner.setEditable(true);
+		
+		proportional.selectedProperty().addListener((ov, old, current) -> {
+			if (current){
+				yTilesSpinner.getValueFactory().setValue(Constraints.xFields);
+			}
+		});
+		
+		xTilesSpinner.valueProperty().addListener((ov, old, current) -> {
+			Constraints.xFields = xTilesSpinner.getValueFactory().getValue();
+			if (proportional.isSelected()){
+				yTilesSpinner.getValueFactory().setValue(Constraints.xFields);
+			}
+		});
+		
+		yTilesSpinner.valueProperty().addListener((ov, old, current) -> {
+			Constraints.yFields = yTilesSpinner.getValueFactory().getValue();
+			if (proportional.isSelected()){
+				xTilesSpinner.getValueFactory().setValue(Constraints.yFields);
+			}
+		});
+		
+		minesSpinner.valueProperty().addListener((ov, old, current) -> {
+			Constraints.mines = minesSpinner.getValueFactory().getValue();
+		});
+		
+		difficultyMenu.add(proportional, 0, 0);
+		difficultyMenu.add(xTilesLabel, 1, 0);
+		difficultyMenu.add(xTilesSpinner, 2, 0);
+		difficultyMenu.add(yTilesLabel, 3, 0);
+		difficultyMenu.add(yTilesSpinner, 4, 0);
+		difficultyMenu.add(minesLabel, 5, 0);
+		difficultyMenu.add(minesSpinner, 6, 0);
 		
 		difficultyMenu.setVisible(false);
 		
@@ -95,7 +131,22 @@ public class MainWindow extends Application {
 		menues.add(difficultyMenu, 0, 1, 1, 1);
 		root.setTop(menues);
 		
+		newGame.setOnAction((event) -> {
+			newGame();
+		});
+		
+		newGame();
+		
 		primaryStage.setScene(mainScene);
 		primaryStage.show();
+	}
+	
+	public void newGame(){
+		if (gp == null){
+			gp = new GamePane(Constraints.xFields, Constraints.yFields, Constraints.mines);
+		} else {
+			gp.newGame(Constraints.xFields, Constraints.yFields, Constraints.mines);
+		}
+		root.setCenter(gp);
 	}
 }
