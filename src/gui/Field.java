@@ -11,6 +11,7 @@ import javafx.scene.text.Font;
 import meta.Data;
 
 public class Field extends StackPane {
+	private Button button = new Button();
 	private boolean mine = false;
 	private boolean flagged = false;
 	private boolean hidden = true;
@@ -110,8 +111,8 @@ public class Field extends StackPane {
 	}
 	
 	public void displayMineNum(){
-		this.setText(String.valueOf(neighbourMines));
-		this.setFont(Font.font("Courier New", 50));
+		button.setText(String.valueOf(neighbourMines));
+		button.setFont(Font.font("Courier New", 50));
 		switch(neighbourMines){
 		case 1: this.setTextFill(Color.YELLOWGREEN); break;
 		case 2: this.setTextFill(Color.DODGERBLUE); break;
