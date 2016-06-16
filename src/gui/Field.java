@@ -35,8 +35,6 @@ public class Field extends Button {
 			bomb.setFitWidth(this.getWidth()-0.25*this.getWidth());
 			this.setGraphic(bomb);
 			this.disableProperty().set(true);
-//			this.setText("B");
-//			this.setFont(Font.font(20d));
 		}
 	}
 	
