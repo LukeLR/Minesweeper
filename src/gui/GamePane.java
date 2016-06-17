@@ -45,12 +45,10 @@ public class GamePane extends GridPane {
 			for (int j = 0; j < fields[i].length; j++){
 				if ((i - 1) >= 0){
 					fields[i][j].setMl(fields[i-1][j]);
-					if (j - 1 >= 0){
-						fields[i][j].setTc(fields[i][j-1]);
+					if ((j - 1) >= 0){
 						fields[i][j].setTl(fields[i-1][j-1]);
 					}
 					if ((j + 1) < fields[i].length){
-						fields[i][j].setBc(fields[i][j+1]);
 						fields[i][j].setBl(fields[i-1][j+1]);
 					}
 				}
@@ -62,6 +60,12 @@ public class GamePane extends GridPane {
 					if ((j + 1) < fields[i].length){
 						fields[i][j].setBr(fields[i+1][j+1]);
 					}
+				}
+				if ((j - 1) >= 0){
+					fields[i][j].setTc(fields[i][j-1]);
+				}
+				if ((j + 1) < fields[i].length){
+					fields[i][j].setBc(fields[i][j+1]);
 				}
 			}
 		}
@@ -92,5 +96,14 @@ public class GamePane extends GridPane {
 			}
 		}
 		Data.mainWindow().lost();
+	}
+	
+	public void won(){
+		for (int i = 0; i < fields.length; i++){
+			for (int j = 0; j < fields[i].length; j++){
+				if (fields[i][j] != null && fields[i][j].isHidden()) fields[i][j].open();
+			}
+		}
+		Data.mainWindow().won();
 	}
 }

@@ -86,17 +86,19 @@ public class Field extends GridPane {
 				Data.mainWindow().startTimer();
 				Data.firstClick = false;
 			}
+			Data.setHiddenFields(Data.getHiddenFields() -  1);
+			if (Data.getHiddenFields()-Data.getMines() == 0) Data.mainWindow().getGamePane().won();
 			countNeighbourMines();
 			if (flagged) unflag();
 			if (neighbourMines == 0){
-				if (tl != null && tl.isHidden()) tl.open();
+//				if (tl != null && tl.isHidden()) tl.open();
 				if (tc != null && tc.isHidden()) tc.open();
-				if (tr != null && tr.isHidden()) tr.open();
+//				if (tr != null && tr.isHidden()) tr.open();
 				if (ml != null && ml.isHidden()) ml.open();
 				if (mr != null && mr.isHidden()) mr.open();
-				if (bl != null && bl.isHidden()) bl.open();
+//				if (bl != null && bl.isHidden()) bl.open();
 				if (bc != null && bc.isHidden()) bc.open();
-				if (br != null && br.isHidden()) br.open();
+//				if (br != null && br.isHidden()) br.open();
 			} else {
 				displayMineNum();
 			}

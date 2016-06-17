@@ -48,6 +48,7 @@ public class MainWindow extends Application {
 	private Text mineNum;
 	private TimerText timerText;
 	private Stage primaryStage;
+	private FacePane fp;
 
 	public static void main(String args) {
 		launch(args);
@@ -202,7 +203,12 @@ public class MainWindow extends Application {
 
 		menues.add(mainMenu, 0, 0, 1, 1);
 		menues.add(difficultyMenu, 0, 1, 1, 1);
-		root.setTop(menues);
+		HBox topBox = new HBox();
+		fp = new FacePane();
+		fp.setFace(FacePane.SLEEPY_FACE);
+		topBox.getChildren().add(fp);
+		topBox.getChildren().add(menues);
+		root.setTop(topBox);
 		root.setBottom(stats);
 
 		newGame.setOnAction((event) -> {
@@ -219,6 +225,7 @@ public class MainWindow extends Application {
 		timerText.stop();
 		timerText.reset();
 		timerText.update();
+		fp.setFace(FacePane.SLEEPY_FACE);
 		if (gp == null) {
 			gp = new GamePane(Data.getXFields(), Data.getYFields(), Data.getMines());
 		} else {
@@ -228,6 +235,7 @@ public class MainWindow extends Application {
 		updateMineNum();
 		root.setCenter(gp);
 		Data.resetFirstClick();
+		Data.resetHiddenFields();
 	}
 	
 	public GamePane getGamePane(){
@@ -235,14 +243,22 @@ public class MainWindow extends Application {
 	}
 	
 	public void updateMineNum(){
-		mineNum.setText("Mines: " + (Data.getMinesInGame() - Data.getFlagsSet()));
+		mineNum.setText("Mines: " + (Data.getMines() - Data.getFlagsSet()));
 	}
 	
 	public void startTimer(){
+		System.out.println("Start!");
 		timerText.start();
+		this.fp.setFace(FacePane.HAPPY_FACE);
 	}
 	
 	public void lost(){
 		timerText.stop();
+		this.fp.setFace(FacePane.SAD_FACE);
+	}
+	
+	public void won(){
+		timerText.stop();
+		this.fp.setFace(FacePane.LOVING_FACE);
 	}
 }
