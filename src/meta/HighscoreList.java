@@ -23,4 +23,36 @@ public class HighscoreList implements Serializable {
 		dummy.setTime(timestamp);
 		return entries.get(entries.lastIndexOf(dummy));
 	}
+	
+	public String getAllNumbers(){
+		String result = "";
+		for (int i = 0; i < entries.size(); i++){
+			result = result + String.valueOf(i) + System.lineSeparator();
+		}
+		return result;
+	}
+	
+	public String getAllNames(){
+		String result = "";
+		for (HighscoreEntry h:entries){
+			result = result + h.getName() + System.lineSeparator();
+		}
+		return result;
+	}
+	
+	public String getAllTimes(){
+		String result = "";
+		for (HighscoreEntry h:entries){
+			result = result + h.formatStartTime() + System.lineSeparator();
+		}
+		return result;
+	}
+	
+	public String getAllDurations(){
+		String result = "";
+		for (HighscoreEntry h:entries){
+			result = result + h.formatDuration() + System.lineSeparator();
+		}
+		return result;
+	}
 }
