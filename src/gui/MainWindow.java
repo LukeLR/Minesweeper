@@ -28,7 +28,7 @@ import meta.Data;
 
 public class MainWindow extends Application {
 	BorderPane root;
-	GridPane menues, mainMenu, difficultyMenu;
+	GridPane menues, mainMenu, difficultyMenu, stats;
 	Scene mainScene;
 	GamePane gp;
 	private Label difficultyLabel;
@@ -43,7 +43,7 @@ public class MainWindow extends Application {
 	private Spinner<Integer> xTilesSpinner;
 	private Spinner<Integer> yTilesSpinner;
 	private Spinner<Integer> minesSpinner;
-	private Text mineNum;
+	private Text mineNum, timerText;
 
 	public static void main(String args) {
 		launch(args);
@@ -58,6 +58,7 @@ public class MainWindow extends Application {
 		menues = new GridPane();
 		mainMenu = new GridPane();
 		difficultyMenu = new GridPane();
+		stats = new GridPane();
 		mainScene = new Scene(root, Data.getWidth(), Data.getHeight());
 
 		menues.setAlignment(Pos.CENTER);
@@ -69,12 +70,21 @@ public class MainWindow extends Application {
 		difficultyMenu.setAlignment(Pos.CENTER);
 		difficultyMenu.setHgap(10d);
 		difficultyMenu.setVgap(10d);
+		stats.setAlignment(Pos.CENTER);
+		stats.setHgap(10d);
+		stats.setVgap(10d);
 		root.setPadding(new Insets(25, 25, 25, 25));
 
 		mineNum = new Text();
 		updateMineNum();
 		mineNum.setFont(Font.font("Courier New", 50));
 		mineNum.setFill(Color.RED);
+		stats.add(mineNum, 0, 0);
+		
+		timerText = new Text();
+		timerText.setFont(Font.font("Courier New", 50));
+		timerText.setFill(Color.YELLOWGREEN);
+		stats.add(timerText, 1, 0);
 		
 		difficultyLabel = new Label("Difficulty:");
 		nameLabel = new Label("Your name:");
@@ -160,16 +170,16 @@ public class MainWindow extends Application {
 			}
 		});
 
-		mainMenu.add(mineNum, 0, 0);
-		mainMenu.add(difficultyLabel, 1, 0);
-		mainMenu.add(difficulty, 2, 0);
-		mainMenu.add(nameLabel, 3, 0);
-		mainMenu.add(name, 4, 0);
-		mainMenu.add(newGame, 5, 0);
+		mainMenu.add(difficultyLabel, 0, 0);
+		mainMenu.add(difficulty, 1, 0);
+		mainMenu.add(nameLabel, 2, 0);
+		mainMenu.add(name, 3, 0);
+		mainMenu.add(newGame, 4, 0);
 
 		menues.add(mainMenu, 0, 0, 1, 1);
 		menues.add(difficultyMenu, 0, 1, 1, 1);
 		root.setTop(menues);
+		root.setBottom(stats);
 
 		newGame.setOnAction((event) -> {
 			newGame();
@@ -187,6 +197,8 @@ public class MainWindow extends Application {
 		} else {
 			gp.newGame(Data.getXFields(), Data.getYFields(), Data.getMines());
 		}
+		Data.resetFlagsSet();
+		updateMineNum();
 		root.setCenter(gp);
 	}
 	

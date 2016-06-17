@@ -1,16 +1,22 @@
 package gui;
 
+import javafx.geometry.HPos;
+import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import meta.Data;
 
-public class Field extends StackPane {
+public class Field extends GridPane {
 	private Button button = new Button();
 	private boolean mine = false;
 	private boolean flagged = false;
@@ -25,10 +31,20 @@ public class Field extends StackPane {
 	private Field bl = null; //Bottom Left
 	private Field bc = null; //Bottom Center
 	private Field br = null; //Bottom Right
+	private ImageView bomb;
+	private ImageView flag;
+	private Text text;
 	
 	public Field(){
 		super();
-		this.setOnMouseClicked((event) -> {
+		this.setHgap(10d);
+		this.setVgap(10d);
+		this.setAlignment(Pos.CENTER);
+		this.add(button, 0, 0);
+		this.setVgrow(button, Priority.ALWAYS);
+		this.setHgrow(button, Priority.ALWAYS);
+		button.setPrefSize(Data.getWidth()/Data.getXFields(), Data.getHeight()/Data.getYFields());
+		button.setOnMouseClicked((event) -> {
 			if(event.getButton().equals(MouseButton.SECONDARY)){
 				if (flagged) unflag();
 				else flag();
@@ -52,10 +68,14 @@ public class Field extends StackPane {
 				mine = false;
 				((GamePane)(this.getParent())).setMines(1);
 			} else {
-				ImageView bomb = new ImageView(new Image(getClass().getResourceAsStream("/bomb.png")));
+				bomb = new ImageView(new Image(getClass().getResourceAsStream("/bomb.png")));
 				bomb.preserveRatioProperty().set(true);
 				bomb.setFitWidth(this.getWidth()-0.25*this.getWidth());
-				this.setGraphic(bomb);
+				this.setHalignment(bomb, HPos.CENTER);
+				this.setValignment(bomb, VPos.CENTER);
+				this.add(bomb, 0, 0);
+				this.setVgrow(bomb, Priority.ALWAYS);
+				this.setHgrow(bomb, Priority.ALWAYS);
 			}
 		} else {
 			if (Data.firstClick){
@@ -80,12 +100,16 @@ public class Field extends StackPane {
 	
 	public void flag(){
 		if (!flagged){
-			ImageView flag = new ImageView(new Image(getClass().getResourceAsStream("/flag.png")));
+			flag = new ImageView(new Image(getClass().getResourceAsStream("/flag.png")));
 			flag.preserveRatioProperty().set(true);
 			flag.setFitHeight(this.getHeight()-0.25*this.getHeight());
 			flag.minHeight(0);
 			flag.minWidth(0);
-			this.setGraphic(flag);
+			this.add(flag, 0, 0);
+			this.setVgrow(flag, Priority.ALWAYS);
+			this.setHgrow(flag, Priority.ALWAYS);
+			this.setHalignment(flag, HPos.CENTER);
+			this.setValignment(flag, VPos.CENTER);
 			flagged = true;
 			Data.setFlagsSet(Data.getFlagsSet() + 1);
 		}
@@ -93,7 +117,7 @@ public class Field extends StackPane {
 	
 	public void unflag(){
 		if (flagged){
-			this.setGraphic(null);
+			this.getChildren().remove(flag);
 			flagged = false;
 			Data.setFlagsSet(Data.getFlagsSet() - 1);
 		}
@@ -111,18 +135,21 @@ public class Field extends StackPane {
 	}
 	
 	public void displayMineNum(){
-		button.setText(String.valueOf(neighbourMines));
-		button.setFont(Font.font("Courier New", 50));
+		text = new Text(String.valueOf(neighbourMines));
+		text.setFont(Font.font("Courier New", this.getWidth()*0.5));
 		switch(neighbourMines){
-		case 1: this.setTextFill(Color.YELLOWGREEN); break;
-		case 2: this.setTextFill(Color.DODGERBLUE); break;
-		case 3: this.setTextFill(Color.YELLOW); break;
-		case 4: this.setTextFill(Color.ORANGE); break;
-		case 5: this.setTextFill(Color.RED); break;
-		case 6: this.setTextFill(Color.DARKRED); break;
-		case 7: this.setTextFill(Color.MEDIUMVIOLETRED); break;
-		case 8: this.setTextFill(Color.BLUEVIOLET); break;
+		case 1: text.setFill(Color.YELLOWGREEN); break;
+		case 2: text.setFill(Color.DODGERBLUE); break;
+		case 3: text.setFill(Color.YELLOW); break;
+		case 4: text.setFill(Color.ORANGE); break;
+		case 5: text.setFill(Color.RED); break;
+		case 6: text.setFill(Color.DARKRED); break;
+		case 7: text.setFill(Color.MEDIUMVIOLETRED); break;
+		case 8: text.setFill(Color.BLUEVIOLET); break;
 		}
+		this.add(text, 0, 0);
+		this.setHalignment(text, HPos.CENTER);
+		this.setValignment(text, VPos.CENTER);
 	}
 	
 	//--------------------------------------------------------------------------\\
