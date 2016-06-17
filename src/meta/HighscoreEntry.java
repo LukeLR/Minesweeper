@@ -30,7 +30,7 @@ public class HighscoreEntry implements Serializable {
 		this(name, startTime, duration, moves);
 		this.xTiles = xTiles;
 		this.yTiles = yTiles;
-		this.moves = moves;
+		this.mines = mines;
 	}
 	
 	public String getName() {
