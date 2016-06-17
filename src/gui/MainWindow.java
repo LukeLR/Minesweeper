@@ -15,6 +15,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
@@ -227,13 +228,19 @@ public class MainWindow extends Application {
 		timerText.update();
 		fp.setFace(FacePane.SLEEPY_FACE);
 		if (gp == null) {
+//			ScrollPane sp = new ScrollPane();
 			gp = new GamePane(Data.getXFields(), Data.getYFields(), Data.getMines());
+//			gp.setPrefWidth(Data.getWidth());
+//			gp.setPrefHeight(Data.getHeight()-menues.getHeight()-stats.getHeight());
+//			sp.setFitToWidth(true);
+//			sp.setFitToHeight(true);
+//			sp.setContent(gp);
+			root.setCenter(gp);
 		} else {
 			gp.newGame(Data.getXFields(), Data.getYFields(), Data.getMines());
 		}
 		Data.resetFlagsSet();
 		updateMineNum();
-		root.setCenter(gp);
 		Data.resetFirstClick();
 		Data.resetHiddenFields();
 	}
