@@ -10,8 +10,12 @@ public class HighscoreList implements Serializable {
 		entries = new ArrayList<HighscoreEntry>();
 	}
 	
-	public void add(String name, long startTime, long duration){
-		entries.add(new HighscoreEntry(name, startTime, duration));
+	public void add(String name, long startTime, long duration, int moves){
+		entries.add(new HighscoreEntry(name, startTime, duration, moves));
+	}
+	
+	public void add(String name, long startTime, long duration, int moves, int xTiles, int yTiles, int mines){
+		entries.add(new HighscoreEntry(name, startTime, duration, moves, xTiles, yTiles, mines));
 	}
 	
 	public HighscoreEntry get(int i){
