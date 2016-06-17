@@ -63,10 +63,13 @@ public class Field extends GridPane {
 		this.disableProperty().set(true);
 		if (mine){
 			if (Data.firstClick){
+				Data.mainWindow().startTimer();
 				Data.firstClick = false;
 				System.out.println("First Click was a Mine!");
 				mine = false;
 				((GamePane)(this.getParent())).setMines(1);
+				hidden = true;
+				open();
 			} else {
 				bomb = new ImageView(new Image(getClass().getResourceAsStream("/bomb.png")));
 				bomb.preserveRatioProperty().set(true);
@@ -76,9 +79,11 @@ public class Field extends GridPane {
 				this.add(bomb, 0, 0);
 				this.setVgrow(bomb, Priority.ALWAYS);
 				this.setHgrow(bomb, Priority.ALWAYS);
+				Data.mainWindow().getGamePane().lost();
 			}
 		} else {
 			if (Data.firstClick){
+				Data.mainWindow().startTimer();
 				Data.firstClick = false;
 			}
 			countNeighbourMines();

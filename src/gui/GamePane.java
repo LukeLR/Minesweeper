@@ -26,7 +26,6 @@ public class GamePane extends GridPane {
 
 	public void newGame() {
 		super.getChildren().clear();
-		System.out.println("Pref Size: " + (double)Data.getWidth()/((double)xFields*1.1) + ", " + (double)Data.getHeight()/((double)yFields*1.1));
 		fields = new Field[xFields][yFields];
 		for (int i = 0; i < fields.length; i++){
 			for (int j = 0; j < fields[i].length; j++){
@@ -84,5 +83,14 @@ public class GamePane extends GridPane {
 			} while (fields[x][y].isMine() || !fields[x][y].isHidden());
 			fields[x][y].setMine();
 		}
+	}
+	
+	public void lost(){
+		for (int i = 0; i < fields.length; i++){
+			for (int j = 0; j < fields[i].length; j++){
+				if (fields[i][j] != null && fields[i][j].isHidden()) fields[i][j].open();
+			}
+		}
+		Data.mainWindow().lost();
 	}
 }

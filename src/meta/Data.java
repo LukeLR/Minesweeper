@@ -175,4 +175,8 @@ public class Data implements Serializable {
 	public static void resetFlagsSet(){
 		flagsSet = 0;
 	}
+	
+	public static void resetFirstClick(){
+		firstClick = true;
+	}
 }
