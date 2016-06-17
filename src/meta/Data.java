@@ -171,4 +171,12 @@ public class Data implements Serializable {
 	public static int getMode() {
 		return mode;
 	}
+	
+	public static void resetFlagsSet(){
+		flagsSet = 0;
+	}
+	
+	public static void resetFirstClick(){
+		firstClick = true;
+	}
 }

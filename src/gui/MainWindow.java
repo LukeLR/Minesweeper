@@ -8,6 +8,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -28,8 +30,8 @@ import meta.Data;
 
 public class MainWindow extends Application {
 	BorderPane root;
-	GridPane menues, mainMenu, difficultyMenu;
-	Scene mainScene;
+	GridPane menues, mainMenu, difficultyMenu, stats, lostPane, wonPane;
+	Scene mainScene, lost, won;
 	GamePane gp;
 	private Label difficultyLabel;
 	private Label nameLabel;
@@ -44,6 +46,8 @@ public class MainWindow extends Application {
 	private Spinner<Integer> yTilesSpinner;
 	private Spinner<Integer> minesSpinner;
 	private Text mineNum;
+	private TimerText timerText;
+	private Stage primaryStage;
 
 	public static void main(String args) {
 		launch(args);
@@ -51,6 +55,7 @@ public class MainWindow extends Application {
 
 	@SuppressWarnings("unchecked")
 	public void start(Stage primaryStage) throws Exception {
+		this.primaryStage = primaryStage;
 		Data.setMainWindow(this);
 		primaryStage.setTitle("Minesweeper w/ JavaFX");
 		// AnchorPane aP = new AnchorPane();
@@ -58,6 +63,7 @@ public class MainWindow extends Application {
 		menues = new GridPane();
 		mainMenu = new GridPane();
 		difficultyMenu = new GridPane();
+		stats = new GridPane();
 		mainScene = new Scene(root, Data.getWidth(), Data.getHeight());
 
 		menues.setAlignment(Pos.CENTER);
@@ -69,12 +75,40 @@ public class MainWindow extends Application {
 		difficultyMenu.setAlignment(Pos.CENTER);
 		difficultyMenu.setHgap(10d);
 		difficultyMenu.setVgap(10d);
+		stats.setAlignment(Pos.CENTER);
+		stats.setHgap(10d);
+		stats.setVgap(10d);
 		root.setPadding(new Insets(25, 25, 25, 25));
+		
+//		lostPane = new GridPane();
+//		lostPane.setAlignment(Pos.CENTER);
+//		lostPane.setHgap(10d);
+//		lostPane.setVgap(10d);
+//		wonPane = new GridPane();
+//		wonPane.setAlignment(Pos.CENTER);
+//		wonPane.setHgap(10d);
+//		wonPane.setVgap(10d);
+//		lost = new Scene(lostPane, Data.getWidth(), Data.getHeight());
+//		won = new Scene(wonPane, Data.getWidth(), Data.getHeight());
+//		Canvas lostCanvas = new Canvas(Data.getWidth(), Data.getHeight());
+//		GraphicsContext gc = lostCanvas.getGraphicsContext2D();
+//		gc.setFill(Color.RED);
+//		gc.fillRect(0, 0, Data.getWidth(), Data.getHeight());
+//		Text gameOver = new Text("Game Over");
+//		gameOver.setFont(Font.font("Verdana", 100));
+//		lostPane.add(lostCanvas, 0, 0);
+//		lostPane.add(gameOver, 0, 0);
 
 		mineNum = new Text();
 		updateMineNum();
 		mineNum.setFont(Font.font("Courier New", 50));
 		mineNum.setFill(Color.RED);
+		stats.add(mineNum, 0, 0);
+		
+		timerText = new TimerText();
+		timerText.setFont(Font.font("Courier New", 50));
+		timerText.setFill(Color.YELLOWGREEN);
+		stats.add(timerText, 1, 0);
 		
 		difficultyLabel = new Label("Difficulty:");
 		nameLabel = new Label("Your name:");
@@ -160,16 +194,16 @@ public class MainWindow extends Application {
 			}
 		});
 
-		mainMenu.add(mineNum, 0, 0);
-		mainMenu.add(difficultyLabel, 1, 0);
-		mainMenu.add(difficulty, 2, 0);
-		mainMenu.add(nameLabel, 3, 0);
-		mainMenu.add(name, 4, 0);
-		mainMenu.add(newGame, 5, 0);
+		mainMenu.add(difficultyLabel, 0, 0);
+		mainMenu.add(difficulty, 1, 0);
+		mainMenu.add(nameLabel, 2, 0);
+		mainMenu.add(name, 3, 0);
+		mainMenu.add(newGame, 4, 0);
 
 		menues.add(mainMenu, 0, 0, 1, 1);
 		menues.add(difficultyMenu, 0, 1, 1, 1);
 		root.setTop(menues);
+		root.setBottom(stats);
 
 		newGame.setOnAction((event) -> {
 			newGame();
@@ -182,12 +216,18 @@ public class MainWindow extends Application {
 	}
 
 	public void newGame() {
+		timerText.stop();
+		timerText.reset();
+		timerText.update();
 		if (gp == null) {
 			gp = new GamePane(Data.getXFields(), Data.getYFields(), Data.getMines());
 		} else {
 			gp.newGame(Data.getXFields(), Data.getYFields(), Data.getMines());
 		}
+		Data.resetFlagsSet();
+		updateMineNum();
 		root.setCenter(gp);
+		Data.resetFirstClick();
 	}
 	
 	public GamePane getGamePane(){
@@ -196,5 +236,13 @@ public class MainWindow extends Application {
 	
 	public void updateMineNum(){
 		mineNum.setText("Mines: " + (Data.getMinesInGame() - Data.getFlagsSet()));
+	}
+	
+	public void startTimer(){
+		timerText.start();
+	}
+	
+	public void lost(){
+		timerText.stop();
 	}
 }
