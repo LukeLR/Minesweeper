@@ -28,8 +28,8 @@ public class Data implements Serializable {
 	private static int yFields = yFieldsDefaultEasy;
 	private static int mines = minesDefaultEasy;
 	private static int flagsSet = 0;
-	private static int width = 700;
-	private static int height = 700;
+	private static int width = 1000;
+	private static int height = 1000;
 	private static int mode = 0;
 	private static int hiddenFields = xFields * yFields;
 	public static boolean firstClick = true;
