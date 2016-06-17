@@ -17,7 +17,7 @@ public class FacePane extends GridPane {
 	private ImageView happyFace, sadFace, sleepyFace, lovingFace;
 	
 	public FacePane(){
-		happyFace = new ImageView(new Image(getClass().getResourceAsStream("/happy.png")));
+		happyFace = new ImageView(new Image(getClass().getResourceAsStream("happy.png")));
 		happyFace.preserveRatioProperty().set(true);
 		happyFace.setFitWidth(Data.getWidth()*0.1);
 		this.setHalignment(happyFace, HPos.CENTER);
@@ -26,7 +26,7 @@ public class FacePane extends GridPane {
 		this.setHgrow(happyFace, Priority.ALWAYS);
 		this.add(happyFace, 0, 0);
 		
-		sadFace = new ImageView(new Image(getClass().getResourceAsStream("/sad.png")));
+		sadFace = new ImageView(new Image(getClass().getResourceAsStream("sad.png")));
 		sadFace.preserveRatioProperty().set(true);
 		sadFace.setFitWidth(Data.getWidth()*0.1);
 		this.setHalignment(sadFace, HPos.CENTER);
@@ -35,7 +35,7 @@ public class FacePane extends GridPane {
 		this.setHgrow(sadFace, Priority.ALWAYS);
 		this.add(sadFace, 0, 0);
 		
-		sleepyFace = new ImageView(new Image(getClass().getResourceAsStream("/sleepy.png")));
+		sleepyFace = new ImageView(new Image(getClass().getResourceAsStream("sleepy.png")));
 		sleepyFace.preserveRatioProperty().set(true);
 		sleepyFace.setFitWidth(Data.getWidth()*0.1);
 		this.setHalignment(sleepyFace, HPos.CENTER);
@@ -44,7 +44,7 @@ public class FacePane extends GridPane {
 		this.setHgrow(sleepyFace, Priority.ALWAYS);
 		this.add(sleepyFace, 0, 0);
 		
-		lovingFace = new ImageView(new Image(getClass().getResourceAsStream("/loving.png")));
+		lovingFace = new ImageView(new Image(getClass().getResourceAsStream("loving.png")));
 		lovingFace.preserveRatioProperty().set(true);
 		lovingFace.setFitWidth(Data.getWidth()*0.1);
 		this.setHalignment(lovingFace, HPos.CENTER);

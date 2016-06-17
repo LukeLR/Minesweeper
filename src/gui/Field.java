@@ -71,7 +71,7 @@ public class Field extends GridPane {
 				hidden = true;
 				open();
 			} else {
-				bomb = new ImageView(new Image(getClass().getResourceAsStream("/bomb.png")));
+				bomb = new ImageView(new Image(getClass().getResourceAsStream("bomb.png")));
 				bomb.preserveRatioProperty().set(true);
 				bomb.setFitWidth(this.getWidth()-0.25*this.getWidth());
 				this.setHalignment(bomb, HPos.CENTER);
@@ -107,7 +107,7 @@ public class Field extends GridPane {
 	
 	public void flag(){
 		if (!flagged){
-			flag = new ImageView(new Image(getClass().getResourceAsStream("/flag.png")));
+			flag = new ImageView(new Image(getClass().getResourceAsStream("flag.png")));
 			flag.preserveRatioProperty().set(true);
 			flag.setFitHeight(this.getHeight()-0.25*this.getHeight());
 			flag.minHeight(0);
