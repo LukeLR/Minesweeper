@@ -18,6 +18,10 @@ public class HighscoreList implements Serializable {
 		return entries.get(i);
 	}
 	
+	public int size(){
+		return entries.size();
+	}
+	
 	public HighscoreEntry get(long timestamp){
 		HighscoreEntry dummy = new HighscoreEntry();
 		dummy.setTime(timestamp);
