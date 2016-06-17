@@ -3,6 +3,9 @@ package meta;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 public class HighscoreList implements Serializable {
 	private ArrayList<HighscoreEntry> entries;
 	
@@ -62,5 +65,9 @@ public class HighscoreList implements Serializable {
 			result = result + h.formatDuration() + System.lineSeparator();
 		}
 		return result;
+	}
+	
+	public ObservableList<HighscoreEntry> getObservableList(){
+		return FXCollections.observableArrayList(entries);
 	}
 }
