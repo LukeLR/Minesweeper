@@ -13,6 +13,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import meta.Data;
+import meta.HighscoreEntry;
+import meta.HighscoreList;
 
 public class HighscoreStage extends Stage {
 	
@@ -20,7 +23,7 @@ public class HighscoreStage extends Stage {
 	private Scene s;
 	private TabPane tabPane;
 	private Tab easy, intermediate, hard, custom;
-	private TableView tableEasy, tableIntermediate, tableHard, tableCustom;
+	private TableView<HighscoreEntry> tableEasy, tableIntermediate, tableHard, tableCustom;
 
 	public HighscoreStage(){
 		super.setTitle("Highscore");
@@ -36,20 +39,20 @@ public class HighscoreStage extends Stage {
 		
 		tabPane.getTabs().addAll(easy, intermediate, hard, custom);
 		
-		tableEasy = new TableView();
-		tableIntermediate = new TableView();
-		tableHard = new TableView();
-		tableCustom = new TableView();
+		tableEasy = new TableView<HighscoreEntry>();
+		tableIntermediate = new TableView<HighscoreEntry>();
+		tableHard = new TableView<HighscoreEntry>();
+		tableCustom = new TableView<HighscoreEntry>();
 		
-		TableColumn number = new TableColumn("#");
-		TableColumn name = new TableColumn("Name");
-		TableColumn startTime = new TableColumn("Start Time");
-		TableColumn duration = new TableColumn("Duration");
-		TableColumn moves = new TableColumn("Moves");
+		TableColumn<HighscoreEntry, Integer> number = new TableColumn<HighscoreEntry, Integer>("#");
+		TableColumn<HighscoreEntry, String> name = new TableColumn<HighscoreEntry, String>("Name");
+		TableColumn<HighscoreEntry, String> startTime = new TableColumn<HighscoreEntry, String>("Start Time");
+		TableColumn<HighscoreEntry, String> duration = new TableColumn<HighscoreEntry, String>("Duration");
+		TableColumn<HighscoreEntry, Integer> moves = new TableColumn<HighscoreEntry, Integer>("Moves");
 		
-		TableColumn fieldWidth = new TableColumn("Width");
-		TableColumn fieldHeight = new TableColumn("Height");
-		TableColumn mines = new TableColumn("Mines");
+		TableColumn<HighscoreEntry, Integer> fieldWidth = new TableColumn<HighscoreEntry, Integer>("Width");
+		TableColumn<HighscoreEntry, Integer> fieldHeight = new TableColumn<HighscoreEntry, Integer>("Height");
+		TableColumn<HighscoreEntry, Integer> mines = new TableColumn<HighscoreEntry, Integer>("Mines");
 		
 		tableEasy.getColumns().addAll(number, name, startTime, duration, moves);
 		tableIntermediate.getColumns().addAll(number, name, startTime, duration, moves);
@@ -63,7 +66,13 @@ public class HighscoreStage extends Stage {
 		
 		borderPane.setCenter(tabPane);
 		
+		fillWithData();
+		
 		this.setScene(s);
 		this.show();
+	}
+	
+	private void fillWithData(){
+				
 	}
 }
