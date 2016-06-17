@@ -28,7 +28,7 @@ public class HighscoreList implements Serializable {
 	
 	public HighscoreEntry get(long timestamp){
 		HighscoreEntry dummy = new HighscoreEntry();
-		dummy.setTime(timestamp);
+		dummy.setDuration(timestamp);
 		return entries.get(entries.lastIndexOf(dummy));
 	}
 	
