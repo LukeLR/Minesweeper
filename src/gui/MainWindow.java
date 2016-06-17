@@ -38,7 +38,7 @@ public class MainWindow extends Application {
 	private Label nameLabel;
 	private ComboBox difficulty;
 	private TextField name;
-	private Button newGame;
+	private Button newGame, highscores;
 	private CheckBox proportional;
 	private Label yTilesLabel;
 	private Label xTilesLabel;
@@ -122,6 +122,7 @@ public class MainWindow extends Application {
 		name = new TextField("Max Mustermann");
 
 		newGame = new Button("New Game");
+		highscores = new Button("Highscores");
 
 		proportional = new CheckBox("Proportional");
 
@@ -201,6 +202,7 @@ public class MainWindow extends Application {
 		mainMenu.add(nameLabel, 2, 0);
 		mainMenu.add(name, 3, 0);
 		mainMenu.add(newGame, 4, 0);
+		mainMenu.add(highscores, 5, 0);
 
 		menues.add(mainMenu, 0, 0, 1, 1);
 		menues.add(difficultyMenu, 0, 1, 1, 1);
@@ -214,6 +216,10 @@ public class MainWindow extends Application {
 
 		newGame.setOnAction((event) -> {
 			newGame();
+		});
+		
+		highscores.setOnAction((event) -> {
+			new HighscoreStage();
 		});
 
 		newGame();
