@@ -7,6 +7,10 @@ public class HighscoreEntry implements Serializable {
 	private long duration;
 	private long startTime;
 	
+	public HighscoreEntry(){
+		
+	}
+	
 	public HighscoreEntry(String name, long startTime, long duration){
 		this.name = name;
 		this.startTime = startTime;
