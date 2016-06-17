@@ -2,7 +2,13 @@ package gui;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -10,26 +16,54 @@ import javafx.stage.Stage;
 
 public class HighscoreStage extends Stage {
 	
+	private BorderPane borderPane;
+	private Scene s;
+	private TabPane tabPane;
+	private Tab easy, intermediate, hard, custom;
+	private TableView tableEasy, tableIntermediate, tableHard, tableCustom;
+
 	public HighscoreStage(){
 		super.setTitle("Highscore");
-		AnchorPane aP = new AnchorPane();
-		GridPane gP = new GridPane();
+		borderPane = new BorderPane();
+		borderPane.setPadding(new Insets(25, 25, 25, 25));
+		s = new Scene(borderPane, 500, 500);
 		
-		gP.setAlignment(Pos.CENTER);
-		gP.setHgap(10d);
-		gP.setVgap(10d);
-		aP.setPadding(new Insets(25, 25, 25, 25));
+		tabPane = new TabPane();
+		easy = new Tab("Easy");
+		intermediate = new Tab("Intermediate");
+		hard = new Tab("Hard");
+		custom = new Tab("Custom");
 		
-		Text name = new Text("Name");
-		name.setFont(Font.font("Verdana", 20));
+		tabPane.getTabs().addAll(easy, intermediate, hard, custom);
 		
-		Text startTime = new Text("Start time");
-		startTime.setFont(Font.font("Verdana", 20));
+		tableEasy = new TableView();
+		tableIntermediate = new TableView();
+		tableHard = new TableView();
+		tableCustom = new TableView();
 		
-		Text duration = new Text("Duration");
-		duration.setFont(Font.font("Verdana", 20));
+		TableColumn number = new TableColumn("#");
+		TableColumn name = new TableColumn("Name");
+		TableColumn startTime = new TableColumn("Start Time");
+		TableColumn duration = new TableColumn("Duration");
+		TableColumn moves = new TableColumn("Moves");
 		
-		Text nameList = new Text();
+		TableColumn fieldWidth = new TableColumn("Width");
+		TableColumn fieldHeight = new TableColumn("Height");
+		TableColumn mines = new TableColumn("Mines");
 		
+		tableEasy.getColumns().addAll(number, name, startTime, duration, moves);
+		tableIntermediate.getColumns().addAll(number, name, startTime, duration, moves);
+		tableHard.getColumns().addAll(number, name, startTime, duration, moves);
+		tableCustom.getColumns().addAll(number, name, startTime, duration, moves, fieldWidth, fieldHeight, mines);
+		
+		easy.setContent(tableEasy);
+		intermediate.setContent(tableIntermediate);
+		hard.setContent(tableHard);
+		custom.setContent(tableCustom);
+		
+		borderPane.setCenter(tabPane);
+		
+		this.setScene(s);
+		this.show();
 	}
 }
