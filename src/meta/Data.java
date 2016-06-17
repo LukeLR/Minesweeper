@@ -3,6 +3,8 @@ package meta;
 import java.io.Serializable;
 
 import gui.MainWindow;
+import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.beans.value.ObservableDoubleValue;
 
 public class Data implements Serializable {
 	public static final int EASY = 0;
@@ -12,24 +14,24 @@ public class Data implements Serializable {
 	
 	private static final int xFieldsDefaultEasy = 10;
 	private static final int yFieldsDefaultEasy = 10;
-	private static final int minesDefaultEasy = 20;
+	private static final int minesDefaultEasy = 10;
 	
 	private static final int xFieldsDefaultIntermediate = 20;
 	private static final int yFieldsDefaultIntermediate = 20;
-	private static final int minesDefaultIntermediate = 100;
+	private static final int minesDefaultIntermediate = 50;
 	
 	private static final int xFieldsDefaultHard = 30;
 	private static final int yFieldsDefaultHard = 30;
-	private static final int minesDefaultHard = 300;
+	private static final int minesDefaultHard = 100;
 	
-	private static int xFields = 10;
-	private static int yFields = 10;
-	private static int mines = 20;
-	private static int minesInGame = 20;
+	private static int xFields = xFieldsDefaultEasy;
+	private static int yFields = yFieldsDefaultEasy;
+	private static int mines = minesDefaultEasy;
 	private static int flagsSet = 0;
-	private static int width = 1000;
-	private static int height = 1000;
+	private static int width = 700;
+	private static int height = 700;
 	private static int mode = 0;
+	private static int hiddenFields = xFields * yFields;
 	public static boolean firstClick = true;
 	
 	private static transient MainWindow mw;
@@ -41,19 +43,19 @@ public class Data implements Serializable {
 			xFields = xFieldsDefaultEasy;
 			yFields = yFieldsDefaultEasy;
 			setMines(minesDefaultEasy);
-			minesInGame = minesDefaultEasy;
+			hiddenFields = xFields * yFields;
 			break;
 		case 1:
 			xFields = xFieldsDefaultIntermediate;
 			yFields = yFieldsDefaultIntermediate;
 			setMines(minesDefaultIntermediate);
-			minesInGame = minesDefaultIntermediate;
+			hiddenFields = xFields * yFields;
 			break;
 		case 2:
 			xFields = xFieldsDefaultHard;
 			yFields = yFieldsDefaultHard;
 			setMines(minesDefaultHard);
-			minesInGame = minesDefaultHard;
+			hiddenFields = xFields * yFields;
 			break;
 		case 3: break;
 		default: break;
@@ -67,37 +69,40 @@ public class Data implements Serializable {
 			xFields = xFieldsDefaultEasy;
 			yFields = yFieldsDefaultEasy;
 			setMines(minesDefaultEasy);
-			minesInGame = minesDefaultEasy;
+			hiddenFields = xFields * yFields;
 			break;
 		case 1:
 			xFields = xFieldsDefaultIntermediate;
 			yFields = yFieldsDefaultIntermediate;
 			setMines(minesDefaultIntermediate);
-			minesInGame = minesDefaultIntermediate;
+			hiddenFields = xFields * yFields;
 			break;
 		case 2:
 			xFields = xFieldsDefaultHard;
 			yFields = yFieldsDefaultHard;
 			setMines(minesDefaultHard);
-			minesInGame = minesDefaultHard;
+			hiddenFields = xFields * yFields;
 			break;
-		case 3: xFields = xFieldsNew; yFields = yFieldsNew; setMines(minesNew); minesInGame = minesNew; break;
+		case 3: xFields = xFieldsNew; yFields = yFieldsNew; setMines(minesNew); break;
 		default: break;
 		}
 	}
 	
 	public static void setXFields(int xFieldsNew){
 		xFields = xFieldsNew;
+		hiddenFields = xFields * yFields;
 		determineGameMode();
 	}
 	
 	public static void setYFields(int yFieldsNew){
 		yFields = yFieldsNew;
+		hiddenFields = xFields * yFields;
 		determineGameMode();
 	}
 	
 	public static void setMines(int minesNew){
 		mines = minesNew;
+		hiddenFields = xFields * yFields;
 		determineGameMode();
 	}
 	
@@ -144,14 +149,6 @@ public class Data implements Serializable {
 		return mines;
 	}
 
-	public static int getMinesInGame() {
-		return minesInGame;
-	}
-
-	public static void setMinesInGame(int minesInGame) {
-		Data.minesInGame = minesInGame;
-	}
-
 	public static int getWidth() {
 		return width;
 	}
@@ -178,5 +175,17 @@ public class Data implements Serializable {
 	
 	public static void resetFirstClick(){
 		firstClick = true;
+	}
+
+	public static int getHiddenFields() {
+		return hiddenFields;
+	}
+
+	public static void setHiddenFields(int coveredFields) {
+		Data.hiddenFields = coveredFields;
+	}
+	
+	public static void resetHiddenFields(){
+		hiddenFields = xFields * yFields;
 	}
 }
