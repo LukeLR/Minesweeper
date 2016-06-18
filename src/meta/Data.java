@@ -35,6 +35,10 @@ public class Data implements Serializable {
 	public static boolean firstClick = true;
 	
 	private static transient MainWindow mw;
+	private static HighscoreList easy;
+	private static HighscoreList intermediate;
+	private static HighscoreList hard;
+	private static HighscoreList custom;
 	
 	public static void setMode(int newMode){
 		mode = newMode;
@@ -187,5 +191,41 @@ public class Data implements Serializable {
 	
 	public static void resetHiddenFields(){
 		hiddenFields = xFields * yFields;
+	}
+	
+	public static HighscoreList getHighscoresEasy() {
+		if (easy == null) easy = new HighscoreList();
+		return easy;
+	}
+
+	public static void setHighscoresEasy(HighscoreList easy) {
+		Data.easy = easy;
+	}
+
+	public static HighscoreList getHighscoresIntermediate() {
+		if (intermediate == null) intermediate = new HighscoreList();
+		return intermediate;
+	}
+
+	public static void setHighscoresIntermediate(HighscoreList intermediate) {
+		Data.intermediate = intermediate;
+	}
+
+	public static HighscoreList getHighscoresHard() {
+		if (hard == null) hard = new HighscoreList();
+		return hard;
+	}
+
+	public static void setHighscoresHard(HighscoreList hard) {
+		Data.hard = hard;
+	}
+
+	public static HighscoreList getHighscoresCustom() {
+		if (custom == null) custom = new HighscoreList();
+		return custom;
+	}
+
+	public static void setHighscoresCustom(HighscoreList custom) {
+		Data.custom = custom;
 	}
 }

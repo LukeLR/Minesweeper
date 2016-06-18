@@ -15,6 +15,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
@@ -27,6 +28,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import meta.Data;
+import meta.HighscoreList;
 
 public class MainWindow extends Application {
 	BorderPane root;
@@ -37,7 +39,7 @@ public class MainWindow extends Application {
 	private Label nameLabel;
 	private ComboBox difficulty;
 	private TextField name;
-	private Button newGame;
+	private Button newGame, highscores;
 	private CheckBox proportional;
 	private Label yTilesLabel;
 	private Label xTilesLabel;
@@ -121,6 +123,7 @@ public class MainWindow extends Application {
 		name = new TextField("Max Mustermann");
 
 		newGame = new Button("New Game");
+		highscores = new Button("Highscores");
 
 		proportional = new CheckBox("Proportional");
 
@@ -200,6 +203,7 @@ public class MainWindow extends Application {
 		mainMenu.add(nameLabel, 2, 0);
 		mainMenu.add(name, 3, 0);
 		mainMenu.add(newGame, 4, 0);
+		mainMenu.add(highscores, 5, 0);
 
 		menues.add(mainMenu, 0, 0, 1, 1);
 		menues.add(difficultyMenu, 0, 1, 1, 1);
@@ -214,6 +218,14 @@ public class MainWindow extends Application {
 		newGame.setOnAction((event) -> {
 			newGame();
 		});
+		
+		highscores.setOnAction((event) -> {
+			HighscoreList scores = Data.getHighscoresEasy();
+			scores.add("asdf", System.currentTimeMillis(), 84217, 34);
+			scores.add("foo", System.currentTimeMillis(), 8751324, 27);
+			scores.add("bar", System.currentTimeMillis(), 87425, 345);
+			new HighscoreStage();
+		});
 
 		newGame();
 
@@ -227,13 +239,19 @@ public class MainWindow extends Application {
 		timerText.update();
 		fp.setFace(FacePane.SLEEPY_FACE);
 		if (gp == null) {
+//			ScrollPane sp = new ScrollPane();
 			gp = new GamePane(Data.getXFields(), Data.getYFields(), Data.getMines());
+//			gp.setPrefWidth(Data.getWidth());
+//			gp.setPrefHeight(Data.getHeight()-menues.getHeight()-stats.getHeight());
+//			sp.setFitToWidth(true);
+//			sp.setFitToHeight(true);
+//			sp.setContent(gp);
+			root.setCenter(gp);
 		} else {
 			gp.newGame(Data.getXFields(), Data.getYFields(), Data.getMines());
 		}
 		Data.resetFlagsSet();
 		updateMineNum();
-		root.setCenter(gp);
 		Data.resetFirstClick();
 		Data.resetHiddenFields();
 	}

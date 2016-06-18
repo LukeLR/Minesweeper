@@ -3,6 +3,9 @@ package meta;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 public class HighscoreList implements Serializable {
 	private ArrayList<HighscoreEntry> entries;
 	
@@ -10,17 +13,25 @@ public class HighscoreList implements Serializable {
 		entries = new ArrayList<HighscoreEntry>();
 	}
 	
-	public void add(String name, long startTime, long duration){
-		entries.add(new HighscoreEntry(name, startTime, duration));
+	public void add(String name, long startTime, long duration, int moves){
+		entries.add(new HighscoreEntry(name, startTime, duration, moves));
+	}
+	
+	public void add(String name, long startTime, long duration, int moves, int xTiles, int yTiles, int mines){
+		entries.add(new HighscoreEntry(name, startTime, duration, moves, xTiles, yTiles, mines));
 	}
 	
 	public HighscoreEntry get(int i){
 		return entries.get(i);
 	}
 	
+	public int size(){
+		return entries.size();
+	}
+	
 	public HighscoreEntry get(long timestamp){
 		HighscoreEntry dummy = new HighscoreEntry();
-		dummy.setTime(timestamp);
+		dummy.setDuration(timestamp);
 		return entries.get(entries.lastIndexOf(dummy));
 	}
 	
@@ -54,5 +65,15 @@ public class HighscoreList implements Serializable {
 			result = result + h.formatDuration() + System.lineSeparator();
 		}
 		return result;
+	}
+	
+	public ObservableList<HighscoreEntry> getObservableList(){
+		System.out.println("Number of Entries: " + size());
+//		return FXCollections.observableArrayList(entries);
+		return FXCollections.observableArrayList(
+			new HighscoreEntry("asdf", System.currentTimeMillis(), 314724, 123),
+			new HighscoreEntry("foo", System.currentTimeMillis(), 23478123, 123),
+			new HighscoreEntry("bar", System.currentTimeMillis(), 32194578, 123)
+		);
 	}
 }
