@@ -14,7 +14,9 @@ import javafx.beans.property.SimpleStringProperty;
 public class HighscoreEntry implements Serializable {
 	private SimpleStringProperty name;
 	private SimpleLongProperty duration;
+	private SimpleStringProperty durationString;
 	private SimpleObjectProperty<LocalDateTime> startTime;
+	private SimpleStringProperty startTimeString;
 	private SimpleIntegerProperty moves;
 	private SimpleIntegerProperty xTiles;
 	private SimpleIntegerProperty yTiles;
@@ -29,6 +31,14 @@ public class HighscoreEntry implements Serializable {
 		this.startTime = new SimpleObjectProperty<LocalDateTime>(LocalDateTime.ofInstant(Instant.ofEpochMilli(startTime), ZoneId.systemDefault()));
 		this.duration = new SimpleLongProperty(duration);
 		this.moves = new SimpleIntegerProperty(moves);
+		
+		this.startTime.addListener((ov, oldValue, newValue) -> {
+			startTimeString.set(formatStartTime());
+		});
+		
+		this.duration.addListener((ov, oldValue, newValue) -> {
+			durationString.set(formatDuration());
+		});
 	}
 	
 	public HighscoreEntry(String name, long startTime, long duration, int moves, int xTiles, int yTiles, int mines){
