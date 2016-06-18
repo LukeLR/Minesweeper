@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -42,7 +43,9 @@ public class HighscoreStage extends Stage {
 		super.setTitle("Highscore");
 		borderPane = new BorderPane();
 		borderPane.setPadding(new Insets(25, 25, 25, 25));
-		s = new Scene(borderPane, 500, 500);
+		s = new Scene(new Group());
+		this.setWidth(500);
+		this.setHeight(500);
 		
 		tabPane = new TabPane();
 		easy = new Tab("Easy");
