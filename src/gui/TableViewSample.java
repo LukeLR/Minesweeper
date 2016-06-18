@@ -15,19 +15,18 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import meta.HighscoreEntry;
  
 public class TableViewSample extends Application {
 	
-	private TableView<Person> table = new TableView<Person>();
+	private TableView<HighscoreEntry> table = new TableView<HighscoreEntry>();
     
-    private final ObservableList<Person> data =
-        FXCollections.observableArrayList(
-            new Person("Jacob", "Smith", "jacob.smith@example.com"),
-            new Person("Isabella", "Johnson", "isabella.johnson@example.com"),
-            new Person("Ethan", "Williams", "ethan.williams@example.com"),
-            new Person("Emma", "Jones", "emma.jones@example.com"),
-            new Person("Michael", "Brown", "michael.brown@example.com")
-        );
+	private final ObservableList<HighscoreEntry> data =
+			FXCollections.observableArrayList(
+				new HighscoreEntry("asdf", System.currentTimeMillis(), 12512354, 123),
+				new HighscoreEntry("foo", System.currentTimeMillis(), 752174, 1234),
+				new HighscoreEntry("bar", System.currentTimeMillis(), 132478, 2134)
+			);
    
     public static void main(String[] args) {
         launch(args);
@@ -45,23 +44,27 @@ public class TableViewSample extends Application {
  
         table.setEditable(true);
  
-        TableColumn firstNameCol = new TableColumn("First Name");
-        firstNameCol.setMinWidth(100);
-        firstNameCol.setCellValueFactory(
-                new PropertyValueFactory<Person, String>("firstName"));
- 
-        TableColumn lastNameCol = new TableColumn("Last Name");
-        lastNameCol.setMinWidth(100);
-        lastNameCol.setCellValueFactory(
-                new PropertyValueFactory<Person, String>("lastName"));
- 
-        TableColumn emailCol = new TableColumn("Email");
-        emailCol.setMinWidth(200);
-        emailCol.setCellValueFactory(
-                new PropertyValueFactory<Person, String>("email"));
+        TableColumn number = new TableColumn("#");
+		TableColumn name = new TableColumn("Name");
+		TableColumn startTime = new TableColumn("Start Time");
+		TableColumn duration = new TableColumn("Duration");
+		TableColumn moves = new TableColumn("Moves");
+		
+		TableColumn fieldWidth = new TableColumn("Width");
+		TableColumn fieldHeight = new TableColumn("Height");
+		TableColumn mines = new TableColumn("Mines");
+		
+		name.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, String>("name"));
+		startTime.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, String>("startTimeString"));
+		duration.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, String>("durationString"));
+		moves.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, Integer>("moves"));
+		
+		fieldWidth.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, Integer>("xTiles"));
+		fieldHeight.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, Integer>("yTiles"));
+		mines.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, Integer>("mines"));
  
         table.setItems(data);
-        table.getColumns().addAll(firstNameCol, lastNameCol, emailCol);
+        table.getColumns().addAll(name, startTime, duration, moves);
  
         final VBox vbox = new VBox();
         vbox.setSpacing(5);
