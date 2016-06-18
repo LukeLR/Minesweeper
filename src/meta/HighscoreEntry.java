@@ -12,15 +12,15 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class HighscoreEntry implements Serializable {
-	private SimpleStringProperty name;
-	private SimpleLongProperty duration;
-	private SimpleStringProperty durationString;
-	private SimpleObjectProperty<LocalDateTime> startTime;
-	private SimpleStringProperty startTimeString;
-	private SimpleIntegerProperty moves;
-	private SimpleIntegerProperty xTiles;
-	private SimpleIntegerProperty yTiles;
-	private SimpleIntegerProperty mines;
+	private final SimpleStringProperty name;
+	private final SimpleLongProperty duration;
+	private final SimpleStringProperty durationString;
+	private final SimpleObjectProperty<LocalDateTime> startTime;
+	private final SimpleStringProperty startTimeString;
+	private final SimpleIntegerProperty moves;
+	private final SimpleIntegerProperty xTiles;
+	private final SimpleIntegerProperty yTiles;
+	private final SimpleIntegerProperty mines;
 	
 	public HighscoreEntry(){
 		
