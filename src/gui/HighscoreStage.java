@@ -1,5 +1,7 @@
 package gui;
 
+import java.time.LocalDateTime;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -7,6 +9,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -25,6 +28,7 @@ public class HighscoreStage extends Stage {
 	private Tab easy, intermediate, hard, custom;
 	private TableView<HighscoreEntry> tableEasy, tableIntermediate, tableHard, tableCustom;
 
+	@SuppressWarnings("unchecked")
 	public HighscoreStage(){
 		super.setTitle("Highscore");
 		borderPane = new BorderPane();
@@ -54,6 +58,20 @@ public class HighscoreStage extends Stage {
 		TableColumn<HighscoreEntry, Integer> fieldHeight = new TableColumn<HighscoreEntry, Integer>("Height");
 		TableColumn<HighscoreEntry, Integer> mines = new TableColumn<HighscoreEntry, Integer>("Mines");
 		
+		name.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, String>("name"));
+		startTime.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, String>("startTimeString"));
+		duration.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, String>("durationString"));
+		moves.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, Integer>("moves"));
+		
+		fieldWidth.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, Integer>("xTiles"));
+		fieldHeight.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, Integer>("yTiles"));
+		mines.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, Integer>("mines"));
+		
+		tableEasy.setItems(Data.getHighscoresEasy().getObservableList());
+		tableIntermediate.setItems(Data.getHighscoresIntermediate().getObservableList());
+		tableHard.setItems(Data.getHighscoresHard().getObservableList());
+		tableCustom.setItems(Data.getHighscoresCustom().getObservableList());
+		
 		tableEasy.getColumns().addAll(number, name, startTime, duration, moves);
 		tableIntermediate.getColumns().addAll(number, name, startTime, duration, moves);
 		tableHard.getColumns().addAll(number, name, startTime, duration, moves);
@@ -73,6 +91,6 @@ public class HighscoreStage extends Stage {
 	}
 	
 	private void fillWithData(){
-				
+		
 	}
 }
