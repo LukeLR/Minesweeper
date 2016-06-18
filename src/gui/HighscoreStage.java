@@ -16,7 +16,7 @@ public class HighscoreStage extends Stage {
 		GridPane gP = new GridPane();
 		
 		gP.setAlignment(Pos.CENTER);
-		gP.setHgap(10d);
+		gP.setHgap(10d);//asdf
 		gP.setVgap(10d);
 		aP.setPadding(new Insets(25, 25, 25, 25));
 		
