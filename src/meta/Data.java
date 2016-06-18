@@ -194,6 +194,7 @@ public class Data implements Serializable {
 	}
 	
 	public static HighscoreList getHighscoresEasy() {
+		if (easy == null) easy = new HighscoreList();
 		return easy;
 	}
 
@@ -202,6 +203,7 @@ public class Data implements Serializable {
 	}
 
 	public static HighscoreList getHighscoresIntermediate() {
+		if (intermediate == null) intermediate = new HighscoreList();
 		return intermediate;
 	}
 
@@ -210,6 +212,7 @@ public class Data implements Serializable {
 	}
 
 	public static HighscoreList getHighscoresHard() {
+		if (hard == null) hard = new HighscoreList();
 		return hard;
 	}
 
@@ -218,6 +221,7 @@ public class Data implements Serializable {
 	}
 
 	public static HighscoreList getHighscoresCustom() {
+		if (custom == null) custom = new HighscoreList();
 		return custom;
 	}
 
