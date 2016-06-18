@@ -1,4 +1,4 @@
-package gui; //ASDF
+package gui;
 
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
