@@ -97,7 +97,7 @@ public class HighscoreStage extends Stage {
 		hard.setContent(tableHard);
 		custom.setContent(tableCustom);
 		
-		borderPane.setCenter(tabPane);
+		borderPane.setCenter(tableEasy);
 		
 		fillWithData();
 		
