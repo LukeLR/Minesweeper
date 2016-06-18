@@ -11,22 +11,22 @@ import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-public class HighscoreEntry implements Serializable {
-	private final SimpleStringProperty name;
-	private final SimpleLongProperty duration;
-	private final SimpleStringProperty durationString;
-	private final SimpleObjectProperty<LocalDateTime> startTime;
-	private final SimpleStringProperty startTimeString;
-	private final SimpleIntegerProperty moves;
-	private final SimpleIntegerProperty xTiles;
-	private final SimpleIntegerProperty yTiles;
-	private final SimpleIntegerProperty mines;
+public static class HighscoreEntry implements Serializable {
+	private final SimpleStringProperty name = new SimpleStringProperty();
+	private final SimpleLongProperty duration = new SimpleLongProperty();
+	private final SimpleStringProperty durationString = new SimpleStringProperty();
+	private final SimpleObjectProperty<LocalDateTime> startTime = new SimpleObjectProperty<LocalDateTime>();
+	private final SimpleStringProperty startTimeString = new SimpleStringProperty();
+	private final SimpleIntegerProperty moves = new SimpleIntegerProperty();
+	private final SimpleIntegerProperty xTiles = new SimpleIntegerProperty();
+	private final SimpleIntegerProperty yTiles = new SimpleIntegerProperty();
+	private final SimpleIntegerProperty mines = new SimpleIntegerProperty();
 	
 	public HighscoreEntry(){
 		
 	}
 	
-	public HighscoreEntry(String name, long startTime, long duration, int moves){
+	private HighscoreEntry(String name, long startTime, long duration, int moves){
 		this.name = new SimpleStringProperty(name);
 		this.startTime = new SimpleObjectProperty<LocalDateTime>(LocalDateTime.ofInstant(Instant.ofEpochMilli(startTime), ZoneId.systemDefault()));
 		this.duration = new SimpleLongProperty(duration);
