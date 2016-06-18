@@ -28,6 +28,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import meta.Data;
+import meta.HighscoreList;
 
 public class MainWindow extends Application {
 	BorderPane root;
@@ -219,6 +220,10 @@ public class MainWindow extends Application {
 		});
 		
 		highscores.setOnAction((event) -> {
+			HighscoreList scores = Data.getHighscoresEasy();
+			scores.add("asdf", System.currentTimeMillis(), 84217, 34);
+			scores.add("foo", System.currentTimeMillis(), 8751324, 27);
+			scores.add("bar", System.currentTimeMillis(), 87425, 345);
 			new HighscoreStage();
 		});
 

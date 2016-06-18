@@ -2,6 +2,8 @@ package gui;
 
 import java.time.LocalDateTime;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -27,7 +29,14 @@ public class HighscoreStage extends Stage {
 	private TabPane tabPane;
 	private Tab easy, intermediate, hard, custom;
 	private TableView<HighscoreEntry> tableEasy, tableIntermediate, tableHard, tableCustom;
-
+	
+	private final ObservableList<HighscoreEntry> data =
+		FXCollections.observableArrayList(
+			new HighscoreEntry("asdf", System.currentTimeMillis(), 12512354, 123),
+			new HighscoreEntry("foo", System.currentTimeMillis(), 752174, 1234),
+			new HighscoreEntry("bar", System.currentTimeMillis(), 132478, 2134)
+		);
+	
 	@SuppressWarnings("unchecked")
 	public HighscoreStage(){
 		super.setTitle("Highscore");
@@ -44,19 +53,20 @@ public class HighscoreStage extends Stage {
 		tabPane.getTabs().addAll(easy, intermediate, hard, custom);
 		
 		tableEasy = new TableView<HighscoreEntry>();
+		tableEasy.setEditable(true);
 		tableIntermediate = new TableView<HighscoreEntry>();
 		tableHard = new TableView<HighscoreEntry>();
 		tableCustom = new TableView<HighscoreEntry>();
 		
-		TableColumn<HighscoreEntry, Integer> number = new TableColumn<HighscoreEntry, Integer>("#");
-		TableColumn<HighscoreEntry, String> name = new TableColumn<HighscoreEntry, String>("Name");
-		TableColumn<HighscoreEntry, String> startTime = new TableColumn<HighscoreEntry, String>("Start Time");
-		TableColumn<HighscoreEntry, String> duration = new TableColumn<HighscoreEntry, String>("Duration");
-		TableColumn<HighscoreEntry, Integer> moves = new TableColumn<HighscoreEntry, Integer>("Moves");
+		TableColumn number = new TableColumn("#");
+		TableColumn name = new TableColumn("Name");
+		TableColumn startTime = new TableColumn("Start Time");
+		TableColumn duration = new TableColumn("Duration");
+		TableColumn moves = new TableColumn("Moves");
 		
-		TableColumn<HighscoreEntry, Integer> fieldWidth = new TableColumn<HighscoreEntry, Integer>("Width");
-		TableColumn<HighscoreEntry, Integer> fieldHeight = new TableColumn<HighscoreEntry, Integer>("Height");
-		TableColumn<HighscoreEntry, Integer> mines = new TableColumn<HighscoreEntry, Integer>("Mines");
+		TableColumn fieldWidth = new TableColumn("Width");
+		TableColumn fieldHeight = new TableColumn("Height");
+		TableColumn mines = new TableColumn("Mines");
 		
 		name.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, String>("name"));
 		startTime.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, String>("startTimeString"));
@@ -67,12 +77,17 @@ public class HighscoreStage extends Stage {
 		fieldHeight.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, Integer>("yTiles"));
 		mines.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, Integer>("mines"));
 		
-		tableEasy.setItems(Data.getHighscoresEasy().getObservableList());
-		tableIntermediate.setItems(Data.getHighscoresIntermediate().getObservableList());
-		tableHard.setItems(Data.getHighscoresHard().getObservableList());
-		tableCustom.setItems(Data.getHighscoresCustom().getObservableList());
+		System.out.println("1");
+		tableEasy.setItems(data);
+//		System.out.println("2");
+//		tableIntermediate.setItems(Data.getHighscoresIntermediate().getObservableList());
+//		System.out.println("3");
+//		tableHard.setItems(Data.getHighscoresHard().getObservableList());
+//		System.out.println("4");
+//		tableCustom.setItems(Data.getHighscoresCustom().getObservableList());
+//		System.out.println("5");
 		
-		tableEasy.getColumns().addAll(number, name, startTime, duration, moves);
+		tableEasy.getColumns().addAll(name, startTime, duration, moves);
 		tableIntermediate.getColumns().addAll(number, name, startTime, duration, moves);
 		tableHard.getColumns().addAll(number, name, startTime, duration, moves);
 		tableCustom.getColumns().addAll(number, name, startTime, duration, moves, fieldWidth, fieldHeight, mines);
