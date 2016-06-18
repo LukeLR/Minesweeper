@@ -16,6 +16,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -103,6 +104,13 @@ public class HighscoreStage extends Stage {
 		borderPane.setCenter(tableEasy);
 		
 		fillWithData();
+		
+		final VBox vbox = new VBox();
+		vbox.setSpacing(5);
+		vbox.setPadding(new Insets(10, 0, 0, 10));
+		vbox.getChildren().addAll(tableEasy);
+		
+		((Group) s.getRoot()).getChildren().add(vbox);
 		
 		this.setScene(s);
 		this.show();
