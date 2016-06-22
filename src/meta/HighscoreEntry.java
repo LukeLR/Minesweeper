@@ -11,7 +11,7 @@ import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-public class HighscoreEntry implements Serializable {
+public class HighscoreEntry {
 	private SimpleStringProperty name;
 	private SimpleLongProperty duration;
 	private SimpleStringProperty durationString;
