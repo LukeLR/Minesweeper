@@ -241,7 +241,11 @@ public class Data implements Serializable {
 		custom = custom;
 	}
 	
-	public void firstClick(){
+	public boolean firstClick(){
+		return firstClick;
+	}
+	
+	public void firstClicked(){
 		firstClick = true;
 	}
 }

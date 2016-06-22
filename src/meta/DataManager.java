@@ -83,5 +83,7 @@ public class DataManager {
 
 	public static void setHighscoresCustom(HighscoreList custom) {check(); data.setHighscoresCustom(custom);}
 	
-	public static void firstClick(){check(); data.firstClick();}
+	public static boolean firstClick(){check(); return data.firstClick();}
+	
+	public static void firstClicked(){check(); data.firstClicked();}
 }
