@@ -78,12 +78,12 @@ public class HighscoreStage extends Stage {
 //		fieldHeight.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, Integer>("yTiles"));
 //		mines.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, Integer>("mines"));
 		
-		tableEasy.setItems(DataManager.getData().getHighscoresEasy().toObservableList());
+		tableEasy.setItems(DataManager.getData().getHighscoresEasy().getObservableList());
 		name.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, String>("name"));
 
-		tableIntermediate.setItems(DataManager.getData().getHighscoresIntermediate().toObservableList());
-		tableHard.setItems(DataManager.getData().getHighscoresHard().toObservableList());
-		tableCustom.setItems(DataManager.getData().getHighscoresCustom().toObservableList());
+		tableIntermediate.setItems(DataManager.getData().getHighscoresIntermediate().getObservableList());
+		tableHard.setItems(DataManager.getData().getHighscoresHard().getObservableList());
+		tableCustom.setItems(DataManager.getData().getHighscoresCustom().getObservableList());
 		
 		tableEasy.getColumns().addAll(name, startTime, duration, moves);
 		tableIntermediate.getColumns().addAll(number, name, startTime, duration, moves);
