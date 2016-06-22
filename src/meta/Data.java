@@ -246,6 +246,6 @@ public class Data implements Serializable {
 	}
 	
 	public void firstClicked(){
-		firstClick = true;
+		firstClick = false;
 	}
 }

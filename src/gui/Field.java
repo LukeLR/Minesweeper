@@ -64,8 +64,9 @@ public class Field extends GridPane {
 		this.disableProperty().set(true);
 		if (mine){
 			if (DataManager.firstClick()){
+				DataManager.firstClicked();
 				DataManager.mainWindow().startTimer();
-				DataManager.resetFirstClick();
+				//DataManager.resetFirstClick(); //TODO: Reset first click if it was mine?
 				System.out.println("First Click was a Mine!");
 				mine = false;
 				((GamePane)(this.getParent())).setMines(1);
@@ -84,8 +85,8 @@ public class Field extends GridPane {
 			}
 		} else {
 			if (DataManager.firstClick()){
+				DataManager.firstClicked();
 				DataManager.mainWindow().startTimer();
-				DataManager.resetFirstClick();
 			}
 			DataManager.setHiddenFields(DataManager.getHiddenFields() -  1);
 			if (DataManager.getHiddenFields()-DataManager.getMines() == 0) DataManager.mainWindow().getGamePane().won();
