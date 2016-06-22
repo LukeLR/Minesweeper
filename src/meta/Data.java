@@ -47,7 +47,7 @@ public class Data implements Serializable {
 		HighscoreList hard = new HighscoreList();
 		HighscoreList custom = new HighscoreList();
 		
-		//Testing purposes
+		//Testing purposes //TODO: Remove!
 		easy.add("asdf", 432151, 237509817, 1324);
 		easy.add("19823741324", 34532134, 21341324, 3234);
 	}
