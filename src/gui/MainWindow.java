@@ -60,7 +60,7 @@ public class MainWindow extends Application {
 	@SuppressWarnings("unchecked")
 	public void start(Stage primaryStage) throws Exception {
 		this.primaryStage = primaryStage;
-		DataManager.getData().setMainWindow(this);
+		DataManager.setMainWindow(this);
 		primaryStage.setTitle("Minesweeper w/ JavaFX");
 		// AnchorPane aP = new AnchorPane();
 		root = new BorderPane();
@@ -68,7 +68,7 @@ public class MainWindow extends Application {
 		mainMenu = new GridPane();
 		difficultyMenu = new GridPane();
 		stats = new GridPane();
-		mainScene = new Scene(root, DataManager.getData().getWidth(), DataManager.getData().getHeight());
+		mainScene = new Scene(root, DataManager.getWidth(), DataManager.getHeight());
 
 		menues.setAlignment(Pos.CENTER);
 		menues.setHgap(10d);
@@ -92,12 +92,12 @@ public class MainWindow extends Application {
 //		wonPane.setAlignment(Pos.CENTER);
 //		wonPane.setHgap(10d);
 //		wonPane.setVgap(10d);
-//		lost = new Scene(lostPane, DataManager.getData().getWidth(), DataManager.getData().getHeight());
-//		won = new Scene(wonPane, DataManager.getData().getWidth(), DataManager.getData().getHeight());
-//		Canvas lostCanvas = new Canvas(DataManager.getData().getWidth(), DataManager.getData().getHeight());
+//		lost = new Scene(lostPane, DataManager.getWidth(), DataManager.getHeight());
+//		won = new Scene(wonPane, DataManager.getWidth(), DataManager.getHeight());
+//		Canvas lostCanvas = new Canvas(DataManager.getWidth(), DataManager.getHeight());
 //		GraphicsContext gc = lostCanvas.getGraphicsContext2D();
 //		gc.setFill(Color.RED);
-//		gc.fillRect(0, 0, DataManager.getData().getWidth(), DataManager.getData().getHeight());
+//		gc.fillRect(0, 0, DataManager.getWidth(), DataManager.getHeight());
 //		Text gameOver = new Text("Game Over");
 //		gameOver.setFont(Font.font("Verdana", 100));
 //		lostPane.add(lostCanvas, 0, 0);
@@ -132,9 +132,9 @@ public class MainWindow extends Application {
 		yTilesLabel = new Label("Height:");
 		minesLabel = new Label("Mines:");
 
-		xTilesSpinner = new Spinner<Integer>(1, 100, DataManager.getData().getXFields());
-		yTilesSpinner = new Spinner<Integer>(1, 100, DataManager.getData().getYFields());
-		minesSpinner = new Spinner<Integer>(1, 100, DataManager.getData().getMines());
+		xTilesSpinner = new Spinner<Integer>(1, 100, DataManager.getXFields());
+		yTilesSpinner = new Spinner<Integer>(1, 100, DataManager.getYFields());
+		minesSpinner = new Spinner<Integer>(1, 100, DataManager.getMines());
 
 		xTilesSpinner.setEditable(true);
 		yTilesSpinner.setEditable(true);
@@ -142,26 +142,26 @@ public class MainWindow extends Application {
 
 		proportional.selectedProperty().addListener((ov, old, current) -> {
 			if (current) {
-				yTilesSpinner.getValueFactory().setValue(DataManager.getData().getXFields());
+				yTilesSpinner.getValueFactory().setValue(DataManager.getXFields());
 			}
 		});
 
 		xTilesSpinner.valueProperty().addListener((ov, old, current) -> {
-			DataManager.getData().setXFields(xTilesSpinner.getValueFactory().getValue());
+			DataManager.setXFields(xTilesSpinner.getValueFactory().getValue());
 			if (proportional.isSelected()) {
-				yTilesSpinner.getValueFactory().setValue(DataManager.getData().getXFields());
+				yTilesSpinner.getValueFactory().setValue(DataManager.getXFields());
 			}
 		});
 
 		yTilesSpinner.valueProperty().addListener((ov, old, current) -> {
-			DataManager.getData().setYFields(yTilesSpinner.getValueFactory().getValue());
+			DataManager.setYFields(yTilesSpinner.getValueFactory().getValue());
 			if (proportional.isSelected()) {
-				xTilesSpinner.getValueFactory().setValue(DataManager.getData().getYFields());
+				xTilesSpinner.getValueFactory().setValue(DataManager.getYFields());
 			}
 		});
 
 		minesSpinner.valueProperty().addListener((ov, old, current) -> {
-			DataManager.getData().setMines(minesSpinner.getValueFactory().getValue());
+			DataManager.setMines(minesSpinner.getValueFactory().getValue());
 		});
 
 		difficultyMenu.add(proportional, 0, 0);
@@ -177,22 +177,22 @@ public class MainWindow extends Application {
 		difficulty.valueProperty().addListener((ov, old, current) -> {
 			switch(current.toString()){
 			case "Easy":
-				DataManager.getData().setMode(DataManager.getData().EASY);
+				DataManager.setMode(Data.EASY);
 				difficultyMenu.setVisible(false);
 				newGame();
 				break;
 			case "Intermediate":
-				DataManager.getData().setMode(DataManager.getData().INTERMEDIATE);
+				DataManager.setMode(Data.INTERMEDIATE);
 				difficultyMenu.setVisible(false);
 				newGame();
 				break;
 			case "Hard":
-				DataManager.getData().setMode(DataManager.getData().HARD);
+				DataManager.setMode(Data.HARD);
 				difficultyMenu.setVisible(false);
 				newGame();
 				break;
 			case "Custom":
-				DataManager.getData().setMode(DataManager.getData().CUSTOM);
+				DataManager.setMode(Data.CUSTOM);
 				difficultyMenu.setVisible(true); 
 				break;
 			default: break;
@@ -221,7 +221,7 @@ public class MainWindow extends Application {
 		});
 		
 		highscores.setOnAction((event) -> {
-			HighscoreList scores = DataManager.getData().getHighscoresEasy();
+			HighscoreList scores = DataManager.getHighscoresEasy();
 			scores.add("asdf", System.currentTimeMillis(), 84217, 34);
 			scores.add("foo", System.currentTimeMillis(), 8751324, 27);
 			scores.add("bar", System.currentTimeMillis(), 87425, 345);
@@ -241,20 +241,20 @@ public class MainWindow extends Application {
 		fp.setFace(FacePane.SLEEPY_FACE);
 		if (gp == null) {
 //			ScrollPane sp = new ScrollPane();
-			gp = new GamePane(DataManager.getData().getXFields(), DataManager.getData().getYFields(), DataManager.getData().getMines());
-//			gp.setPrefWidth(DataManager.getData().getWidth());
-//			gp.setPrefHeight(DataManager.getData().getHeight()-menues.getHeight()-stats.getHeight());
+			gp = new GamePane(DataManager.getXFields(), DataManager.getYFields(), DataManager.getMines());
+//			gp.setPrefWidth(DataManager.getWidth());
+//			gp.setPrefHeight(DataManager.getHeight()-menues.getHeight()-stats.getHeight());
 //			sp.setFitToWidth(true);
 //			sp.setFitToHeight(true);
 //			sp.setContent(gp);
 			root.setCenter(gp);
 		} else {
-			gp.newGame(DataManager.getData().getXFields(), DataManager.getData().getYFields(), DataManager.getData().getMines());
+			gp.newGame(DataManager.getXFields(), DataManager.getYFields(), DataManager.getMines());
 		}
-		DataManager.getData().resetFlagsSet();
+		DataManager.resetFlagsSet();
 		updateMineNum();
-		DataManager.getData().resetFirstClick();
-		DataManager.getData().resetHiddenFields();
+		DataManager.resetFirstClick();
+		DataManager.resetHiddenFields();
 	}
 	
 	public GamePane getGamePane(){
@@ -262,7 +262,7 @@ public class MainWindow extends Application {
 	}
 	
 	public void updateMineNum(){
-		mineNum.setText("Mines: " + (DataManager.getData().getMines() - DataManager.getData().getFlagsSet()));
+		mineNum.setText("Mines: " + (DataManager.getMines() - DataManager.getFlagsSet()));
 	}
 	
 	public void startTimer(){

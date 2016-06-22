@@ -31,7 +31,7 @@ public class GamePane extends GridPane {
 		for (int i = 0; i < fields.length; i++){
 			for (int j = 0; j < fields[i].length; j++){
 				fields[i][j] = new Field();
-				fields[i][j].setPrefSize((double)DataManager.getData().getWidth()/(double)xFields, (double)DataManager.getData().getHeight()/(double)yFields);
+				fields[i][j].setPrefSize((double)DataManager.getWidth()/(double)xFields, (double)DataManager.getHeight()/(double)yFields);
 				super.add(fields[i][j], i, j);
 				super.setVgrow(fields[i][j], Priority.SOMETIMES);
 				super.setHgrow(fields[i][j], Priority.SOMETIMES);
@@ -96,7 +96,7 @@ public class GamePane extends GridPane {
 				if (fields[i][j] != null && fields[i][j].isHidden()) fields[i][j].open();
 			}
 		}
-		DataManager.getData().mainWindow().lost();
+		DataManager.mainWindow().lost();
 	}
 	
 	public void won(){
@@ -105,6 +105,6 @@ public class GamePane extends GridPane {
 				if (fields[i][j] != null && fields[i][j].isHidden()) fields[i][j].open();
 			}
 		}
-		DataManager.getData().mainWindow().won();
+		DataManager.mainWindow().won();
 	}
 }
