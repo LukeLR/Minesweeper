@@ -4,6 +4,7 @@ import gui.MainWindow;
 
 public class DataManager {
 	private static Data data;
+	private static int i = 0;
 	
 //	public static Data getData(){
 //		check();
@@ -15,7 +16,7 @@ public class DataManager {
 //	}
 	
 	private static void check(){
-		if (data == null) data = new Data(); System.out.println("Created new data object");
+		if (data == null) data = new Data(); System.out.println("Created new data object (" + i + ")"); i++;
 	}
 	
 	public static void setMode(int newMode){check(); data.setMode(newMode);}
