@@ -40,6 +40,10 @@ public class Data implements Serializable {
 	private HighscoreList hard;
 	private HighscoreList custom;
 	
+	public Data(){
+		setMode(EASY);
+	}
+	
 	public void setMode(int newMode){
 		mode = newMode;
 		switch(newMode){
