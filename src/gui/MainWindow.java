@@ -16,6 +16,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
@@ -242,11 +243,13 @@ public class MainWindow extends Application {
 		if (gp == null) {
 //			ScrollPane sp = new ScrollPane();
 			gp = new GamePane(DataManager.getXFields(), DataManager.getYFields(), DataManager.getMines());
-//			gp.setPrefWidth(DataManager.getWidth());
-//			gp.setPrefHeight(DataManager.getHeight()-menues.getHeight()-stats.getHeight());
+//			gp.setMaxWidth(DataManager.getWidth());
+//			gp.setMaxHeight(DataManager.getHeight()-menues.getHeight()-stats.getHeight());
 //			sp.setFitToWidth(true);
 //			sp.setFitToHeight(true);
 //			sp.setContent(gp);
+//			sp.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
+//			sp.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
 			root.setCenter(gp);
 		} else {
 			gp.newGame(DataManager.getXFields(), DataManager.getYFields(), DataManager.getMines());
