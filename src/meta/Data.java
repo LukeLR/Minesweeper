@@ -48,6 +48,7 @@ public class Data implements Serializable {
 		HighscoreList custom = new HighscoreList();
 		
 		//Testing purposes //TODO: Remove!
+		System.out.println("Initialising demo entries");
 		easy.add("asdf", 432151, 237509817, 1324);
 		easy.add("19823741324", 34532134, 21341324, 3234);
 	}
@@ -211,7 +212,7 @@ public class Data implements Serializable {
 	}
 
 	public void setHighscoresEasy(HighscoreList easy) {
-		easy = easy;
+		this.easy = easy;
 	}
 
 	public HighscoreList getHighscoresIntermediate() {
@@ -220,7 +221,7 @@ public class Data implements Serializable {
 	}
 
 	public void setHighscoresIntermediate(HighscoreList intermediate) {
-		intermediate = intermediate;
+		this.intermediate = intermediate;
 	}
 
 	public HighscoreList getHighscoresHard() {
@@ -229,7 +230,7 @@ public class Data implements Serializable {
 	}
 
 	public void setHighscoresHard(HighscoreList hard) {
-		hard = hard;
+		this.hard = hard;
 	}
 
 	public HighscoreList getHighscoresCustom() {
@@ -238,7 +239,7 @@ public class Data implements Serializable {
 	}
 
 	public void setHighscoresCustom(HighscoreList custom) {
-		custom = custom;
+		this.custom = custom;
 	}
 	
 	public boolean firstClick(){
