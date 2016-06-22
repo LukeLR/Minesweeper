@@ -19,6 +19,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import meta.Data;
+import meta.DataManager;
 import meta.HighscoreEntry;
 import meta.HighscoreList;
 
@@ -77,12 +78,12 @@ public class HighscoreStage extends Stage {
 //		fieldHeight.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, Integer>("yTiles"));
 //		mines.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, Integer>("mines"));
 		
-		tableEasy.setItems(Data.getHighscoresEasy());
+		tableEasy.setItems(DataManager.getData().getHighscoresEasy().toObservableList());
 		name.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, String>("name"));
 
-		tableIntermediate.setItems(Data.getHighscoresIntermediate().getObservableList());
-		tableHard.setItems(Data.getHighscoresHard().getObservableList());
-		tableCustom.setItems(Data.getHighscoresCustom().getObservableList());
+		tableIntermediate.setItems(DataManager.getData().getHighscoresIntermediate().toObservableList());
+		tableHard.setItems(DataManager.getData().getHighscoresHard().toObservableList());
+		tableCustom.setItems(DataManager.getData().getHighscoresCustom().toObservableList());
 		
 		tableEasy.getColumns().addAll(name, startTime, duration, moves);
 		tableIntermediate.getColumns().addAll(number, name, startTime, duration, moves);

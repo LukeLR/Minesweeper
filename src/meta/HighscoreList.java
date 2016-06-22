@@ -67,7 +67,7 @@ public class HighscoreList implements Serializable {
 		return result;
 	}
 	
-	public ObservableList<HighscoreEntry> getObservableList(){
+	public ObservableList<HighscoreEntry> toObservableList(){
 		System.out.println("Number of Entries: " + size());
 //		return FXCollections.observableArrayList(entries);
 		return FXCollections.observableArrayList(
