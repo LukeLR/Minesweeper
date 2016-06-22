@@ -31,13 +31,6 @@ public class HighscoreStage extends Stage {
 	private Tab easy, intermediate, hard, custom;
 	private TableView<HighscoreEntry> tableEasy, tableIntermediate, tableHard, tableCustom;
 	
-//	private final ObservableList<HighscoreEntry> data =
-//			FXCollections.observableArrayList(
-//				new HighscoreEntry("asdf", System.currentTimeMillis(), 12512354, 123),
-//				new HighscoreEntry("foo", System.currentTimeMillis(), 752174, 1234),
-//				new HighscoreEntry("bar", System.currentTimeMillis(), 132478, 2134)
-//			);
-	
 	@SuppressWarnings("unchecked")
 	public HighscoreStage(){
 		super.setTitle("Highscore");
