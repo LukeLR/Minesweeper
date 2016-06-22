@@ -7,22 +7,22 @@ import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.value.ObservableDoubleValue;
 
 public class Data implements Serializable {
-	public final int EASY = 0;
-	public final int INTERMEDIATE = 1;
-	public final int HARD = 2;
-	public final int CUSTOM = 3;
+	public static final int EASY = 0;
+	public static final int INTERMEDIATE = 1;
+	public static final int HARD = 2;
+	public static final int CUSTOM = 3;
 	
-	private final int xFieldsDefaultEasy = 10;
-	private final int yFieldsDefaultEasy = 10;
-	private final int minesDefaultEasy = 10;
+	private static final int xFieldsDefaultEasy = 10;
+	private static final int yFieldsDefaultEasy = 10;
+	private static final int minesDefaultEasy = 10;
 	
-	private final int xFieldsDefaultIntermediate = 20;
-	private final int yFieldsDefaultIntermediate = 20;
-	private final int minesDefaultIntermediate = 50;
+	private static final int xFieldsDefaultIntermediate = 20;
+	private static final int yFieldsDefaultIntermediate = 20;
+	private static final int minesDefaultIntermediate = 50;
 	
-	private final int xFieldsDefaultHard = 30;
-	private final int yFieldsDefaultHard = 30;
-	private final int minesDefaultHard = 100;
+	private static final int xFieldsDefaultHard = 30;
+	private static final int yFieldsDefaultHard = 30;
+	private static final int minesDefaultHard = 100;
 	
 	private int xFields = xFieldsDefaultEasy;
 	private int yFields = yFieldsDefaultEasy;
@@ -158,7 +158,7 @@ public class Data implements Serializable {
 	}
 
 	public void setWidth(int width) {
-		Data.width = width;
+		width = width;
 	}
 
 	public int getHeight() {
@@ -166,7 +166,7 @@ public class Data implements Serializable {
 	}
 
 	public void setHeight(int height) {
-		Data.height = height;
+		height = height;
 	}
 
 	public int getMode() {
@@ -186,7 +186,7 @@ public class Data implements Serializable {
 	}
 
 	public void setHiddenFields(int coveredFields) {
-		Data.hiddenFields = coveredFields;
+		hiddenFields = coveredFields;
 	}
 	
 	public void resetHiddenFields(){
@@ -199,7 +199,7 @@ public class Data implements Serializable {
 	}
 
 	public void setHighscoresEasy(HighscoreList easy) {
-		Data.easy = easy;
+		easy = easy;
 	}
 
 	public HighscoreList getHighscoresIntermediate() {
@@ -208,7 +208,7 @@ public class Data implements Serializable {
 	}
 
 	public void setHighscoresIntermediate(HighscoreList intermediate) {
-		Data.intermediate = intermediate;
+		intermediate = intermediate;
 	}
 
 	public HighscoreList getHighscoresHard() {
@@ -217,7 +217,7 @@ public class Data implements Serializable {
 	}
 
 	public void setHighscoresHard(HighscoreList hard) {
-		Data.hard = hard;
+		hard = hard;
 	}
 
 	public HighscoreList getHighscoresCustom() {
@@ -226,6 +226,6 @@ public class Data implements Serializable {
 	}
 
 	public void setHighscoresCustom(HighscoreList custom) {
-		Data.custom = custom;
+		custom = custom;
 	}
 }
