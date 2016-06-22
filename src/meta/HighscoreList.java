@@ -69,11 +69,11 @@ public class HighscoreList implements Serializable {
 	
 	public ObservableList<HighscoreEntry> getObservableList(){
 		System.out.println("Number of Entries: " + size());
-//		return FXCollections.observableArrayList(entries);
-		return FXCollections.observableArrayList(
-			new HighscoreEntry("asdf", System.currentTimeMillis(), 314724, 123),
-			new HighscoreEntry("foo", System.currentTimeMillis(), 23478123, 123),
-			new HighscoreEntry("bar", System.currentTimeMillis(), 32194578, 123)
-		);
+		return FXCollections.observableArrayList(entries);
+//		return FXCollections.observableArrayList( //TODO: remove
+//			new HighscoreEntry("asdf", System.currentTimeMillis(), 314724, 123),
+//			new HighscoreEntry("foo", System.currentTimeMillis(), 23478123, 123),
+//			new HighscoreEntry("bar", System.currentTimeMillis(), 32194578, 123)
+//		);
 	}
 }
