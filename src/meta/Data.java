@@ -240,4 +240,8 @@ public class Data implements Serializable {
 	public void setHighscoresCustom(HighscoreList custom) {
 		custom = custom;
 	}
+	
+	public void firstClick(){
+		firstClick = true;
+	}
 }
