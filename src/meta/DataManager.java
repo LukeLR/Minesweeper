@@ -15,7 +15,7 @@ public class DataManager {
 //	}
 	
 	private static void check(){
-		if (data == null) data = new Data();
+		if (data == null) data = new Data(); System.out.println("Created new data object");
 	}
 	
 	public static void setMode(int newMode){check(); data.setMode(newMode);}
