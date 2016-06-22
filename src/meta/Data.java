@@ -42,6 +42,14 @@ public class Data implements Serializable {
 	
 	public Data(){
 		setMode(EASY);
+		HighscoreList easy = new HighscoreList();
+		HighscoreList intermediate = new HighscoreList();
+		HighscoreList hard = new HighscoreList();
+		HighscoreList custom = new HighscoreList();
+		
+		//Testing purposes
+		easy.add("asdf", 432151, 237509817, 1324);
+		easy.add("19823741324", 34532134, 21341324, 3234);
 	}
 	
 	public void setMode(int newMode){
