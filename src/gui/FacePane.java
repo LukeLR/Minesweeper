@@ -7,6 +7,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import meta.Data;
+import meta.DataManager;
 
 public class FacePane extends GridPane {
 	public static final int HAPPY_FACE = 0;
@@ -19,7 +20,7 @@ public class FacePane extends GridPane {
 	public FacePane(){
 		happyFace = new ImageView(new Image(getClass().getResourceAsStream("happy.png")));
 		happyFace.preserveRatioProperty().set(true);
-		happyFace.setFitWidth(Data.getWidth()*0.1);
+		happyFace.setFitWidth(DataManager.getWidth()*0.1);
 		this.setHalignment(happyFace, HPos.CENTER);
 		this.setValignment(happyFace, VPos.CENTER);
 		this.setVgrow(happyFace, Priority.ALWAYS);
@@ -28,7 +29,7 @@ public class FacePane extends GridPane {
 		
 		sadFace = new ImageView(new Image(getClass().getResourceAsStream("sad.png")));
 		sadFace.preserveRatioProperty().set(true);
-		sadFace.setFitWidth(Data.getWidth()*0.1);
+		sadFace.setFitWidth(DataManager.getWidth()*0.1);
 		this.setHalignment(sadFace, HPos.CENTER);
 		this.setValignment(sadFace, VPos.CENTER);
 		this.setVgrow(sadFace, Priority.ALWAYS);
@@ -37,7 +38,7 @@ public class FacePane extends GridPane {
 		
 		sleepyFace = new ImageView(new Image(getClass().getResourceAsStream("sleepy.png")));
 		sleepyFace.preserveRatioProperty().set(true);
-		sleepyFace.setFitWidth(Data.getWidth()*0.1);
+		sleepyFace.setFitWidth(DataManager.getWidth()*0.1);
 		this.setHalignment(sleepyFace, HPos.CENTER);
 		this.setValignment(sleepyFace, VPos.CENTER);
 		this.setVgrow(sleepyFace, Priority.ALWAYS);
@@ -46,7 +47,7 @@ public class FacePane extends GridPane {
 		
 		lovingFace = new ImageView(new Image(getClass().getResourceAsStream("loving.png")));
 		lovingFace.preserveRatioProperty().set(true);
-		lovingFace.setFitWidth(Data.getWidth()*0.1);
+		lovingFace.setFitWidth(DataManager.getWidth()*0.1);
 		this.setHalignment(lovingFace, HPos.CENTER);
 		this.setValignment(lovingFace, VPos.CENTER);
 		this.setVgrow(lovingFace, Priority.ALWAYS);
@@ -54,11 +55,11 @@ public class FacePane extends GridPane {
 		this.add(lovingFace, 0, 0);
 		
 		happyFace.setOnMouseClicked((event) -> {
-			Data.mainWindow().getGamePane().lost();
+			DataManager.mainWindow().getGamePane().lost();
 		});
 		
 		sleepyFace.setOnMouseClicked((event) -> {
-			Data.mainWindow().getGamePane().lost();
+			DataManager.mainWindow().getGamePane().lost();
 		});
 	}
 	

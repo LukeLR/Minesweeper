@@ -11,16 +11,16 @@ import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-public static class HighscoreEntry implements Serializable {
-	private final SimpleStringProperty name = new SimpleStringProperty();
-	private final SimpleLongProperty duration = new SimpleLongProperty();
-	private final SimpleStringProperty durationString = new SimpleStringProperty();
-	private final SimpleObjectProperty<LocalDateTime> startTime = new SimpleObjectProperty<LocalDateTime>();
-	private final SimpleStringProperty startTimeString = new SimpleStringProperty();
-	private final SimpleIntegerProperty moves = new SimpleIntegerProperty();
-	private final SimpleIntegerProperty xTiles = new SimpleIntegerProperty();
-	private final SimpleIntegerProperty yTiles = new SimpleIntegerProperty();
-	private final SimpleIntegerProperty mines = new SimpleIntegerProperty();
+public class HighscoreEntry {
+	private SimpleStringProperty name;
+	private SimpleLongProperty duration;
+	private SimpleStringProperty durationString;
+	private SimpleObjectProperty<LocalDateTime> startTime;
+	private SimpleStringProperty startTimeString;
+	private SimpleIntegerProperty moves;
+	private SimpleIntegerProperty xTiles;
+	private SimpleIntegerProperty yTiles;
+	private SimpleIntegerProperty mines;
 	
 	public HighscoreEntry(){
 		
@@ -28,8 +28,8 @@ public static class HighscoreEntry implements Serializable {
 	
 	private HighscoreEntry(String name, long startTime, long duration, int moves){
 		this.name = new SimpleStringProperty(name);
-		this.startTime = new SimpleObjectProperty<LocalDateTime>(LocalDateTime.ofInstant(Instant.ofEpochMilli(startTime), ZoneId.systemDefault()));
-		this.duration = new SimpleLongProperty(duration);
+		this.setStartTime(startTime);
+		this.setDuration(duration);
 		this.moves = new SimpleIntegerProperty(moves);
 		
 		this.startTime.addListener((ov, oldValue, newValue) -> {
@@ -61,7 +61,10 @@ public static class HighscoreEntry implements Serializable {
 	}
 	
 	public void setDuration(long duration) {
-		this.duration.set(duration);
+		if (this.duration == null) this.duration = new SimpleLongProperty(duration);
+		else this.duration.set(duration);
+		if (this.durationString == null) this.durationString = new SimpleStringProperty(formatDuration());
+		else this.durationString.set(formatDuration());
 	}
 	
 	public LocalDateTime getStartTime() {
@@ -69,11 +72,14 @@ public static class HighscoreEntry implements Serializable {
 	}
 	
 	public void setStartTime(long startTime) {
-		this.startTime.set(LocalDateTime.ofInstant(Instant.ofEpochMilli(startTime), ZoneId.systemDefault()));
+		this.setStartTime(LocalDateTime.ofInstant(Instant.ofEpochMilli(startTime), ZoneId.systemDefault()));
 	}
 	
 	public void setStartTime(LocalDateTime startTime){
-		this.startTime.set(startTime);
+		if (this.startTime == null) this.startTime = new SimpleObjectProperty<LocalDateTime>(startTime);
+		else this.startTime.set(startTime);
+		if (this.startTimeString == null) this.startTimeString = new SimpleStringProperty(formatStartTime());
+		else this.startTimeString.set(formatStartTime());
 	}
 	
 	public boolean isEqual(Object anObject){
@@ -126,5 +132,25 @@ public static class HighscoreEntry implements Serializable {
 
 	public void setMoves(int moves) {
 		this.moves.set(moves);
+	}
+	
+	public String getStartTimeString(){
+		/* Should produce the same output as formatStartTime(), but
+		 * is needed to autofill the highscore table by passing this
+		 * HighscoreEntry instance. The HighscoreTable will automatically
+		 * call these getters to fill it's values in the table cells.
+		 * Hence: DO NOT REMOVE!
+		 */
+		return startTimeString.get();
+	}
+	
+	public String getDurationString(){
+		/* Should produce the same output as formatStartTime(), but
+		 * is needed to autofill the highscore table by passing this
+		 * HighscoreEntry instance. The HighscoreTable will automatically
+		 * call these getters to fill it's values in the table cells.
+		 * Hence: DO NOT REMOVE!
+		 */
+		return durationString.get();
 	}
 }

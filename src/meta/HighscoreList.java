@@ -69,11 +69,18 @@ public class HighscoreList implements Serializable {
 	
 	public ObservableList<HighscoreEntry> getObservableList(){
 		System.out.println("Number of Entries: " + size());
-//		return FXCollections.observableArrayList(entries);
-		return FXCollections.observableArrayList(
-			new HighscoreEntry("asdf", System.currentTimeMillis(), 314724, 123),
-			new HighscoreEntry("foo", System.currentTimeMillis(), 23478123, 123),
-			new HighscoreEntry("bar", System.currentTimeMillis(), 32194578, 123)
-		);
+		ObservableList<HighscoreEntry> oal = FXCollections.emptyObservableList();
+		for (HighscoreEntry i : entries){
+			oal.add(i);
+		}
+		System.out.println("oal size: " + oal.size());
+		System.out.println("oal type: " + oal.get(0).getClass().getName());
+		return oal;
+//		return FXCollections.observableArrayList(entries.toArray(new HighscoreEntry[1]));
+//		return FXCollections.observableArrayList( //TODO: remove
+//			new HighscoreEntry("asdf", System.currentTimeMillis(), 314724, 123),
+//			new HighscoreEntry("foo", System.currentTimeMillis(), 23478123, 123),
+//			new HighscoreEntry("bar", System.currentTimeMillis(), 32194578, 123)
+//		);
 	}
 }

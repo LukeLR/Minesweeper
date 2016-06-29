@@ -15,6 +15,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import meta.Data;
+import meta.DataManager;
 
 public class Field extends GridPane {
 	private Button button = new Button();
@@ -43,7 +44,7 @@ public class Field extends GridPane {
 		this.add(button, 0, 0);
 		this.setVgrow(button, Priority.ALWAYS);
 		this.setHgrow(button, Priority.ALWAYS);
-		button.setPrefSize(Data.getWidth()/Data.getXFields(), Data.getHeight()/Data.getYFields());
+		button.setPrefSize(DataManager.getWidth()/DataManager.getXFields(), DataManager.getHeight()/DataManager.getYFields());
 		button.setOnMouseClicked((event) -> {
 			if(event.getButton().equals(MouseButton.SECONDARY)){
 				if (flagged) unflag();
@@ -62,9 +63,10 @@ public class Field extends GridPane {
 		hidden = false;
 		this.disableProperty().set(true);
 		if (mine){
-			if (Data.firstClick){
-				Data.mainWindow().startTimer();
-				Data.firstClick = false;
+			if (DataManager.firstClick()){
+				DataManager.firstClicked();
+				DataManager.mainWindow().startTimer();
+				//DataManager.resetFirstClick(); //TODO: Reset first click if it was mine?
 				System.out.println("First Click was a Mine!");
 				mine = false;
 				((GamePane)(this.getParent())).setMines(1);
@@ -79,15 +81,15 @@ public class Field extends GridPane {
 				this.add(bomb, 0, 0);
 				this.setVgrow(bomb, Priority.ALWAYS);
 				this.setHgrow(bomb, Priority.ALWAYS);
-				Data.mainWindow().getGamePane().lost();
+				DataManager.mainWindow().getGamePane().lost();
 			}
 		} else {
-			if (Data.firstClick){
-				Data.mainWindow().startTimer();
-				Data.firstClick = false;
+			if (DataManager.firstClick()){
+				DataManager.firstClicked();
+				DataManager.mainWindow().startTimer();
 			}
-			Data.setHiddenFields(Data.getHiddenFields() -  1);
-			if (Data.getHiddenFields()-Data.getMines() == 0) Data.mainWindow().getGamePane().won();
+			DataManager.setHiddenFields(DataManager.getHiddenFields() -  1);
+			if (DataManager.getHiddenFields()-DataManager.getMines() == 0) DataManager.mainWindow().getGamePane().won();
 			countNeighbourMines();
 			if (flagged) unflag();
 			if (neighbourMines == 0){
@@ -118,7 +120,7 @@ public class Field extends GridPane {
 			this.setHalignment(flag, HPos.CENTER);
 			this.setValignment(flag, VPos.CENTER);
 			flagged = true;
-			Data.setFlagsSet(Data.getFlagsSet() + 1);
+			DataManager.setFlagsSet(DataManager.getFlagsSet() + 1);
 		}
 	}
 	
@@ -126,7 +128,7 @@ public class Field extends GridPane {
 		if (flagged){
 			this.getChildren().remove(flag);
 			flagged = false;
-			Data.setFlagsSet(Data.getFlagsSet() - 1);
+			DataManager.setFlagsSet(DataManager.getFlagsSet() - 1);
 		}
 	}
 	

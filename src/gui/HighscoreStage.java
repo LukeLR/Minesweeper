@@ -21,6 +21,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import meta.Data;
+import meta.DataManager;
 import meta.HighscoreEntry;
 import meta.HighscoreList;
 
@@ -31,13 +32,6 @@ public class HighscoreStage extends Stage {
 	private TabPane tabPane;
 	private Tab easy, intermediate, hard, custom;
 	private TableView<HighscoreEntry> tableEasy, tableIntermediate, tableHard, tableCustom;
-	
-	private final ObservableList<HighscoreEntry> data =
-		FXCollections.observableArrayList(
-			new HighscoreEntry("asdf", System.currentTimeMillis(), 12512354, 123),
-			new HighscoreEntry("foo", System.currentTimeMillis(), 752174, 1234),
-			new HighscoreEntry("bar", System.currentTimeMillis(), 132478, 2134)
-		);
 	
 	@SuppressWarnings("unchecked")
 	public HighscoreStage(){
@@ -77,19 +71,16 @@ public class HighscoreStage extends Stage {
 		duration.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, String>("durationString"));
 		moves.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, Integer>("moves"));
 		
-		fieldWidth.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, Integer>("xTiles"));
-		fieldHeight.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, Integer>("yTiles"));
-		mines.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, Integer>("mines"));
+//		fieldWidth.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, Integer>("xTiles"));
+//		fieldHeight.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, Integer>("yTiles"));
+//		mines.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, Integer>("mines"));
 		
-		System.out.println("1");
-		tableEasy.setItems(data);
-//		System.out.println("2");
-//		tableIntermediate.setItems(Data.getHighscoresIntermediate().getObservableList());
-//		System.out.println("3");
-//		tableHard.setItems(Data.getHighscoresHard().getObservableList());
-//		System.out.println("4");
-//		tableCustom.setItems(Data.getHighscoresCustom().getObservableList());
-//		System.out.println("5");
+		tableEasy.setItems(DataManager.getHighscoresEasy().getObservableList());
+		name.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, String>("name"));
+
+		tableIntermediate.setItems(DataManager.getHighscoresIntermediate().getObservableList());
+		tableHard.setItems(DataManager.getHighscoresHard().getObservableList());
+		tableCustom.setItems(DataManager.getHighscoresCustom().getObservableList());
 		
 		tableEasy.getColumns().addAll(name, startTime, duration, moves);
 		tableIntermediate.getColumns().addAll(number, name, startTime, duration, moves);

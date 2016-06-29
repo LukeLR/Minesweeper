@@ -24,23 +24,36 @@ public class Data implements Serializable {
 	private static final int yFieldsDefaultHard = 30;
 	private static final int minesDefaultHard = 100;
 	
-	private static int xFields = xFieldsDefaultEasy;
-	private static int yFields = yFieldsDefaultEasy;
-	private static int mines = minesDefaultEasy;
-	private static int flagsSet = 0;
-	private static int width = 1000;
-	private static int height = 1000;
-	private static int mode = 0;
-	private static int hiddenFields = xFields * yFields;
-	public static boolean firstClick = true;
+	private int xFields = xFieldsDefaultEasy;
+	private int yFields = yFieldsDefaultEasy;
+	private int mines = minesDefaultEasy;
+	private int flagsSet = 0;
+	private int width = 1000;
+	private int height = 1000;
+	private int mode = 0;
+	private int hiddenFields = xFields * yFields;
+	public boolean firstClick = true;
 	
-	private static transient MainWindow mw;
-	private static HighscoreList easy;
-	private static HighscoreList intermediate;
-	private static HighscoreList hard;
-	private static HighscoreList custom;
+	private transient MainWindow mw;
+	private HighscoreList easy;
+	private HighscoreList intermediate;
+	private HighscoreList hard;
+	private HighscoreList custom;
 	
-	public static void setMode(int newMode){
+	public Data(){
+		setMode(EASY);
+		HighscoreList easy = new HighscoreList();
+		HighscoreList intermediate = new HighscoreList();
+		HighscoreList hard = new HighscoreList();
+		HighscoreList custom = new HighscoreList();
+		
+		//Testing purposes //TODO: Remove!
+		System.out.println("Initialising demo entries");
+		easy.add("asdf", 432151, 237509817, 1324);
+		easy.add("19823741324", 34532134, 21341324, 3234);
+	}
+	
+	public void setMode(int newMode){
 		mode = newMode;
 		switch(newMode){
 		case 0:
@@ -66,7 +79,7 @@ public class Data implements Serializable {
 		}
 	}
 	
-	public static void setMode(int newMode, int xFieldsNew, int yFieldsNew, int minesNew){
+	public void setMode(int newMode, int xFieldsNew, int yFieldsNew, int minesNew){
 		mode = newMode;
 		switch(newMode){
 		case 0:
@@ -92,25 +105,25 @@ public class Data implements Serializable {
 		}
 	}
 	
-	public static void setXFields(int xFieldsNew){
+	public void setXFields(int xFieldsNew){
 		xFields = xFieldsNew;
 		hiddenFields = xFields * yFields;
 		determineGameMode();
 	}
 	
-	public static void setYFields(int yFieldsNew){
+	public void setYFields(int yFieldsNew){
 		yFields = yFieldsNew;
 		hiddenFields = xFields * yFields;
 		determineGameMode();
 	}
 	
-	public static void setMines(int minesNew){
+	public void setMines(int minesNew){
 		mines = minesNew;
 		hiddenFields = xFields * yFields;
 		determineGameMode();
 	}
 	
-	public static void determineGameMode(){
+	public void determineGameMode(){
 		if (xFields == xFieldsDefaultEasy && yFields == yFieldsDefaultEasy && getMines() == minesDefaultEasy){
 			mode = EASY;
 		} else if (xFields == xFieldsDefaultIntermediate && yFields == yFieldsDefaultIntermediate && getMines() == minesDefaultIntermediate){
@@ -122,110 +135,118 @@ public class Data implements Serializable {
 		}
 	}
 	
-	public static void setMainWindow(MainWindow mwnew){
+	public void setMainWindow(MainWindow mwnew){
 		mw = mwnew;
 	}
 	
-	public static MainWindow mainWindow(){
+	public MainWindow mainWindow(){
 		return mw;
 	}
 	
-	public static void setFlagsSet(int flagsSetNew){
+	public void setFlagsSet(int flagsSetNew){
 		if (flagsSet != flagsSetNew){
 			flagsSet = flagsSetNew;
 			mw.updateMineNum();
 		}
 	}
 	
-	public static int getFlagsSet(){
+	public int getFlagsSet(){
 		return flagsSet;
 	}
 
-	public static int getXFields() {
+	public int getXFields() {
 		return xFields;
 	}
 
-	public static int getYFields() {
+	public int getYFields() {
 		return yFields;
 	}
 
-	public static int getMines() {
+	public int getMines() {
 		return mines;
 	}
 
-	public static int getWidth() {
+	public int getWidth() {
 		return width;
 	}
 
-	public static void setWidth(int width) {
-		Data.width = width;
+	public void setWidth(int width) {
+		width = width;
 	}
 
-	public static int getHeight() {
+	public int getHeight() {
 		return height;
 	}
 
-	public static void setHeight(int height) {
-		Data.height = height;
+	public void setHeight(int height) {
+		height = height;
 	}
 
-	public static int getMode() {
+	public int getMode() {
 		return mode;
 	}
 	
-	public static void resetFlagsSet(){
+	public void resetFlagsSet(){
 		flagsSet = 0;
 	}
 	
-	public static void resetFirstClick(){
+	public void resetFirstClick(){
 		firstClick = true;
 	}
 
-	public static int getHiddenFields() {
+	public int getHiddenFields() {
 		return hiddenFields;
 	}
 
-	public static void setHiddenFields(int coveredFields) {
-		Data.hiddenFields = coveredFields;
+	public void setHiddenFields(int coveredFields) {
+		hiddenFields = coveredFields;
 	}
 	
-	public static void resetHiddenFields(){
+	public void resetHiddenFields(){
 		hiddenFields = xFields * yFields;
 	}
 	
-	public static HighscoreList getHighscoresEasy() {
+	public HighscoreList getHighscoresEasy() {
 		if (easy == null) easy = new HighscoreList();
 		return easy;
 	}
 
-	public static void setHighscoresEasy(HighscoreList easy) {
-		Data.easy = easy;
+	public void setHighscoresEasy(HighscoreList easy) {
+		this.easy = easy;
 	}
 
-	public static HighscoreList getHighscoresIntermediate() {
+	public HighscoreList getHighscoresIntermediate() {
 		if (intermediate == null) intermediate = new HighscoreList();
 		return intermediate;
 	}
 
-	public static void setHighscoresIntermediate(HighscoreList intermediate) {
-		Data.intermediate = intermediate;
+	public void setHighscoresIntermediate(HighscoreList intermediate) {
+		this.intermediate = intermediate;
 	}
 
-	public static HighscoreList getHighscoresHard() {
+	public HighscoreList getHighscoresHard() {
 		if (hard == null) hard = new HighscoreList();
 		return hard;
 	}
 
-	public static void setHighscoresHard(HighscoreList hard) {
-		Data.hard = hard;
+	public void setHighscoresHard(HighscoreList hard) {
+		this.hard = hard;
 	}
 
-	public static HighscoreList getHighscoresCustom() {
+	public HighscoreList getHighscoresCustom() {
 		if (custom == null) custom = new HighscoreList();
 		return custom;
 	}
 
-	public static void setHighscoresCustom(HighscoreList custom) {
-		Data.custom = custom;
+	public void setHighscoresCustom(HighscoreList custom) {
+		this.custom = custom;
+	}
+	
+	public boolean firstClick(){
+		return firstClick;
+	}
+	
+	public void firstClicked(){
+		firstClick = false;
 	}
 }
