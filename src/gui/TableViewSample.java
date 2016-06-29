@@ -133,15 +133,15 @@ public class TableViewSample extends Application {
     	private final SimpleIntegerProperty yTiles = new SimpleIntegerProperty();
     	private final SimpleIntegerProperty mines = new SimpleIntegerProperty();
     	
-    	private final SimpleStringProperty firstName;
-        private final SimpleStringProperty lastName;
-        private final SimpleStringProperty email;
+    	private final SimpleStringProperty firstName = new SimpleStringProperty();
+        private final SimpleStringProperty lastName = new SimpleStringProperty();
+        private final SimpleStringProperty email = new SimpleStringProperty();
         
     	public HighscoreEntry(){
     		
     	}
     	
-    	private HighscoreEntry(String name, long startTime, long duration, int moves){
+    	public HighscoreEntry(String name, long startTime, long duration, int moves){
     		this.name = new SimpleStringProperty(name);
     		this.startTime = new SimpleObjectProperty<LocalDateTime>(LocalDateTime.ofInstant(Instant.ofEpochMilli(startTime), ZoneId.systemDefault()));
     		this.duration = new SimpleLongProperty(duration);
