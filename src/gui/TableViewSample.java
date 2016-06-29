@@ -1,6 +1,14 @@
 package gui;
 
+import java.io.Serializable;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+
 import javafx.application.Application;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleLongProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,19 +23,18 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import meta.HighscoreEntry;
  
 public class TableViewSample extends Application {
 	
-	private TableView<Person> table = new TableView<Person>();
+	private TableView<HighscoreEntry> table = new TableView<HighscoreEntry>();
     
-    private final ObservableList<Person> data =
-        FXCollections.observableArrayList(
-            new Person("Jacob", "Smith", "jacob.smith@example.com"),
-            new Person("Isabella", "Johnson", "isabella.johnson@example.com"),
-            new Person("Ethan", "Williams", "ethan.williams@example.com"),
-            new Person("Emma", "Jones", "emma.jones@example.com"),
-            new Person("Michael", "Brown", "michael.brown@example.com")
-        );
+	private final ObservableList<HighscoreEntry> data =
+			FXCollections.observableArrayList(
+				new HighscoreEntry("asdf", System.currentTimeMillis(), 12512354, 123),
+				new HighscoreEntry("foo", System.currentTimeMillis(), 752174, 1234),
+				new HighscoreEntry("bar", System.currentTimeMillis(), 132478, 2134)
+			);
    
     public static void main(String[] args) {
         launch(args);
@@ -45,23 +52,27 @@ public class TableViewSample extends Application {
  
         table.setEditable(true);
  
-        TableColumn firstNameCol = new TableColumn("First Name");
-        firstNameCol.setMinWidth(100);
-        firstNameCol.setCellValueFactory(
-                new PropertyValueFactory<Person, String>("firstName"));
- 
-        TableColumn lastNameCol = new TableColumn("Last Name");
-        lastNameCol.setMinWidth(100);
-        lastNameCol.setCellValueFactory(
-                new PropertyValueFactory<Person, String>("lastName"));
- 
-        TableColumn emailCol = new TableColumn("Email");
-        emailCol.setMinWidth(200);
-        emailCol.setCellValueFactory(
-                new PropertyValueFactory<Person, String>("email"));
+        TableColumn number = new TableColumn("#");
+		TableColumn name = new TableColumn("Name");
+		TableColumn startTime = new TableColumn("Start Time");
+		TableColumn duration = new TableColumn("Duration");
+		TableColumn moves = new TableColumn("Moves");
+		
+		TableColumn fieldWidth = new TableColumn("Width");
+		TableColumn fieldHeight = new TableColumn("Height");
+		TableColumn mines = new TableColumn("Mines");
+		
+		name.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, String>("name"));
+		startTime.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, String>("startTimeString"));
+		duration.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, String>("durationString"));
+		moves.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, Integer>("moves"));
+		
+		fieldWidth.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, Integer>("xTiles"));
+		fieldHeight.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, Integer>("yTiles"));
+		mines.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, Integer>("mines"));
  
         table.setItems(data);
-        table.getColumns().addAll(firstNameCol, lastNameCol, emailCol);
+        table.getColumns().addAll(name, startTime, duration, moves);
  
         final VBox vbox = new VBox();
         vbox.setSpacing(5);
@@ -110,4 +121,126 @@ public class TableViewSample extends Application {
             email.set(fName);
         }
     }
-} 
+    
+    public static class HighscoreEntry {
+    	private final SimpleStringProperty name = new SimpleStringProperty();
+    	private final SimpleLongProperty duration = new SimpleLongProperty();
+    	private final SimpleStringProperty durationString = new SimpleStringProperty();
+    	private final SimpleObjectProperty<LocalDateTime> startTime = new SimpleObjectProperty<LocalDateTime>();
+    	private final SimpleStringProperty startTimeString = new SimpleStringProperty();
+    	private final SimpleIntegerProperty moves = new SimpleIntegerProperty();
+    	private final SimpleIntegerProperty xTiles = new SimpleIntegerProperty();
+    	private final SimpleIntegerProperty yTiles = new SimpleIntegerProperty();
+    	private final SimpleIntegerProperty mines = new SimpleIntegerProperty();
+    	
+    	private final SimpleStringProperty firstName;
+        private final SimpleStringProperty lastName;
+        private final SimpleStringProperty email;
+        
+    	public HighscoreEntry(){
+    		
+    	}
+    	
+    	private HighscoreEntry(String name, long startTime, long duration, int moves){
+    		this.name = new SimpleStringProperty(name);
+    		this.startTime = new SimpleObjectProperty<LocalDateTime>(LocalDateTime.ofInstant(Instant.ofEpochMilli(startTime), ZoneId.systemDefault()));
+    		this.duration = new SimpleLongProperty(duration);
+    		this.moves = new SimpleIntegerProperty(moves);
+    		
+    		this.startTime.addListener((ov, oldValue, newValue) -> {
+    			startTimeString.set(formatStartTime());
+    		});
+    		
+    		this.duration.addListener((ov, oldValue, newValue) -> {
+    			durationString.set(formatDuration());
+    		});
+    	}
+    	
+    	private HighscoreEntry(String name, long startTime, long duration, int moves, int xTiles, int yTiles, int mines){
+    		this(name, startTime, duration, moves);
+    		this.xTiles = new SimpleIntegerProperty(xTiles);
+    		this.yTiles = new SimpleIntegerProperty(yTiles);
+    		this.mines = new SimpleIntegerProperty(mines);
+    	}
+    	
+    	public String getName() {
+    		return name.get();
+    	}
+    	
+    	public void setName(String name) {
+    		this.name.set(name);
+    	}
+    	
+    	public long getDuration() {
+    		return duration.get();
+    	}
+    	
+    	public void setDuration(long duration) {
+    		this.duration.set(duration);
+    	}
+    	
+    	public LocalDateTime getStartTime() {
+    		return startTime.get();
+    	}
+    	
+    	public void setStartTime(long startTime) {
+    		this.startTime.set(LocalDateTime.ofInstant(Instant.ofEpochMilli(startTime), ZoneId.systemDefault()));
+    	}
+    	
+    	public void setStartTime(LocalDateTime startTime){
+    		this.startTime.set(startTime);
+    	}
+    	
+    	public boolean isEqual(Object anObject){
+    		try{
+    			HighscoreEntry another = (HighscoreEntry)anObject;
+    			return another.getStartTime() == getStartTime();
+    		} catch (Exception ex){
+    			return false;
+    		}
+    	}
+    	
+    	public String formatStartTime(){
+    		return getStartTime().getDayOfMonth() + "." + getStartTime().getMonth() + "." + getStartTime().getYear() + " " + getStartTime().getHour() + ":" + getStartTime().getMinute() + ":" + getStartTime().getSecond();
+    	}
+    	
+    	public String formatDuration(){
+    		int seconds = (int)((getDuration() % (1000 * 60))/1000);
+    		int minutes = (int)((getDuration() % (1000 * 60 * 60))/(1000*60));
+    		int millis = (int)(getDuration() % 1000);
+    		return String.valueOf(minutes) + ":" + String.valueOf(seconds) + "." + String.valueOf(millis);
+    	}
+
+    	public int getxTiles() {
+    		return xTiles.get();
+    	}
+
+    	public void setxTiles(int xTiles) {
+    		this.xTiles.set(xTiles);
+    	}
+
+    	public int getyTiles() {
+    		return yTiles.get();
+    	}
+
+    	public void setyTiles(int yTiles) {
+    		this.yTiles.set(yTiles);
+    	}
+
+    	public int getMines() {
+    		return mines.get();
+    	}
+
+    	public void setMines(int mines) {
+    		this.mines.set(mines);
+    	}
+
+    	public int getMoves() {
+    		return moves.get();
+    	}
+
+    	public void setMoves(int moves) {
+    		this.moves.set(moves);
+    	}
+    }
+}

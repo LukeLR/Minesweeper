@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -15,6 +16,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -36,7 +38,9 @@ public class HighscoreStage extends Stage {
 		super.setTitle("Highscore");
 		borderPane = new BorderPane();
 		borderPane.setPadding(new Insets(25, 25, 25, 25));
-		s = new Scene(borderPane, 500, 500);
+		s = new Scene(new Group());
+		this.setWidth(500);
+		this.setHeight(500);
 		
 		tabPane = new TabPane();
 		easy = new Tab("Easy");
@@ -88,9 +92,16 @@ public class HighscoreStage extends Stage {
 		hard.setContent(tableHard);
 		custom.setContent(tableCustom);
 		
-		borderPane.setCenter(tabPane);
+		borderPane.setCenter(tableEasy);
 		
 		fillWithData();
+		
+		final VBox vbox = new VBox();
+		vbox.setSpacing(5);
+		vbox.setPadding(new Insets(10, 0, 0, 10));
+		vbox.getChildren().addAll(tableEasy);
+		
+		((Group) s.getRoot()).getChildren().add(vbox);
 		
 		this.setScene(s);
 		this.show();
