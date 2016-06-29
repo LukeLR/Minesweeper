@@ -26,7 +26,7 @@ public class HighscoreEntry {
 		
 	}
 	
-	private HighscoreEntry(String name, long startTime, long duration, int moves){
+	HighscoreEntry(String name, long startTime, long duration, int moves){
 		this.name = new SimpleStringProperty(name);
 		this.setStartTime(startTime);
 		this.setDuration(duration);
