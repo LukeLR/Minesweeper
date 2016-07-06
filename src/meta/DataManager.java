@@ -92,7 +92,7 @@ public class DataManager {
 	
 	public static int getMoves(){check(); return data.getMoves();}
 	
-	public static void addMove(){check(); data.addMove();}
+	public static void addMove(){check(); data.addMove(); System.out.println("Move made!");} //TODO: Remove
 	
 	public static void resetMoves(){check(); data.resetMoves();}
 	
