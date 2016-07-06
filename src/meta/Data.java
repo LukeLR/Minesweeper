@@ -44,11 +44,9 @@ public class Data implements Serializable {
 	private HighscoreList custom;
 	
 	public Data(){
+		setMode(EASY);
 		reset();
-		HighscoreList easy = new HighscoreList();
-		HighscoreList intermediate = new HighscoreList();
-		HighscoreList hard = new HighscoreList();
-		HighscoreList custom = new HighscoreList();
+		resetHighscores();
 		
 		//Testing purposes //TODO: Remove!
 //		System.out.println("Initialising demo entries");
@@ -300,5 +298,12 @@ public class Data implements Serializable {
 	
 	public boolean isWon(){
 		return won && !lost;
+	}
+	
+	public void resetHighscores(){
+		HighscoreList easy = new HighscoreList();
+		HighscoreList intermediate = new HighscoreList();
+		HighscoreList hard = new HighscoreList();
+		HighscoreList custom = new HighscoreList();
 	}
 }

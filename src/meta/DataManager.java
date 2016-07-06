@@ -105,4 +105,6 @@ public class DataManager {
 	public static boolean isWon(){check(); return data.isWon();}
 	
 	public static void reset(){check(); data.reset();}
+	
+	public static void resetHighscores(){check(); data.resetHighscores();}
 }
