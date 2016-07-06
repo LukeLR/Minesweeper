@@ -15,9 +15,6 @@ public class HighscoreList implements Serializable,Iterable<HighscoreEntry> {
 	
 	public HighscoreList(){
 		entries = new ArrayList<HighscoreEntry>();
-		entries.add(new HighscoreEntry(1, "asdf", LocalDateTime.now(), Duration.ofMinutes(23), 12, 23, 23, 2));
-		entries.add(new HighscoreEntry(2, "foo", LocalDateTime.now(), Duration.ofMinutes(23), 12, 23, 23, 2));
-		entries.add(new HighscoreEntry(3, "bar", LocalDateTime.now(), Duration.ofMinutes(23), 12, 23, 23, 2));
 	}
 	
 //	public void add(String name, long startTime, long duration, int moves){
@@ -27,6 +24,10 @@ public class HighscoreList implements Serializable,Iterable<HighscoreEntry> {
 //	public void add(String name, long startTime, long duration, int moves, int xTiles, int yTiles, int mines){
 //		entries.add(new HighscoreEntry(name, startTime, duration, moves, xTiles, yTiles, mines));
 //	}
+	
+	public void add(HighscoreEntry entry){
+		entries.add(entry);
+	}
 	
 	public HighscoreEntry get(int i){
 		return entries.get(i);
