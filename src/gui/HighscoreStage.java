@@ -95,9 +95,9 @@ public class HighscoreStage extends Stage {
 		customTab.setContent(customTable);
 		
 		easyTable.fillWithData(DataManager.getHighscoresEasy());
-		intermediateTable.fillWithData(DataManager.getHighscoresEasy());
-		hardTable.fillWithData(DataManager.getHighscoresEasy());
-		customTable.fillWithData(DataManager.getHighscoresEasy());
+		intermediateTable.fillWithData(DataManager.getHighscoresIntermediate());
+		hardTable.fillWithData(DataManager.getHighscoresHard());
+		customTable.fillWithData(DataManager.getHighscoresCustom());
 		
 		return tabPane;
 	}
