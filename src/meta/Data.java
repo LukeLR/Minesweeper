@@ -46,7 +46,7 @@ public class Data implements Serializable {
 	public Data(){
 		setMode(EASY);
 		reset();
-		resetHighscores();
+		newHighscores();
 	}
 	
 	public void reset(){
@@ -313,11 +313,10 @@ public class Data implements Serializable {
 		return won && !lost;
 	}
 	
-	public void resetHighscores(){
-		System.out.println("Wiping Highscore Lists");
-		easy = null;
-		intermediate = null;
-		hard = null;
-		custom = null;
+	public void newHighscores(){
+		easy = new HighscoreList();
+		intermediate = new HighscoreList();
+		hard = new HighscoreList();
+		custom = new HighscoreList();
 	}
 }
