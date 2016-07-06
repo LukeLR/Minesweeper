@@ -42,4 +42,68 @@ public class HighscoreEntry {
 	public HighscoreEntry(String name, LocalDateTime startTime, Duration duration, int moves){
 		this(0, name, startTime, duration, moves, 0, 0, 0);
 	}
+	
+	public int getNumber(){
+		return number.get();
+	}
+	
+	public void setNumber(int number){
+		this.number.setValue(number);
+	}
+	
+	public String getName(){
+		return name.get();
+	}
+	
+	public void setName(String name){
+		this.name.setValue(name);
+	}
+	
+	public String getStartTime(){
+		return "StartTime"; //TODO: Do this!
+	}
+	
+	public void setStartTime(String startTime){
+		//TODO: Is it needed?
+	}
+	
+	public String getDuration(){
+		return "Duration"; //TODO: Do this
+	}
+	
+	public void setDuration(String duration){
+		//TODO: Is it needed?
+	}
+	
+	public int getMoves(){
+		return moves.get();
+	}
+	
+	public void setMoves(int moves){
+		this.moves.setValue(moves);
+	}
+	
+	public int getFieldWidth(){
+		return fieldWidth.get();
+	}
+	
+	public void setFieldWidth(int fieldWidth){
+		this.fieldWidth.setValue(fieldWidth);
+	}
+	
+	public int getFieldHeight(){
+		return fieldHeight.get();
+	}
+	
+	public void setFieldHeight(int fieldHeight){
+		this.fieldHeight.setValue(fieldHeight);
+	}
+	
+	public int getMines(){
+		return mines.get();
+	}
+	
+	public void setMines(int mines){
+		this.mines.setValue(mines);
+	}
 }
