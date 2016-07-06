@@ -100,7 +100,7 @@ public class HighscoreStage extends Stage {
 		customTable.fillWithData(DataManager.getHighscoresCustom());
 		
 		return tabPane;
-	}
+	} 
 	
 	private HBox createBottom(){
 		HBox hBox = new HBox();
