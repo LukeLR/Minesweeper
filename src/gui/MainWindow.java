@@ -1,5 +1,8 @@
 package gui;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -30,6 +33,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import meta.Data;
 import meta.DataManager;
+import meta.HighscoreEntry;
 import meta.HighscoreList;
 
 public class MainWindow extends Application {
@@ -282,5 +286,6 @@ public class MainWindow extends Application {
 	public void won(){
 		timerText.stop();
 		this.fp.setFace(FacePane.LOVING_FACE);
+		DataManager.getHighscoresEasy().add(new HighscoreEntry(1, name.getText(), LocalDateTime.now(), Duration.ofMinutes(234), 1234, 1234, 1234, 1234));
 	}
 }
