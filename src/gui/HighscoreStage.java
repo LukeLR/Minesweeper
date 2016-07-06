@@ -103,6 +103,7 @@ public class HighscoreStage extends Stage {
 		hardTab.setContent(hardTable);
 		customTab.setContent(customTable);
 		
+		loadData();
 		return tabPane;
 	}
 	
@@ -128,6 +129,7 @@ public class HighscoreStage extends Stage {
 		hBox.getChildren().addAll(reset);
 		reset.setOnAction((event) -> {
 			DataManager.resetHighscores();
+			loadData();
 		});
 		
 		return hBox;
