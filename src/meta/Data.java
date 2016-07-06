@@ -257,11 +257,29 @@ public class Data implements Serializable {
 	
 	public void addHighscoreEntry(HighscoreEntry entry){
 		switch(getMode()){
-			case EASY: getHighscoresEasy().add(entry); System.out.println("Adding Highscore Entry to EASY"); break; //TODO: Remove
-			case INTERMEDIATE: getHighscoresIntermediate().add(entry); System.out.println("Adding Highscore Entry to INTERMEDIATE"); break; //TODO: Remove
-			case HARD: getHighscoresHard().add(entry); System.out.println("Adding Highscore Entry to HARD"); break; //TODO: Remove
-			case CUSTOM: getHighscoresCustom().add(entry); System.out.println("Adding Highscore Entry to CUSTOM"); break; //TODO: Remove
-			default: System.out.println("Invalid gameMode when adding HighscoreEntry!"); //TODO: Remove
+			case EASY:
+				if (easy == null) easy = new HighscoreList();
+				getHighscoresEasy().add(entry);
+				System.out.println("Adding Highscore Entry to EASY"); //TODO: Remove
+				break;
+			case INTERMEDIATE:
+				if (intermediate == null) intermediate = new HighscoreList();
+				getHighscoresIntermediate().add(entry);
+				System.out.println("Adding Highscore Entry to INTERMEDIATE"); //TODO: Remove
+				break;
+			case HARD:
+				if (hard == null) hard = new HighscoreList();
+				getHighscoresHard().add(entry);
+				System.out.println("Adding Highscore Entry to HARD"); //TODO: Remove
+				break;
+			case CUSTOM:
+				if (custom == null) custom = new HighscoreList();
+				getHighscoresCustom().add(entry);
+				System.out.println("Adding Highscore Entry to CUSTOM"); //TODO: Remove
+				break;
+			default:
+				System.out.println("Invalid gameMode when adding HighscoreEntry!"); //TODO: Remove
+				break;
 		}
 	}
 	
@@ -296,10 +314,10 @@ public class Data implements Serializable {
 	}
 	
 	public void resetHighscores(){
-		System.out.println("Creating new Highscore Lists");
-		HighscoreList easy = new HighscoreList();
-		HighscoreList intermediate = new HighscoreList();
-		HighscoreList hard = new HighscoreList();
-		HighscoreList custom = new HighscoreList();
+		System.out.println("Wiping Highscore Lists");
+		HighscoreList easy = null;
+		HighscoreList intermediate = null;
+		HighscoreList hard = null;
+		HighscoreList custom = null;
 	}
 }

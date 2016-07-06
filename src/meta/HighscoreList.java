@@ -15,6 +15,7 @@ public class HighscoreList implements Serializable,Iterable<HighscoreEntry> {
 	
 	public HighscoreList(){
 		entries = new ArrayList<HighscoreEntry>();
+		System.out.println("Creating new Highscore List..."); //TODO: Remove
 	}
 	
 //	public void add(String name, long startTime, long duration, int moves){

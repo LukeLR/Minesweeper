@@ -131,6 +131,7 @@ public class HighscoreStage extends Stage {
 			System.out.println("Resetting Highscores..."); //TODO: Remove
 			DataManager.resetHighscores();
 			loadData();
+			super.setScene(createScene());
 		});
 		
 		return hBox;
