@@ -120,6 +120,7 @@ public class HighscoreStage extends Stage {
 	private HBox createBottom(){
 		HBox hBox = new HBox();
 		hBox.setAlignment(Pos.CENTER_RIGHT);
+		hBox.setPadding(new Insets(10, 10, 10, 10));
 		
 		Button ok = new Button("OK");
 		hBox.getChildren().add(ok);
