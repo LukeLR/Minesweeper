@@ -315,9 +315,9 @@ public class Data implements Serializable {
 	
 	public void resetHighscores(){
 		System.out.println("Wiping Highscore Lists");
-		HighscoreList easy = null;
-		HighscoreList intermediate = null;
-		HighscoreList hard = null;
-		HighscoreList custom = null;
+		easy = null;
+		intermediate = null;
+		hard = null;
+		custom = null;
 	}
 }
