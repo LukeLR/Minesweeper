@@ -57,7 +57,6 @@ public class Data implements Serializable {
 	}
 	
 	public void reset(){
-		setMode(EASY);
 		lost = false;
 		won = false;
 		resetMoves();

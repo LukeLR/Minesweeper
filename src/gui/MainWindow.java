@@ -198,7 +198,10 @@ public class MainWindow extends Application {
 				break;
 			case "Custom":
 				DataManager.setMode(Data.CUSTOM);
-				difficultyMenu.setVisible(true); 
+				difficultyMenu.setVisible(true);
+				xTilesSpinner.getValueFactory().setValue(DataManager.getXFields());
+				yTilesSpinner.getValueFactory().setValue(DataManager.getYFields());
+				minesSpinner.getValueFactory().setValue(DataManager.getMines());
 				break;
 			default: break;
 			}
@@ -244,6 +247,7 @@ public class MainWindow extends Application {
 		timerText.reset();
 		timerText.update();
 		fp.setFace(FacePane.SLEEPY_FACE);
+		DataManager.reset();
 		if (gp == null) {
 //			ScrollPane sp = new ScrollPane();
 			gp = new GamePane(DataManager.getXFields(), DataManager.getYFields(), DataManager.getMines());
@@ -258,7 +262,6 @@ public class MainWindow extends Application {
 		} else {
 			gp.newGame(DataManager.getXFields(), DataManager.getYFields(), DataManager.getMines());
 		}
-		DataManager.reset();
 		updateMineNum();
 	}
 	
