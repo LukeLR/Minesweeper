@@ -108,10 +108,10 @@ public class HighscoreStage extends Stage {
 	}
 	
 	private void loadData(){
-		easyTable.fillWithData(DataManager.getHighscoresEasy());
-		intermediateTable.fillWithData(DataManager.getHighscoresIntermediate());
-		hardTable.fillWithData(DataManager.getHighscoresHard());
-		customTable.fillWithData(DataManager.getHighscoresCustom());
+		easyTable.fillWithData(DataManager.getData().getHighscoresEasy());
+		intermediateTable.fillWithData(DataManager.getData().getHighscoresIntermediate());
+		hardTable.fillWithData(DataManager.getData().getHighscoresHard());
+		customTable.fillWithData(DataManager.getData().getHighscoresCustom());
 	}
 	
 	private HBox createBottom(){
@@ -129,7 +129,7 @@ public class HighscoreStage extends Stage {
 		hBox.getChildren().addAll(reset);
 		reset.setOnAction((event) -> {
 			System.out.println("Resetting Highscores..."); //TODO: Remove
-			DataManager.resetHighscores();
+			DataManager.getData().resetHighscores();
 			loadData();
 			super.setScene(createScene());
 		});

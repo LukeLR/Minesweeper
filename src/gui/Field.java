@@ -44,7 +44,7 @@ public class Field extends GridPane {
 		this.add(button, 0, 0);
 		this.setVgrow(button, Priority.ALWAYS);
 		this.setHgrow(button, Priority.ALWAYS);
-		button.setPrefSize(DataManager.getWidth()/DataManager.getXFields(), DataManager.getHeight()/DataManager.getYFields());
+		button.setPrefSize(DataManager.getData().getWidth()/DataManager.getData().getXFields(), DataManager.getData().getHeight()/DataManager.getData().getYFields());
 		button.setOnMouseClicked((event) -> {
 			if(event.getButton().equals(MouseButton.SECONDARY)){
 				if (flagged) unflag();
@@ -62,13 +62,13 @@ public class Field extends GridPane {
 	public void open(){
 		if (hidden){
 			hidden = false;
-			DataManager.addMove();
+			DataManager.getData().addMove();
 			this.disableProperty().set(true);
 			if (mine){
-				if (DataManager.firstClick()){
-					DataManager.firstClicked();
-					DataManager.mainWindow().startTimer();
-					//DataManager.resetFirstClick(); //TODO: Reset first click if it was mine?
+				if (DataManager.getData().firstClick()){
+					DataManager.getData().firstClicked();
+					DataManager.getData().mainWindow().startTimer();
+					//DataManager.getData().resetFirstClick(); //TODO: Reset first click if it was mine?
 					System.out.println("First Click was a Mine!");
 					mine = false;
 					((GamePane)(this.getParent())).setMines(1);
@@ -83,15 +83,15 @@ public class Field extends GridPane {
 					this.add(bomb, 0, 0);
 					this.setVgrow(bomb, Priority.ALWAYS);
 					this.setHgrow(bomb, Priority.ALWAYS);
-					if (!DataManager.isLost()) DataManager.mainWindow().getGamePane().lost();
+					if (!DataManager.getData().isLost()) DataManager.getData().mainWindow().getGamePane().lost();
 				}
 			} else {
-				if (DataManager.firstClick()){
-					DataManager.firstClicked();
-					DataManager.mainWindow().startTimer();
+				if (DataManager.getData().firstClick()){
+					DataManager.getData().firstClicked();
+					DataManager.getData().mainWindow().startTimer();
 				}
-				DataManager.setHiddenFields(DataManager.getHiddenFields() -  1);
-				if (DataManager.getHiddenFields()-DataManager.getMines() == 0 && !DataManager.isLost()) DataManager.mainWindow().getGamePane().won();
+				DataManager.getData().setHiddenFields(DataManager.getData().getHiddenFields() -  1);
+				if (DataManager.getData().getHiddenFields()-DataManager.getData().getMines() == 0 && !DataManager.getData().isLost()) DataManager.getData().mainWindow().getGamePane().won();
 				countNeighbourMines();
 				if (flagged) unflag();
 				if (neighbourMines == 0){
@@ -123,7 +123,7 @@ public class Field extends GridPane {
 			this.setHalignment(flag, HPos.CENTER);
 			this.setValignment(flag, VPos.CENTER);
 			flagged = true;
-			DataManager.setFlagsSet(DataManager.getFlagsSet() + 1);
+			DataManager.getData().setFlagsSet(DataManager.getData().getFlagsSet() + 1);
 		}
 	}
 	
@@ -131,7 +131,7 @@ public class Field extends GridPane {
 		if (flagged){
 			this.getChildren().remove(flag);
 			flagged = false;
-			DataManager.setFlagsSet(DataManager.getFlagsSet() - 1);
+			DataManager.getData().setFlagsSet(DataManager.getData().getFlagsSet() - 1);
 		}
 	}
 	

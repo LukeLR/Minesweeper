@@ -31,7 +31,7 @@ public class GamePane extends GridPane {
 		for (int i = 0; i < fields.length; i++){
 			for (int j = 0; j < fields[i].length; j++){
 				fields[i][j] = new Field();
-				fields[i][j].setPrefSize((double)DataManager.getWidth()/(double)xFields, (double)DataManager.getHeight()/(double)yFields);
+				fields[i][j].setPrefSize((double)DataManager.getData().getWidth()/(double)xFields, (double)DataManager.getData().getHeight()/(double)yFields);
 				super.add(fields[i][j], i, j);
 				super.setVgrow(fields[i][j], Priority.SOMETIMES);
 				super.setHgrow(fields[i][j], Priority.SOMETIMES);
@@ -91,22 +91,22 @@ public class GamePane extends GridPane {
 	}
 	
 	public void lost(){
-		DataManager.lost();
+		DataManager.getData().lost();
 		for (int i = 0; i < fields.length; i++){
 			for (int j = 0; j < fields[i].length; j++){
 				if (fields[i][j] != null && fields[i][j].isHidden()) fields[i][j].open();
 			}
 		}
-		DataManager.mainWindow().lost();
+		DataManager.getData().mainWindow().lost();
 	}
 	
 	public void won(){
-		DataManager.won();
+		DataManager.getData().won();
 		for (int i = 0; i < fields.length; i++){
 			for (int j = 0; j < fields[i].length; j++){
 				if (fields[i][j] != null && fields[i][j].isHidden()) fields[i][j].open();
 			}
 		}
-		DataManager.mainWindow().won();
+		DataManager.getData().mainWindow().won();
 	}
 }
