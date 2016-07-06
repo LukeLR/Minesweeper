@@ -113,6 +113,7 @@ public class HighscoreStage extends Stage {
 		TableColumn fieldWidth = new TableColumn("Field width:");
 		TableColumn fieldHeight = new TableColumn("Field heighth:");
 		TableColumn mines = new TableColumn ("Mines:");
+		tableView.getColumns().addAll(fieldWidth, fieldHeight, mines);
 		return tableView;
 	}
 	
