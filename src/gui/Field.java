@@ -83,7 +83,7 @@ public class Field extends GridPane {
 					this.add(bomb, 0, 0);
 					this.setVgrow(bomb, Priority.ALWAYS);
 					this.setHgrow(bomb, Priority.ALWAYS);
-					DataManager.mainWindow().getGamePane().lost();
+					if (!DataManager.isLost()) DataManager.mainWindow().getGamePane().lost();
 				}
 			} else {
 				if (DataManager.firstClick()){
