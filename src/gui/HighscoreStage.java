@@ -84,10 +84,10 @@ public class HighscoreStage extends Stage {
 		
 		tabPane.getTabs().addAll(easyTab, intermediateTab, hardTab, customTab);
 		
-		TableView easyTable = createTableView();
-		TableView intermediateTable = createTableView();
-		TableView hardTable = createTableView();
-		TableView customTable = createTableViewCustom();
+		HighscoreTableView easyTable = new HighscoreTableView(false);
+		HighscoreTableView intermediateTable = new HighscoreTableView(false);
+		HighscoreTableView hardTable = new HighscoreTableView(false);
+		HighscoreTableView customTable = new HighscoreTableView(true);
 		
 		easyTab.setContent(easyTable);
 		intermediateTab.setContent(intermediateTable);
