@@ -2,11 +2,13 @@ package meta;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class HighscoreList implements Serializable {
+public class HighscoreList implements Serializable,Iterable<HighscoreEntry> {
+	private static final long serialVersionUID = 1328831942175681643L;
 	private ArrayList<HighscoreEntry> entries;
 	
 	public HighscoreList(){
@@ -80,5 +82,9 @@ public class HighscoreList implements Serializable {
 			new HighscoreEntry("foo", System.currentTimeMillis(), 23478123, 123),
 			new HighscoreEntry("bar", System.currentTimeMillis(), 32194578, 123)
 		);
+	}
+
+	public Iterator<HighscoreEntry> iterator() {
+		return entries.iterator();
 	}
 }
