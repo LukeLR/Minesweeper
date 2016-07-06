@@ -60,50 +60,53 @@ public class Field extends GridPane {
 	}
 	
 	public void open(){
-		hidden = false;
-		this.disableProperty().set(true);
-		if (mine){
-			if (DataManager.firstClick()){
-				DataManager.firstClicked();
-				DataManager.mainWindow().startTimer();
-				//DataManager.resetFirstClick(); //TODO: Reset first click if it was mine?
-				System.out.println("First Click was a Mine!");
-				mine = false;
-				((GamePane)(this.getParent())).setMines(1);
-				hidden = true;
-				open();
+		if (hidden){
+			hidden = false;
+			DataManager.addMove();
+			this.disableProperty().set(true);
+			if (mine){
+				if (DataManager.firstClick()){
+					DataManager.firstClicked();
+					DataManager.mainWindow().startTimer();
+					//DataManager.resetFirstClick(); //TODO: Reset first click if it was mine?
+					System.out.println("First Click was a Mine!");
+					mine = false;
+					((GamePane)(this.getParent())).setMines(1);
+					hidden = true;
+					open();
+				} else {
+					bomb = new ImageView(new Image(getClass().getResourceAsStream("bomb.png")));
+					bomb.preserveRatioProperty().set(true);
+					bomb.setFitWidth(this.getWidth()-0.25*this.getWidth());
+					this.setHalignment(bomb, HPos.CENTER);
+					this.setValignment(bomb, VPos.CENTER);
+					this.add(bomb, 0, 0);
+					this.setVgrow(bomb, Priority.ALWAYS);
+					this.setHgrow(bomb, Priority.ALWAYS);
+					DataManager.mainWindow().getGamePane().lost();
+				}
 			} else {
-				bomb = new ImageView(new Image(getClass().getResourceAsStream("bomb.png")));
-				bomb.preserveRatioProperty().set(true);
-				bomb.setFitWidth(this.getWidth()-0.25*this.getWidth());
-				this.setHalignment(bomb, HPos.CENTER);
-				this.setValignment(bomb, VPos.CENTER);
-				this.add(bomb, 0, 0);
-				this.setVgrow(bomb, Priority.ALWAYS);
-				this.setHgrow(bomb, Priority.ALWAYS);
-				DataManager.mainWindow().getGamePane().lost();
-			}
-		} else {
-			if (DataManager.firstClick()){
-				DataManager.firstClicked();
-				DataManager.mainWindow().startTimer();
-			}
-			DataManager.setHiddenFields(DataManager.getHiddenFields() -  1);
-			if (DataManager.getHiddenFields()-DataManager.getMines() == 0) DataManager.mainWindow().getGamePane().won();
-			countNeighbourMines();
-			if (flagged) unflag();
-			if (neighbourMines == 0){
-//				if (tl != null && tl.isHidden()) tl.open();
-				if (tc != null && tc.isHidden()) tc.open();
-//				if (tr != null && tr.isHidden()) tr.open();
-				if (ml != null && ml.isHidden()) ml.open();
-				if (mr != null && mr.isHidden()) mr.open();
-//				if (bl != null && bl.isHidden()) bl.open();
-				if (bc != null && bc.isHidden()) bc.open();
-//				if (br != null && br.isHidden()) br.open();
-			} else {
-				displayMineNum();
-			}
+				if (DataManager.firstClick()){
+					DataManager.firstClicked();
+					DataManager.mainWindow().startTimer();
+				}
+				DataManager.setHiddenFields(DataManager.getHiddenFields() -  1);
+				if (DataManager.getHiddenFields()-DataManager.getMines() == 0) DataManager.mainWindow().getGamePane().won();
+				countNeighbourMines();
+				if (flagged) unflag();
+				if (neighbourMines == 0){
+//					if (tl != null && tl.isHidden()) tl.open();
+					if (tc != null && tc.isHidden()) tc.open();
+//					if (tr != null && tr.isHidden()) tr.open();
+					if (ml != null && ml.isHidden()) ml.open();
+					if (mr != null && mr.isHidden()) mr.open();
+//					if (bl != null && bl.isHidden()) bl.open();
+					if (bc != null && bc.isHidden()) bc.open();
+//					if (br != null && br.isHidden()) br.open();
+				} else {
+					displayMineNum();
+				}
+			}	
 		}
 	}
 	
