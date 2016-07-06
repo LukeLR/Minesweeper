@@ -50,9 +50,9 @@ public class MainWindow extends Application {
 	private Label yTilesLabel;
 	private Label xTilesLabel;
 	private Label minesLabel;
-	private Spinner<Integer> xTilesSpinner;
-	private Spinner<Integer> yTilesSpinner;
-	private Spinner<Integer> minesSpinner;
+	private AutoCommitSpinner<Integer> xTilesSpinner;
+	private AutoCommitSpinner<Integer> yTilesSpinner;
+	private AutoCommitSpinner<Integer> minesSpinner;
 	private Text mineNum;
 	private TimerText timerText;
 	private Stage primaryStage;
@@ -137,9 +137,9 @@ public class MainWindow extends Application {
 		yTilesLabel = new Label("Height:");
 		minesLabel = new Label("Mines:");
 
-		xTilesSpinner = new Spinner<Integer>(1, 100, DataManager.getData().getXFields());
-		yTilesSpinner = new Spinner<Integer>(1, 100, DataManager.getData().getYFields());
-		minesSpinner = new Spinner<Integer>(1, 100, DataManager.getData().getMines());
+		xTilesSpinner = new AutoCommitSpinner<Integer>(1, 100, DataManager.getData().getXFields());
+		yTilesSpinner = new AutoCommitSpinner<Integer>(1, 100, DataManager.getData().getYFields());
+		minesSpinner = new AutoCommitSpinner<Integer>(1, 100, DataManager.getData().getMines());
 
 		xTilesSpinner.setEditable(true);
 		yTilesSpinner.setEditable(true);
