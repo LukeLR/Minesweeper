@@ -93,7 +93,6 @@ public class HighscoreList implements Serializable,Iterable<HighscoreEntry> {
 	public ObservableList<HighscoreEntry> getObservableList(){
 		ObservableList<HighscoreEntry> data = FXCollections.observableArrayList();
 		data.addAll(entries);
-		System.out.println("Number of Entries: " + entries.size() + ", " + data.size());
 		return data;
 	}
 
