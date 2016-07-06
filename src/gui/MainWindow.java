@@ -286,6 +286,7 @@ public class MainWindow extends Application {
 	public void won(){
 		timerText.stop();
 		this.fp.setFace(FacePane.LOVING_FACE);
-		DataManager.getHighscoresEasy().add(new HighscoreEntry(1, name.getText(), LocalDateTime.now(), Duration.ofMinutes(234), 1234, 1234, 1234, 1234));
+		DataManager.addHighscoreEntry(new HighscoreEntry(1, name.getText(), timerText.startTime(), timerText.duration(),
+				DataManager.getMoves(), DataManager.getXFields(), DataManager.getYFields(), DataManager.getMines()));
 	}
 }
