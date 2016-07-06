@@ -296,6 +296,7 @@ public class Data implements Serializable {
 	}
 	
 	public void resetHighscores(){
+		System.out.println("Creating new Highscore Lists");
 		HighscoreList easy = new HighscoreList();
 		HighscoreList intermediate = new HighscoreList();
 		HighscoreList hard = new HighscoreList();
