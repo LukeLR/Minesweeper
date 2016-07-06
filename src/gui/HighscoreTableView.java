@@ -5,6 +5,7 @@ package gui;
 
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import meta.HighscoreEntry;
 import meta.HighscoreList;
 
 public class HighscoreTableView<S> extends TableView<S> {
@@ -50,7 +51,9 @@ public class HighscoreTableView<S> extends TableView<S> {
 	public void fillWithData(){
 		if (list == null){}//TODO: Fehlermeldung!
 		else {
-			
+			for (HighscoreEntry i : list){
+				number.cellValueFactoryProperty().set
+			}
 		}
 	}
 	
