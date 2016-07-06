@@ -1,19 +1,24 @@
 package gui;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.temporal.TemporalAmount;
+
 import javafx.scene.text.Text;
 
 public class TimerText extends Text implements Runnable {
-	private long startMillis = 0L;
+	private LocalDateTime startTime;
 	private int updateMillis = 100;
 	private Thread t;
 	private boolean running = false;
 	
 	public TimerText(){
 		super("Time: 0:0.0");
+		startTime = LocalDateTime.now();
 	}
 	
 	public void run(){
-		startMillis = System.currentTimeMillis();
+		startTime = LocalDateTime.now();
 		while (running){
 			update();
 			try {
@@ -42,15 +47,43 @@ public class TimerText extends Text implements Runnable {
 	}
 	
 	public void reset(){
-		startMillis = System.currentTimeMillis();
+		startTime = LocalDateTime.now();
 	}
 	
 	public String toString(){
-		long diff = System.currentTimeMillis() - startMillis;
-		int seconds = (int)((diff % (1000 * 60))/1000);
-		int minutes = (int)((diff % (1000 * 60 * 60))/(1000*60));
-		int millis = (int)(diff % 1000);
-		return String.valueOf(minutes) + ":" + String.valueOf(seconds) + "." + String.valueOf(millis).substring(0, 1);
+		return durationToString(duration());
+	}
+	
+	public LocalDateTime difference(LocalDateTime a, LocalDateTime b){
+		LocalDateTime result;
+		if (b.isAfter(a)){
+			result = LocalDateTime.of(b.getYear()-a.getYear(),
+					b.getMonthValue()-a.getMonthValue(), b.getDayOfMonth()-a.getDayOfMonth(),
+					b.getHour()-a.getHour(), b.getMinute()-a.getMinute(),
+					b.getSecond()-a.getSecond(), b.getNano()-a.getNano());
+		} else {
+			result = LocalDateTime.of(a.getYear()-b.getYear(),
+					a.getMonthValue()-b.getMonthValue(), a.getDayOfMonth()-b.getDayOfMonth(),
+					a.getHour()-b.getHour(), a.getMinute()-b.getMinute(),
+					a.getSecond()-b.getSecond(), a.getNano()-b.getNano());
+		}
+		return result;
+	}
+	
+	public Duration duration(LocalDateTime a, LocalDateTime b){
+		return Duration.between(a, b);
+	}
+	
+	public Duration duration(){
+		return Duration.between(startTime, LocalDateTime.now());
+	}
+	
+	public LocalDateTime startTime(){
+		return startTime;
+	}
+	
+	public String durationToString(Duration duration){
+		return duration.toMinutes() + ":" + duration.getSeconds() % 60 + "." + String.valueOf(duration.getNano()).substring(0, 1);
 	}
 	
 	public void update(){
