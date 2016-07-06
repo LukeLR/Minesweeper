@@ -95,4 +95,8 @@ public class DataManager {
 	public static void addMove(){check(); data.addMove();}
 	
 	public static void resetMoves(){check(); data.resetMoves();}
+	
+	public static void lost(){check(); data.lost();}
+	
+	public static void won(){check(); data.won();}
 }

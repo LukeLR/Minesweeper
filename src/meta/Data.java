@@ -32,6 +32,8 @@ public class Data implements Serializable {
 	private int height = 1000;
 	private int mode = 0;
 	private int moves = 0;
+	private boolean lost = false;
+	private boolean won = false;
 	private int hiddenFields = xFields * yFields;
 	public boolean firstClick = true;
 	
@@ -271,5 +273,23 @@ public class Data implements Serializable {
 	
 	public void resetMoves(){
 		moves = 0;
+	}
+	
+	public void lost(){
+		this.lost = true;
+		this.won = false;
+	}
+	
+	public void won(){
+		this.won = true;
+		this.lost = false;
+	}
+	
+	public boolean isLost(){
+		return lost;
+	}
+	
+	public boolean isWon(){
+		return won && !lost;
 	}
 }
