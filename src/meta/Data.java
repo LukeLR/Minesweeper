@@ -253,10 +253,11 @@ public class Data implements Serializable {
 	
 	public void addHighscoreEntry(HighscoreEntry entry){
 		switch(getMode()){
-			case EASY: getHighscoresEasy().add(entry); break;
-			case INTERMEDIATE: getHighscoresIntermediate().add(entry); break;
-			case HARD: getHighscoresHard().add(entry); break;
-			case CUSTOM: getHighscoresCustom().add(entry); break;
+			case EASY: getHighscoresEasy().add(entry); System.out.println("Adding Highscore Entry to EASY"); break; //TODO: Remove
+			case INTERMEDIATE: getHighscoresIntermediate().add(entry); System.out.println("Adding Highscore Entry to INTERMEDIATE"); break; //TODO: Remove
+			case HARD: getHighscoresHard().add(entry); System.out.println("Adding Highscore Entry to HARD"); break; //TODO: Remove
+			case CUSTOM: getHighscoresCustom().add(entry); System.out.println("Adding Highscore Entry to CUSTOM"); break; //TODO: Remove
+			default: System.out.println("Invalid gameMode when adding HighscoreEntry!"); //TODO: Remove
 		}
 	}
 	
