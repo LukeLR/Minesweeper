@@ -67,6 +67,7 @@ public class HighscoreTableView extends TableView<HighscoreEntry> {
 //				number.cellValueFactoryProperty().set
 //			}
 //		}
+		this.setItems(list.getObservableList());
 	}
 	
 	public void fillWithData(HighscoreList list){

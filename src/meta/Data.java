@@ -48,9 +48,9 @@ public class Data implements Serializable {
 		HighscoreList custom = new HighscoreList();
 		
 		//Testing purposes //TODO: Remove!
-		System.out.println("Initialising demo entries");
-		easy.add("asdf", 432151, 237509817, 1324);
-		easy.add("19823741324", 34532134, 21341324, 3234);
+//		System.out.println("Initialising demo entries");
+//		easy.add("asdf", 432151, 237509817, 1324);
+//		easy.add("19823741324", 34532134, 21341324, 3234);
 	}
 	
 	public void setMode(int newMode){

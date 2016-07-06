@@ -223,9 +223,9 @@ public class MainWindow extends Application {
 		
 		highscores.setOnAction((event) -> {
 			HighscoreList scores = DataManager.getHighscoresEasy();
-			scores.add("asdf", System.currentTimeMillis(), 84217, 34);
-			scores.add("foo", System.currentTimeMillis(), 8751324, 27);
-			scores.add("bar", System.currentTimeMillis(), 87425, 345);
+//			scores.add("asdf", System.currentTimeMillis(), 84217, 34);
+//			scores.add("foo", System.currentTimeMillis(), 8751324, 27);
+//			scores.add("bar", System.currentTimeMillis(), 87425, 345);
 			new HighscoreStage();
 		});
 
