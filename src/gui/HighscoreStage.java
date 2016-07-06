@@ -30,6 +30,15 @@ import meta.HighscoreList;
 
 public class HighscoreStage extends Stage {
 	
+	private HighscoreTableView easyTable;
+	private HighscoreTableView intermediateTable;
+	private HighscoreTableView hardTable;
+	private HighscoreTableView customTable;
+	private Tab easyTab;
+	private Tab intermediateTab;
+	private Tab hardTab;
+	private Tab customTab;
+
 	public HighscoreStage(){
 		super.setTitle("Highscore");
 		super.setScene(createScene());
@@ -72,10 +81,10 @@ public class HighscoreStage extends Stage {
 	private TabPane createTabPane(){
 		TabPane tabPane = new TabPane();
 		
-		Tab easyTab = new Tab("Easy");
-		Tab intermediateTab = new Tab("Intermediate");
-		Tab hardTab = new Tab("Hard");
-		Tab customTab = new Tab("Custom");
+		easyTab = new Tab("Easy");
+		intermediateTab = new Tab("Intermediate");
+		hardTab = new Tab("Hard");
+		customTab = new Tab("Custom");
 		
 		easyTab.setClosable(false);
 		intermediateTab.setClosable(false);
@@ -84,23 +93,25 @@ public class HighscoreStage extends Stage {
 		
 		tabPane.getTabs().addAll(easyTab, intermediateTab, hardTab, customTab);
 		
-		HighscoreTableView easyTable = new HighscoreTableView(false);
-		HighscoreTableView intermediateTable = new HighscoreTableView(false);
-		HighscoreTableView hardTable = new HighscoreTableView(false);
-		HighscoreTableView customTable = new HighscoreTableView(true);
+		easyTable = new HighscoreTableView(false);
+		intermediateTable = new HighscoreTableView(false);
+		hardTable = new HighscoreTableView(false);
+		customTable = new HighscoreTableView(true);
 		
 		easyTab.setContent(easyTable);
 		intermediateTab.setContent(intermediateTable);
 		hardTab.setContent(hardTable);
 		customTab.setContent(customTable);
 		
+		return tabPane;
+	}
+	
+	private void loadData(){
 		easyTable.fillWithData(DataManager.getHighscoresEasy());
 		intermediateTable.fillWithData(DataManager.getHighscoresIntermediate());
 		hardTable.fillWithData(DataManager.getHighscoresHard());
 		customTable.fillWithData(DataManager.getHighscoresCustom());
-		
-		return tabPane;
-	} 
+	}
 	
 	private HBox createBottom(){
 		HBox hBox = new HBox();
