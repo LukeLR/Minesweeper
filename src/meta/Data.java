@@ -249,4 +249,13 @@ public class Data implements Serializable {
 	public void firstClicked(){
 		firstClick = false;
 	}
+	
+	public void addHighscoreEntry(HighscoreEntry entry){
+		switch(getMode()){
+			case EASY: getHighscoresEasy().add(entry); break;
+			case INTERMEDIATE: getHighscoresIntermediate().add(entry); break;
+			case HARD: getHighscoresHard().add(entry); break;
+			case CUSTOM: getHighscoresCustom().add(entry); break;
+		}
+	}
 }
