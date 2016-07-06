@@ -128,6 +128,7 @@ public class HighscoreStage extends Stage {
 		Button reset = new Button("Reset Highscores");
 		hBox.getChildren().addAll(reset);
 		reset.setOnAction((event) -> {
+			System.out.println("Resetting Highscores..."); //TODO: Remove
 			DataManager.resetHighscores();
 			loadData();
 		});
