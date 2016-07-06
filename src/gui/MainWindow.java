@@ -279,11 +279,13 @@ public class MainWindow extends Application {
 	}
 	
 	public void lost(){
+		System.out.println("Lost!"); //TODO: Remove
 		timerText.stop();
 		this.fp.setFace(FacePane.SAD_FACE);
 	}
 	
 	public void won(){
+		System.out.println("Won!"); //TODO: Remove
 		timerText.stop();
 		this.fp.setFace(FacePane.LOVING_FACE);
 		DataManager.addHighscoreEntry(new HighscoreEntry(1, name.getText(), timerText.startTime(), timerText.duration(),

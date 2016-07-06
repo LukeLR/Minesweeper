@@ -91,7 +91,7 @@ public class Field extends GridPane {
 					DataManager.mainWindow().startTimer();
 				}
 				DataManager.setHiddenFields(DataManager.getHiddenFields() -  1);
-				if (DataManager.getHiddenFields()-DataManager.getMines() == 0) DataManager.mainWindow().getGamePane().won();
+				if (DataManager.getHiddenFields()-DataManager.getMines() == 0 && !DataManager.isLost()) DataManager.mainWindow().getGamePane().won();
 				countNeighbourMines();
 				if (flagged) unflag();
 				if (neighbourMines == 0){

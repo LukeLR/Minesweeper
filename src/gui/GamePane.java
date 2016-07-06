@@ -91,6 +91,7 @@ public class GamePane extends GridPane {
 	}
 	
 	public void lost(){
+		DataManager.lost();
 		for (int i = 0; i < fields.length; i++){
 			for (int j = 0; j < fields[i].length; j++){
 				if (fields[i][j] != null && fields[i][j].isHidden()) fields[i][j].open();
@@ -100,6 +101,7 @@ public class GamePane extends GridPane {
 	}
 	
 	public void won(){
+		DataManager.won();
 		for (int i = 0; i < fields.length; i++){
 			for (int j = 0; j < fields[i].length; j++){
 				if (fields[i][j] != null && fields[i][j].isHidden()) fields[i][j].open();
