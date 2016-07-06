@@ -89,4 +89,6 @@ public class DataManager {
 	public static void firstClicked(){check(); data.firstClicked();}
 	
 	public static void addHighscoreEntry(HighscoreEntry entry){check(); data.addHighscoreEntry(entry);}
+	
+	public static int getMoves(){check(); return data.getMoves();}
 }

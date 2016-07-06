@@ -31,6 +31,7 @@ public class Data implements Serializable {
 	private int width = 1000;
 	private int height = 1000;
 	private int mode = 0;
+	private int moves = 0;
 	private int hiddenFields = xFields * yFields;
 	public boolean firstClick = true;
 	
@@ -257,5 +258,17 @@ public class Data implements Serializable {
 			case HARD: getHighscoresHard().add(entry); break;
 			case CUSTOM: getHighscoresCustom().add(entry); break;
 		}
+	}
+	
+	public int getMoves(){
+		return moves;
+	}
+	
+	public void addMove(){
+		moves++;
+	}
+	
+	public void resetMoves(){
+		moves = 0;
 	}
 }
