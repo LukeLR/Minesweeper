@@ -99,4 +99,8 @@ public class DataManager {
 	public static void lost(){check(); data.lost();}
 	
 	public static void won(){check(); data.won();}
+	
+	public static boolean isLost(){check(); return data.isLost();}
+	
+	public static boolean isWon(){check(); return data.isWon();}
 }
