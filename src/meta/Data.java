@@ -44,7 +44,7 @@ public class Data implements Serializable {
 	private HighscoreList custom;
 	
 	public Data(){
-		setMode(EASY);
+		reset();
 		HighscoreList easy = new HighscoreList();
 		HighscoreList intermediate = new HighscoreList();
 		HighscoreList hard = new HighscoreList();
@@ -54,6 +54,16 @@ public class Data implements Serializable {
 //		System.out.println("Initialising demo entries");
 //		easy.add("asdf", 432151, 237509817, 1324);
 //		easy.add("19823741324", 34532134, 21341324, 3234);
+	}
+	
+	public void reset(){
+		setMode(EASY);
+		lost = false;
+		won = false;
+		resetMoves();
+		this.resetFlagsSet();
+		this.resetFirstClick();
+		this.resetHiddenFields();
 	}
 	
 	public void setMode(int newMode){

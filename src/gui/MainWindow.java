@@ -258,10 +258,8 @@ public class MainWindow extends Application {
 		} else {
 			gp.newGame(DataManager.getXFields(), DataManager.getYFields(), DataManager.getMines());
 		}
-		DataManager.resetFlagsSet();
+		DataManager.reset();
 		updateMineNum();
-		DataManager.resetFirstClick();
-		DataManager.resetHiddenFields();
 	}
 	
 	public GamePane getGamePane(){

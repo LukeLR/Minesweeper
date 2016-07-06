@@ -103,4 +103,6 @@ public class DataManager {
 	public static boolean isLost(){check(); return data.isLost();}
 	
 	public static boolean isWon(){check(); return data.isWon();}
+	
+	public static void reset(){check(); data.reset();}
 }
