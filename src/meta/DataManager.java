@@ -13,4 +13,9 @@ public class DataManager {
 	public static Data getData(){
 		check(); return data;
 	}
+	
+	public static Data resetData(){
+		data = null;
+		return getData();
+	}
 }
