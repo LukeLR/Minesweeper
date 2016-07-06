@@ -97,26 +97,6 @@ public class HighscoreStage extends Stage {
 		return tabPane;
 	}
 	
-	private TableView<HighscoreEntry> createTableView(){
-		TableView<HighscoreEntry> tableView = new TableView<HighscoreEntry>();
-		TableColumn number = new TableColumn("#");
-		TableColumn name = new TableColumn("Name:");
-		TableColumn startTime = new TableColumn("Start time:");
-		TableColumn duration = new TableColumn("Duration:");
-		TableColumn moves = new TableColumn("Moves:");
-		tableView.getColumns().addAll(number, name, startTime, duration, moves);
-		return tableView;
-	}
-	
-	private TableView<HighscoreEntry> createTableViewCustom(){
-		TableView tableView = createTableView();
-		TableColumn fieldWidth = new TableColumn("Field width:");
-		TableColumn fieldHeight = new TableColumn("Field heighth:");
-		TableColumn mines = new TableColumn ("Mines:");
-		tableView.getColumns().addAll(fieldWidth, fieldHeight, mines);
-		return tableView;
-	}
-	
 	private HBox createBottom(){
 		HBox hBox = new HBox();
 		hBox.setAlignment(Pos.CENTER_RIGHT);
