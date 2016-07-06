@@ -138,8 +138,4 @@ public class HighscoreStage extends Stage {
 		
 		return hBox;
 	}
-	public void reset(){
-		
-		super.setScene(createScene());
-	}
 }
