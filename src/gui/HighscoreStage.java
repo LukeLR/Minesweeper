@@ -109,6 +109,15 @@ public class HighscoreStage extends Stage {
 		
 		Button ok = new Button("OK");
 		hBox.getChildren().add(ok);
+		ok.setOnAction((event) -> {
+			close();
+		});
+		
+		Button reset = new Button("Reset Highscores");
+		hBox.getChildren().addAll(reset);
+		reset.setOnAction((event) -> {
+			DataManager.resetHighscores();
+		});
 		
 		return hBox;
 	}
