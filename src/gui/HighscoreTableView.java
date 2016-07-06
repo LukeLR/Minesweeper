@@ -8,11 +8,11 @@ import javafx.scene.control.TableView;
 import meta.HighscoreEntry;
 import meta.HighscoreList;
 
-public class HighscoreTableView<S> extends TableView<S> {
+public class HighscoreTableView extends TableView<HighscoreEntry> {
 	private HighscoreList list;
 	private boolean isCustomHighscoreTable = false;
-	private TableColumn number, name, startTime, duration, moves;
-	private TableColumn fieldWidth, fieldHeight, mines;
+	private TableColumn<HighscoreEntry, Integer> number, moves, fieldWidth, fieldHeight, mines;
+	private TableColumn<HighscoreEntry, String> name, startTime, duration;
 	
 	public HighscoreTableView(){
 		this(null);
@@ -49,12 +49,12 @@ public class HighscoreTableView<S> extends TableView<S> {
 	}
 	
 	public void fillWithData(){
-		if (list == null){}//TODO: Fehlermeldung!
-		else {
-			for (HighscoreEntry i : list){
-				number.cellValueFactoryProperty().set
-			}
-		}
+//		if (list == null){}//TODO: Fehlermeldung!
+//		else {
+//			for (HighscoreEntry i : list){
+//				number.cellValueFactoryProperty().set
+//			}
+//		}
 	}
 	
 	public void fillWithData(HighscoreList list){
