@@ -1,5 +1,9 @@
 package meta;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.ObjectStreamException;
 import java.io.Serializable;
 import java.time.Duration;
 import java.time.Instant;
@@ -13,7 +17,7 @@ import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-public class HighscoreEntry implements Serializable{
+public class HighscoreEntry implements Serializable {
 	private SimpleStringProperty name;
 	private SimpleIntegerProperty number, moves, fieldWidth, fieldHeight, mines;
 	private SimpleObjectProperty<LocalDateTime> startTime;
@@ -106,5 +110,23 @@ public class HighscoreEntry implements Serializable{
 	
 	public void setMines(int mines){
 		this.mines.setValue(mines);
+	}
+	
+//	private void writeObject (ObjectOutputStream out) throws IOException {
+//		
+//	}
+//	
+//	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException{
+//		
+//	}
+//	
+//	private void readObjectNoData() throws ObjectStreamException{
+//		
+//	}
+	
+	public Object writeReplace() throws ObjectStreamException {
+		return new HighscoreEntrySerializable(number.getValue(), name.getValue(),
+				startTime.getValue(), duration.getValue(), moves.getValue(),
+				fieldWidth.getValue(), fieldHeight.getValue(), mines.getValue());
 	}
 }
