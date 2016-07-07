@@ -5,6 +5,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalField;
 
 import javafx.beans.property.SimpleIntegerProperty;
@@ -60,7 +61,7 @@ public class HighscoreEntry {
 	}
 	
 	public String getStartTime(){
-		return "StartTime"; //TODO: Do this!
+		return startTime.getValue().format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"));
 	}
 	
 	public void setStartTime(String startTime){
@@ -68,7 +69,7 @@ public class HighscoreEntry {
 	}
 	
 	public String getDuration(){
-		return "Duration"; //TODO: Do this
+		return String.format("%d:%02d.%03d", duration.getValue().getSeconds() / 60, (duration.getValue().getSeconds() % 60), duration.getValue().getNano() / 1000000);
 	}
 	
 	public void setDuration(String duration){
