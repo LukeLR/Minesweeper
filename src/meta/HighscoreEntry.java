@@ -13,7 +13,7 @@ import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-public class HighscoreEntry {
+public class HighscoreEntry implements Serializable{
 	private SimpleStringProperty name;
 	private SimpleIntegerProperty number, moves, fieldWidth, fieldHeight, mines;
 	private SimpleObjectProperty<LocalDateTime> startTime;
