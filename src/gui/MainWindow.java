@@ -64,6 +64,7 @@ public class MainWindow extends Application {
 
 	@SuppressWarnings("unchecked")
 	public void start(Stage primaryStage) throws Exception {
+		DataManager.load();
 		this.primaryStage = primaryStage;
 		DataManager.getData().setMainWindow(this);
 		primaryStage.setTitle("Minesweeper w/ JavaFX");
@@ -234,6 +235,10 @@ public class MainWindow extends Application {
 //			scores.add("foo", System.currentTimeMillis(), 8751324, 27);
 //			scores.add("bar", System.currentTimeMillis(), 87425, 345);
 			new HighscoreStage();
+		});
+		
+		primaryStage.setOnCloseRequest(e -> {
+			DataManager.save();
 		});
 
 		newGame();
