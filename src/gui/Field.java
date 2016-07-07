@@ -50,7 +50,7 @@ public class Field extends GridPane {
 				if (flagged) unflag();
 				else flag();
 			} else {
-				open();
+				clicked();
 			}
 		});
 	}
@@ -59,10 +59,16 @@ public class Field extends GridPane {
 		mine = true;
 	}
 	
+	public void clicked(){
+		if (hidden){
+			if (!DataManager.getData().gameOver()) DataManager.getData().addMove();
+			open();
+		}
+	}
+	
 	public void open(){
 		if (hidden){
 			hidden = false;
-			DataManager.getData().addMove();
 			this.disableProperty().set(true);
 			if (mine){
 				if (DataManager.getData().firstClick()){
