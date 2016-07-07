@@ -319,4 +319,8 @@ public class Data implements Serializable {
 		hard = new HighscoreList();
 		custom = new HighscoreList();
 	}
+	
+	public boolean gameOver(){
+		return won || lost;
+	}
 }
