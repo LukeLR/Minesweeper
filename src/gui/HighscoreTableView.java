@@ -4,6 +4,7 @@
 package gui;
 
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.SortType;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import meta.HighscoreEntry;
@@ -58,6 +59,11 @@ public class HighscoreTableView extends TableView<HighscoreEntry> {
 			fieldHeight.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, Integer>("fieldHeight"));
 			mines.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, Integer>("mines"));
 		}
+		
+		duration.setSortType(TableColumn.SortType.DESCENDING);
+		this.getSortOrder().add(duration);
+		duration.setSortable(true);
+		this.sort();
 	}
 	
 	public void fillWithData(){
