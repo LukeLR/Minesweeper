@@ -145,6 +145,7 @@ public class Data implements Serializable {
 	}
 	
 	public MainWindow mainWindow(){
+		if (mw == null) mw = new MainWindow();
 		return mw;
 	}
 	
@@ -322,5 +323,15 @@ public class Data implements Serializable {
 	
 	public boolean gameOver(){
 		return won || lost;
+	}
+	
+	public void increaseFlagsSet(){
+		this.flagsSet++;
+		this.mainWindow().updateMineNum();
+	}
+	
+	public void decreaseFlagsSet(){
+		this.flagsSet--;
+		this.mainWindow().updateMineNum();
 	}
 }
