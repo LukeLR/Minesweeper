@@ -57,6 +57,8 @@ public class MainWindow extends Application {
 	private TimerText timerText;
 	private Stage primaryStage;
 	private FacePane fp;
+	public boolean customChangesMade = false;
+	private Text changesMadeText;
 
 	public static void main(String args) {
 		launch(args);
@@ -137,6 +139,8 @@ public class MainWindow extends Application {
 		xTilesLabel = new Label("Width:");
 		yTilesLabel = new Label("Height:");
 		minesLabel = new Label("Mines:");
+		changesMadeText = new Text("Click 'New Game' to apply changes!");
+		changesMadeText.setFill(Color.RED);
 
 		xTilesSpinner = new AutoCommitSpinner<Integer>(1, 100, DataManager.getData().getXFields());
 		yTilesSpinner = new AutoCommitSpinner<Integer>(1, 100, DataManager.getData().getYFields());
@@ -150,6 +154,7 @@ public class MainWindow extends Application {
 			if (current) {
 				yTilesSpinner.getValueFactory().setValue(DataManager.getData().getXFields());
 			}
+			this.checkIfCustomChangesMade();
 		});
 
 		xTilesSpinner.valueProperty().addListener((ov, old, current) -> {
@@ -157,6 +162,7 @@ public class MainWindow extends Application {
 			if (proportional.isSelected()) {
 				yTilesSpinner.getValueFactory().setValue(DataManager.getData().getXFields());
 			}
+			this.checkIfCustomChangesMade();
 		});
 
 		yTilesSpinner.valueProperty().addListener((ov, old, current) -> {
@@ -164,10 +170,12 @@ public class MainWindow extends Application {
 			if (proportional.isSelected()) {
 				xTilesSpinner.getValueFactory().setValue(DataManager.getData().getYFields());
 			}
+			this.checkIfCustomChangesMade();
 		});
 
 		minesSpinner.valueProperty().addListener((ov, old, current) -> {
 			DataManager.getData().setMines(minesSpinner.getValueFactory().getValue());
+			this.checkIfCustomChangesMade();
 		});
 
 		difficultyMenu.add(proportional, 0, 0);
@@ -177,6 +185,13 @@ public class MainWindow extends Application {
 		difficultyMenu.add(yTilesSpinner, 4, 0);
 		difficultyMenu.add(minesLabel, 5, 0);
 		difficultyMenu.add(minesSpinner, 6, 0);
+		
+		HBox changesMadeHbox = new HBox();
+		changesMadeHbox.setAlignment(Pos.CENTER_RIGHT);
+		changesMadeHbox.getChildren().add(changesMadeText);
+		this.checkIfCustomChangesMade();
+		
+		difficultyMenu.add(changesMadeHbox, 0, 1, 7, 1);
 
 		difficultyMenu.setVisible(false);
 		
@@ -246,6 +261,17 @@ public class MainWindow extends Application {
 		primaryStage.setScene(mainScene);
 		primaryStage.show();
 	}
+	
+	public void checkIfCustomChangesMade(){
+		if (gp != null){
+			customChangesMade = (DataManager.getData().getXFields() != gp.getXFields() ||
+                                 DataManager.getData().getYFields() != gp.getYFields() ||
+                                 DataManager.getData().getMines() != gp.getMineNum());
+		} else {
+			customChangesMade = true;
+		}
+		this.changesMadeText.setVisible(customChangesMade);
+	}
 
 	public void newGame() {
 		timerText.stop();
@@ -268,6 +294,8 @@ public class MainWindow extends Application {
 			gp.newGame(DataManager.getData().getXFields(), DataManager.getData().getYFields(), DataManager.getData().getMines());
 		}
 		updateMineNum();
+		customChangesMade = false;
+		checkIfCustomChangesMade();
 	}
 	
 	public GamePane getGamePane(){
