@@ -35,6 +35,7 @@ import meta.Data;
 import meta.DataManager;
 import meta.HighscoreEntry;
 import meta.HighscoreList;
+import metagui.AutoCommitSpinner;
 
 public class MainWindow extends Application {
 	BorderPane root;
