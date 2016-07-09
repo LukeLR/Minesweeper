@@ -6,6 +6,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 
 public class HighscoreEntrySerializable implements Serializable {
+	private static final long serialVersionUID = 8100835820719081913L;
 	private String name;
 	private int number, moves, fieldWidth, fieldHeight, mines;
 	private LocalDateTime startTime;

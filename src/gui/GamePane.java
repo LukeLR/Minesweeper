@@ -2,7 +2,6 @@ package gui;
 
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
-import meta.Data;
 import meta.DataManager;
 
 public class GamePane extends GridPane {

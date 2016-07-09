@@ -2,7 +2,6 @@ package gui;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.temporal.TemporalAmount;
 
 import javafx.scene.text.Text;
 

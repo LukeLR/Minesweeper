@@ -3,10 +3,9 @@ package meta;
 import java.io.Serializable;
 
 import gui.MainWindow;
-import javafx.beans.property.ReadOnlyDoubleProperty;
-import javafx.beans.value.ObservableDoubleValue;
 
 public class Data implements Serializable {
+	private static final long serialVersionUID = 7936837128285584936L;
 	public static final int EASY = 0;
 	public static final int INTERMEDIATE = 1;
 	public static final int HARD = 2;
@@ -177,7 +176,7 @@ public class Data implements Serializable {
 	}
 
 	public void setWidth(int width) {
-		width = width;
+		this.width = width;
 	}
 
 	public int getHeight() {
@@ -185,7 +184,7 @@ public class Data implements Serializable {
 	}
 
 	public void setHeight(int height) {
-		height = height;
+		this.height = height;
 	}
 
 	public int getMode() {

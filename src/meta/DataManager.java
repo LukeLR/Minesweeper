@@ -7,8 +7,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import gui.MainWindow;
-
 public class DataManager {
 	private static Data data;
 	private static int i = 0;

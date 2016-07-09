@@ -7,14 +7,11 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import meta.Data;
 import meta.DataManager;
 
 public class Field extends GridPane {
@@ -46,8 +43,8 @@ public class Field extends GridPane {
 		this.setVgap(10d);
 		this.setAlignment(Pos.CENTER);
 		this.add(button, 0, 0);
-		this.setVgrow(button, Priority.ALWAYS);
-		this.setHgrow(button, Priority.ALWAYS);
+		GridPane.setVgrow(button, Priority.ALWAYS);
+		GridPane.setHgrow(button, Priority.ALWAYS);
 		button.setPrefSize(DataManager.getData().getWidth()/DataManager.getData().getXFields(), DataManager.getData().getHeight()/DataManager.getData().getYFields());
 		button.setOnMouseClicked((event) -> {
 			if(event.getButton().equals(MouseButton.SECONDARY)){
@@ -88,11 +85,11 @@ public class Field extends GridPane {
 					bomb = new ImageView(new Image(getClass().getResourceAsStream("bomb.png")));
 					bomb.preserveRatioProperty().set(true);
 					bomb.setFitWidth(this.getWidth()-0.25*this.getWidth());
-					this.setHalignment(bomb, HPos.CENTER);
-					this.setValignment(bomb, VPos.CENTER);
+					GridPane.setHalignment(bomb, HPos.CENTER);
+					GridPane.setValignment(bomb, VPos.CENTER);
 					this.add(bomb, 0, 0);
-					this.setVgrow(bomb, Priority.ALWAYS);
-					this.setHgrow(bomb, Priority.ALWAYS);
+					GridPane.setVgrow(bomb, Priority.ALWAYS);
+					GridPane.setHgrow(bomb, Priority.ALWAYS);
 					if (!DataManager.getData().isLost()) DataManager.getData().mainWindow().getGamePane().lost();
 					if (flagged) flag(COLOR_GREEN, false);
 				}
@@ -136,17 +133,17 @@ public class Field extends GridPane {
 			if (fullSize){
 				flag.setFitHeight(0.75*this.getHeight());
 				this.add(flag, 0, 0);
-				this.setVgrow(flag, Priority.ALWAYS);
-				this.setHgrow(flag, Priority.ALWAYS);
-				this.setHalignment(flag, HPos.CENTER);
-				this.setValignment(flag, VPos.CENTER);
+				GridPane.setVgrow(flag, Priority.ALWAYS);
+				GridPane.setHgrow(flag, Priority.ALWAYS);
+				GridPane.setHalignment(flag, HPos.CENTER);
+				GridPane.setValignment(flag, VPos.CENTER);
 			} else {
 				flag.setFitHeight(0.5*this.getHeight());
 				this.add(flag, 0, 0);
-				this.setVgrow(flag, Priority.NEVER);
-				this.setHgrow(flag, Priority.NEVER);
-				this.setHalignment(flag, HPos.RIGHT);
-				this.setValignment(flag, VPos.BOTTOM);
+				GridPane.setVgrow(flag, Priority.NEVER);
+				GridPane.setHgrow(flag, Priority.NEVER);
+				GridPane.setHalignment(flag, HPos.RIGHT);
+				GridPane.setValignment(flag, VPos.BOTTOM);
 			}
 			flagged = true;
 			DataManager.getData().increaseFlagsSet();
@@ -189,8 +186,8 @@ public class Field extends GridPane {
 		case 8: text.setFill(Color.BLUEVIOLET); break;
 		}
 		this.add(text, 0, 0);
-		this.setHalignment(text, HPos.CENTER);
-		this.setValignment(text, VPos.CENTER);
+		GridPane.setHalignment(text, HPos.CENTER);
+		GridPane.setValignment(text, VPos.CENTER);
 	}
 	
 	//--------------------------------------------------------------------------\\
