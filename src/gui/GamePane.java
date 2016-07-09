@@ -109,4 +109,16 @@ public class GamePane extends GridPane {
 		}
 		DataManager.getData().mainWindow().won();
 	}
+	
+	public int getXFields(){
+		return this.xFields;
+	}
+	
+	public int getYFields(){
+		return this.yFields;
+	}
+	
+	public int getMineNum(){
+		return this.mines;
+	}
 }
