@@ -3,12 +3,15 @@
  */
 package gui;
 
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.SortType;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 import meta.HighscoreEntry;
 import meta.HighscoreList;
+import metagui.RowNumberCell;
 
 public class HighscoreTableView extends TableView<HighscoreEntry> {
 	private HighscoreList list;
@@ -49,7 +52,13 @@ public class HighscoreTableView extends TableView<HighscoreEntry> {
 			this.getColumns().addAll(fieldWidth, fieldHeight, mines);
 		}
 		
-		number.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, Integer>("number"));
+		number.setCellFactory(new Callback<TableColumn<HighscoreEntry, Integer>, TableCell<HighscoreEntry, Integer>>() {
+		    @Override public TableCell<HighscoreEntry, Integer> call(TableColumn<HighscoreEntry, Integer> param) {
+		        return new RowNumberCell<HighscoreEntry, Integer>();
+		    }
+		});
+		
+//		number.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, Integer>("number"));
 		name.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, String>("name"));
 		startTime.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, String>("startTime"));
 		duration.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, String>("duration"));
