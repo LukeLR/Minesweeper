@@ -1,7 +1,9 @@
 package meta;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
@@ -36,10 +38,13 @@ public class DataManager {
 			ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
 			objectOutputStream.writeObject(data);
 			objectOutputStream.close();
-		} catch (Exception ex){
+		} catch (FileNotFoundException ex){
+			System.out.println("File " + path + " not found or no access permission. No loading.");
 			ex.printStackTrace();
-			//TODO: Better error Handling
-		}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
 	}
 	
 	public static void load(){
@@ -53,9 +58,15 @@ public class DataManager {
 			ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
 			data = (Data)objectInputStream.readObject();
 			objectInputStream.close();
-		} catch (Exception ex){
+		} catch (FileNotFoundException ex){
+			System.out.println("File " + path + " not found or no access permission. No loading.");
 			ex.printStackTrace();
-			//TODO: Better error handling
-		}
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
 	}
 }
