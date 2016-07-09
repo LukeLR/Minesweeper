@@ -24,15 +24,6 @@ public class HighscoreEntrySerializable implements Serializable {
 		this.mines = mines;
 	}
 	
-//	public int getNumber(){ return number; }
-//	public String getName(){ return name; }
-//	public LocalDateTime getStartTime(){ return startTime; }
-//	public Duration getDuration(){ return duration; }
-//	public int getMoves(){ return moves; }
-//	public int getFieldWidth(){ return fieldWidth; }
-//	public int getFieldHeight(){ return fieldHeight; }
-//	public int getMines(){ return mines; }
-	
 	public Object readResolve() throws ObjectStreamException {
 		return new HighscoreEntry(number, name, startTime, duration, moves, 
 				fieldWidth, fieldHeight, mines);

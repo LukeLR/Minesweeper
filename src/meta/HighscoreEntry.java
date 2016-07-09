@@ -112,18 +112,6 @@ public class HighscoreEntry implements Serializable {
 		this.mines.setValue(mines);
 	}
 	
-//	private void writeObject (ObjectOutputStream out) throws IOException {
-//		
-//	}
-//	
-//	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException{
-//		
-//	}
-//	
-//	private void readObjectNoData() throws ObjectStreamException{
-//		
-//	}
-	
 	public Object writeReplace() throws ObjectStreamException {
 		return new HighscoreEntrySerializable(number.getValue(), name.getValue(),
 				startTime.getValue(), duration.getValue(), moves.getValue(),

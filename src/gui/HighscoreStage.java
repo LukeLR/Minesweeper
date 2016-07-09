@@ -59,7 +59,6 @@ public class HighscoreStage extends Stage {
 	
 	private BorderPane createRoot(){
 		BorderPane borderPane = new BorderPane();
-//		borderPane.setPadding(new Insets(10, 10, 10, 10));
 		
 		borderPane.setCenter(createCenter());
 		borderPane.setBottom(createBottom());

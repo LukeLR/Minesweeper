@@ -74,7 +74,6 @@ public class MainWindow extends Application {
 		this.primaryStage = primaryStage;
 		DataManager.getData().setMainWindow(this);
 		primaryStage.setTitle("Minesweeper w/ JavaFX");
-		// AnchorPane aP = new AnchorPane();
 		root = new BorderPane();
 		menues = new GridPane();
 		mainMenu = new GridPane();
@@ -96,25 +95,6 @@ public class MainWindow extends Application {
 		stats.setVgap(10d);
 		root.setPadding(new Insets(25, 25, 25, 25));
 		
-//		lostPane = new GridPane();
-//		lostPane.setAlignment(Pos.CENTER);
-//		lostPane.setHgap(10d);
-//		lostPane.setVgap(10d);
-//		wonPane = new GridPane();
-//		wonPane.setAlignment(Pos.CENTER);
-//		wonPane.setHgap(10d);
-//		wonPane.setVgap(10d);
-//		lost = new Scene(lostPane, DataManager.getData().getWidth(), DataManager.getData().getHeight());
-//		won = new Scene(wonPane, DataManager.getData().getWidth(), DataManager.getData().getHeight());
-//		Canvas lostCanvas = new Canvas(DataManager.getData().getWidth(), DataManager.getData().getHeight());
-//		GraphicsContext gc = lostCanvas.getGraphicsContext2D();
-//		gc.setFill(Color.RED);
-//		gc.fillRect(0, 0, DataManager.getData().getWidth(), DataManager.getData().getHeight());
-//		Text gameOver = new Text("Game Over");
-//		gameOver.setFont(Font.font("Verdana", 100));
-//		lostPane.add(lostCanvas, 0, 0);
-//		lostPane.add(gameOver, 0, 0);
-
 		mineNum = new Text();
 		updateMineNum();
 		mineNum.setFont(Font.font("Courier New", 50));
@@ -253,9 +233,6 @@ public class MainWindow extends Application {
 		
 		highscores.setOnAction((event) -> {
 			HighscoreList scores = DataManager.getData().getHighscoresEasy();
-//			scores.add("asdf", System.currentTimeMillis(), 84217, 34);
-//			scores.add("foo", System.currentTimeMillis(), 8751324, 27);
-//			scores.add("bar", System.currentTimeMillis(), 87425, 345);
 			new HighscoreStage();
 		});
 		
@@ -288,15 +265,7 @@ public class MainWindow extends Application {
 		fp.setFace(FacePane.SLEEPY_FACE);
 		DataManager.getData().reset();
 		if (gp == null) {
-//			ScrollPane sp = new ScrollPane();
 			gp = new GamePane(DataManager.getData().getXFields(), DataManager.getData().getYFields(), DataManager.getData().getMines());
-//			gp.setMaxWidth(DataManager.getData().getWidth());
-//			gp.setMaxHeight(DataManager.getData().getHeight()-menues.getHeight()-stats.getHeight());
-//			sp.setFitToWidth(true);
-//			sp.setFitToHeight(true);
-//			sp.setContent(gp);
-//			sp.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
-//			sp.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
 			root.setCenter(gp);
 		} else {
 			gp.newGame(DataManager.getData().getXFields(), DataManager.getData().getYFields(), DataManager.getData().getMines());
