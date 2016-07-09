@@ -59,10 +59,10 @@ public class MainWindow extends Application {
 	private FacePane fp;
 	public boolean customChangesMade = false;
 	private Text changesMadeText;
-	private String easy = new String("easy");
-	private String intermediate = new String("intermediate");
-	private String hard = new String("hard");
-	private String custom = new String("custom");
+	public static final String EASY = "EASY";
+	public static final String INTERMEDIATE = "INTERMEDIATE";
+	public static final String HARD = "HARD";
+	public static final String CUSTOM = "CUSTOM";
 
 	public static void main(String args) {
 		launch(args);
@@ -130,8 +130,14 @@ public class MainWindow extends Application {
 		nameLabel = new Label("Your name:");
 
 		difficulty = new ComboBox<String>();
-		difficulty.getItems().addAll(easy, intermediate, hard, custom);
-		difficulty.setValue(easy);
+		difficulty.getItems().addAll(EASY, INTERMEDIATE, HARD, CUSTOM);
+		switch(DataManager.getData().getMode()){
+		case Data.EASY: difficulty.setValue(EASY); break;
+		case Data.INTERMEDIATE: difficulty.setValue(INTERMEDIATE); break;
+		case Data.HARD: difficulty.setValue(HARD); break;
+		case Data.CUSTOM: difficulty.setValue(CUSTOM); break;
+		default: difficulty.setValue(EASY); break;
+		}
 
 		name = new TextField("Max Mustermann");
 
@@ -201,22 +207,22 @@ public class MainWindow extends Application {
 		
 		difficulty.valueProperty().addListener((ov, old, current) -> {
 			switch(current.toString()){
-			case easy:
+			case EASY:
 				DataManager.getData().setMode(Data.EASY);
 				difficultyMenu.setVisible(false);
 				newGame();
 				break;
-			case intermediate:
+			case INTERMEDIATE:
 				DataManager.getData().setMode(Data.INTERMEDIATE);
 				difficultyMenu.setVisible(false);
 				newGame();
 				break;
-			case hard:
+			case HARD:
 				DataManager.getData().setMode(Data.HARD);
 				difficultyMenu.setVisible(false);
 				newGame();
 				break;
-			case custom:
+			case CUSTOM:
 				DataManager.getData().setMode(Data.CUSTOM);
 				difficultyMenu.setVisible(true);
 				xTilesSpinner.getValueFactory().setValue(DataManager.getData().getXFields());
