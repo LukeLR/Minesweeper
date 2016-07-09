@@ -62,7 +62,7 @@ public class AutoCommitSpinner<T> extends Spinner<T> {
 	}
 	
 	private void addTextListener(){
-		this.getEditor().textProperty().addListener((event) -> {
+		this.getEditor().textProperty().addListener((event, oldValue, newValue) -> {
 			if (this.isEditable()){
 				try {
 					SpinnerValueFactory<T> spinnerValueFactory = this.getValueFactory();
@@ -72,9 +72,9 @@ public class AutoCommitSpinner<T> extends Spinner<T> {
 							spinnerValueFactory.setValue(stringConverter.fromString(this.getEditor().getText()));
 						}
 					}
-				} catch (Exception ex){
-					ex.printStackTrace();
-					//TODO: Error handling?
+				} catch (NumberFormatException ex){
+					System.out.println(oldValue + "," + newValue);
+					this.getEditor().setText(oldValue);
 				}
 			}
 		});
