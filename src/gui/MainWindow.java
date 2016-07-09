@@ -59,10 +59,10 @@ public class MainWindow extends Application {
 	private FacePane fp;
 	public boolean customChangesMade = false;
 	private Text changesMadeText;
-	public static final String EASY = "EASY";
-	public static final String INTERMEDIATE = "INTERMEDIATE";
-	public static final String HARD = "HARD";
-	public static final String CUSTOM = "CUSTOM";
+	public static final String EASY = "easy";
+	public static final String INTERMEDIATE = "intermediate";
+	public static final String HARD = "hard";
+	public static final String CUSTOM = "custom";
 
 	public static void main(String args) {
 		launch(args);
