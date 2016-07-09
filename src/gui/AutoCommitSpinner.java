@@ -11,9 +11,9 @@ import javafx.util.StringConverter;
  * afterwards. The expected behaviour is that after entering a value in the Spinner,
  * it is immediately applied to its ValueFactory.
  * 
- * In my Project, Spinners are used to let the user chose his own custom game settings,
- * but, due to this bug, after entering custom mine numbers (for example) without
- * using the Spinner buttons, the newly entered custom mine number is ignored, and
+ * In my Project, Spinners are used to let the user chose his own CUSTOM game settings,
+ * but, due to this bug, after entering CUSTOM mine numbers (for example) without
+ * using the Spinner buttons, the newly entered CUSTOM mine number is ignored, and
  * the previous value is used (since the typed value was not appliedt to the
  * value factory). The bug is filed under
  * https://javafx-jira.kenai.com/browse/RT-39655?page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel
