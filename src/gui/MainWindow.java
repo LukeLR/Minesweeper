@@ -59,6 +59,10 @@ public class MainWindow extends Application {
 	private FacePane fp;
 	public boolean customChangesMade = false;
 	private Text changesMadeText;
+	private String easy = new String("easy");
+	private String intermediate = new String("intermediate");
+	private String hard = new String("hard");
+	private String custom = new String("custom");
 
 	public static void main(String args) {
 		launch(args);
@@ -125,9 +129,9 @@ public class MainWindow extends Application {
 		difficultyLabel = new Label("Difficulty:");
 		nameLabel = new Label("Your name:");
 
-		difficulty = new ComboBox();
-		difficulty.getItems().addAll("Easy", "Intermediate", "Hard", "Custom");
-		difficulty.setValue("Easy");
+		difficulty = new ComboBox<String>();
+		difficulty.getItems().addAll(easy, intermediate, hard, custom);
+		difficulty.setValue(easy);
 
 		name = new TextField("Max Mustermann");
 
@@ -197,22 +201,22 @@ public class MainWindow extends Application {
 		
 		difficulty.valueProperty().addListener((ov, old, current) -> {
 			switch(current.toString()){
-			case "Easy":
+			case easy:
 				DataManager.getData().setMode(Data.EASY);
 				difficultyMenu.setVisible(false);
 				newGame();
 				break;
-			case "Intermediate":
+			case intermediate:
 				DataManager.getData().setMode(Data.INTERMEDIATE);
 				difficultyMenu.setVisible(false);
 				newGame();
 				break;
-			case "Hard":
+			case hard:
 				DataManager.getData().setMode(Data.HARD);
 				difficultyMenu.setVisible(false);
 				newGame();
 				break;
-			case "Custom":
+			case custom:
 				DataManager.getData().setMode(Data.CUSTOM);
 				difficultyMenu.setVisible(true);
 				xTilesSpinner.getValueFactory().setValue(DataManager.getData().getXFields());
