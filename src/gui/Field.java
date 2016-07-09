@@ -18,6 +18,10 @@ import meta.Data;
 import meta.DataManager;
 
 public class Field extends GridPane {
+	public static final int COLOR_ORANGE = 0;
+	public static final int COLOR_RED = 1;
+	public static final int COLOR_GREEN = 2;
+	
 	private Button button = new Button();
 	private boolean mine = false;
 	private boolean flagged = false;
@@ -48,7 +52,7 @@ public class Field extends GridPane {
 		button.setOnMouseClicked((event) -> {
 			if(event.getButton().equals(MouseButton.SECONDARY)){
 				if (flagged) unflag();
-				else flag();
+				else flag(COLOR_ORANGE, true);
 			} else {
 				clicked();
 			}
@@ -90,6 +94,7 @@ public class Field extends GridPane {
 					this.setVgrow(bomb, Priority.ALWAYS);
 					this.setHgrow(bomb, Priority.ALWAYS);
 					if (!DataManager.getData().isLost()) DataManager.getData().mainWindow().getGamePane().lost();
+					if (flagged) flag(COLOR_GREEN, false);
 				}
 			} else {
 				if (DataManager.getData().firstClick()){
@@ -99,7 +104,8 @@ public class Field extends GridPane {
 				DataManager.getData().setHiddenFields(DataManager.getData().getHiddenFields() -  1);
 				if (DataManager.getData().getHiddenFields()-DataManager.getData().getMines() == 0 && !DataManager.getData().isLost()) DataManager.getData().mainWindow().getGamePane().won();
 				countNeighbourMines();
-				if (flagged) unflag();
+				if (flagged && DataManager.getData().isLost()) flag(COLOR_RED, false);
+				else unflag();
 				if (neighbourMines == 0){
 					if (tl != null && tl.isHidden()) tl.open();
 					if (tc != null && tc.isHidden()) tc.open();
@@ -116,20 +122,37 @@ public class Field extends GridPane {
 		}
 	}
 	
-	public void flag(){
+	public void flag(int color, boolean fullSize){
 		if (!flagged){
-			flag = new ImageView(new Image(getClass().getResourceAsStream("flag.png")));
+			switch(color){
+			case COLOR_ORANGE: flag = new ImageView(new Image(getClass().getResourceAsStream("flag-orange.png"))); break;
+			case COLOR_RED: flag = new ImageView(new Image(getClass().getResourceAsStream("flag-red.png"))); break;
+			case COLOR_GREEN: flag = new ImageView(new Image(getClass().getResourceAsStream("flag-green.png"))); break;
+			default: flag = new ImageView(new Image(getClass().getResourceAsStream("flag-blue.png"))); break;
+			}
 			flag.preserveRatioProperty().set(true);
-			flag.setFitHeight(this.getHeight()-0.25*this.getHeight());
 			flag.minHeight(0);
 			flag.minWidth(0);
-			this.add(flag, 0, 0);
-			this.setVgrow(flag, Priority.ALWAYS);
-			this.setHgrow(flag, Priority.ALWAYS);
-			this.setHalignment(flag, HPos.CENTER);
-			this.setValignment(flag, VPos.CENTER);
+			if (fullSize){
+				flag.setFitHeight(0.75*this.getHeight());
+				this.add(flag, 0, 0);
+				this.setVgrow(flag, Priority.ALWAYS);
+				this.setHgrow(flag, Priority.ALWAYS);
+				this.setHalignment(flag, HPos.CENTER);
+				this.setValignment(flag, VPos.CENTER);
+			} else {
+				flag.setFitHeight(0.5*this.getHeight());
+				this.add(flag, 0, 0);
+				this.setVgrow(flag, Priority.NEVER);
+				this.setHgrow(flag, Priority.NEVER);
+				this.setHalignment(flag, HPos.RIGHT);
+				this.setValignment(flag, VPos.BOTTOM);
+			}
 			flagged = true;
-			DataManager.getData().setFlagsSet(DataManager.getData().getFlagsSet() + 1);
+			DataManager.getData().increaseFlagsSet();
+		} else {
+			unflag();
+			flag(color, fullSize);
 		}
 	}
 	
@@ -137,7 +160,7 @@ public class Field extends GridPane {
 		if (flagged){
 			this.getChildren().remove(flag);
 			flagged = false;
-			DataManager.getData().setFlagsSet(DataManager.getData().getFlagsSet() - 1);
+			DataManager.getData().decreaseFlagsSet();
 		}
 	}
 	
