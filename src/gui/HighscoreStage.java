@@ -38,10 +38,17 @@ public class HighscoreStage extends Stage {
 	private Tab intermediateTab;
 	private Tab hardTab;
 	private Tab customTab;
+	private TabPane tabPane;
 
 	public HighscoreStage(){
 		super.setTitle("Highscore");
 		super.setScene(createScene());
+		switch (DataManager.getData().getMode()){
+		case Data.EASY: tabPane.getSelectionModel().select(easyTab); break;
+		case Data.INTERMEDIATE: tabPane.getSelectionModel().select(intermediateTab); break;
+		case Data.HARD: tabPane.getSelectionModel().select(hardTab); break;
+		case Data.CUSTOM: tabPane.getSelectionModel().select(customTab); break;
+		}
 		super.showAndWait();
 	}
 	
@@ -70,7 +77,7 @@ public class HighscoreStage extends Stage {
 		gridPane.add(title, 0, 0);
 		gridPane.setMargin(title, new Insets(10, 10, 10, 10));
 		
-		TabPane tabPane = createTabPane();
+		tabPane = createTabPane();
 		gridPane.add(tabPane, 0, 1);
 		gridPane.setHgrow(tabPane, Priority.ALWAYS);
 		gridPane.setVgrow(tabPane, Priority.ALWAYS);
