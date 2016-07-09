@@ -224,13 +224,10 @@ public class MainWindow extends Application {
 				break;
 			case CUSTOM:
 				DataManager.getData().setMode(Data.CUSTOM);
-				difficultyMenu.setVisible(true);
-				xTilesSpinner.getValueFactory().setValue(DataManager.getData().getXFields());
-				yTilesSpinner.getValueFactory().setValue(DataManager.getData().getYFields());
-				minesSpinner.getValueFactory().setValue(DataManager.getData().getMines());
 				break;
 			default: break;
 			}
+			checkIfCustomSelected();
 		});
 
 		mainMenu.add(difficultyLabel, 0, 0);
@@ -267,7 +264,8 @@ public class MainWindow extends Application {
 		});
 
 		newGame();
-
+		
+		this.checkIfCustomSelected();
 		primaryStage.setScene(mainScene);
 		primaryStage.show();
 	}
@@ -334,5 +332,16 @@ public class MainWindow extends Application {
 		this.fp.setFace(FacePane.LOVING_FACE);
 		DataManager.getData().addHighscoreEntry(new HighscoreEntry(1, name.getText(), timerText.startTime(), timerText.duration(),
 				DataManager.getData().getMoves(), DataManager.getData().getXFields(), DataManager.getData().getYFields(), DataManager.getData().getMines()));
+	}
+	
+	public void checkIfCustomSelected(){
+		if (difficulty.getValue().equals(CUSTOM)){
+			difficultyMenu.setVisible(true);
+			xTilesSpinner.getValueFactory().setValue(DataManager.getData().getXFields());
+			yTilesSpinner.getValueFactory().setValue(DataManager.getData().getYFields());
+			minesSpinner.getValueFactory().setValue(DataManager.getData().getMines());
+		} else {
+			difficultyMenu.setVisible(false);
+		}
 	}
 }
