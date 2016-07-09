@@ -59,19 +59,21 @@ public class HighscoreTableView extends TableView<HighscoreEntry> {
 			fieldHeight.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, Integer>("fieldHeight"));
 			mines.setCellValueFactory(new PropertyValueFactory<HighscoreEntry, Integer>("mines"));
 		}
-		
-		duration.setSortType(TableColumn.SortType.DESCENDING);
-		this.getSortOrder().add(duration);
-		duration.setSortable(true);
-		this.sort();
 	}
 	
 	public void fillWithData(){
 		this.setItems(list.getObservableList());
+		autoSort();
 	}
 	
 	public void fillWithData(HighscoreList list){
 		this.list = list;
 		fillWithData();
+	}
+	
+	public void autoSort(){
+		duration.setSortType(TableColumn.SortType.ASCENDING);
+		this.getSortOrder().add(duration);
+		this.sort();
 	}
 }
