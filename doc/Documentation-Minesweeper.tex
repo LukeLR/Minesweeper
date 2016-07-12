@@ -1,0 +1,139 @@
+\documentclass[oneside,12pt]{scrartcl}
+\usepackage[ngerman]{babel} %Deutsche Sprachunterstützung
+\usepackage{scrpage2} %Kopf- und Fußzeilen
+\usepackage[utf8]{inputenc} %Umlaute
+\usepackage{tabularx}
+\usepackage{eurosym}
+\usepackage[x11names]{xcolor}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{xparse} %\ExplSyntaxOn, ...Off
+\usepackage{hyperref} %Links im Inhaltsverzeichnis und \nameref
+%\usepackage{textcomp} %\textlangle und \textrangle (Spitze Klammern)
+\pagestyle{scrheadings}
+
+\newcommand*{\EnableHyphenationInTexttt}{\hyphenchar\font=45\relax}% breakable \texttt, as in http://tex.stackexchange.com/questions/312785/colored-text-with-linebreaks
+\newcommand{\EnableLineBreaksBeforeTexttt}{\hfil\penalty0 \hfilneg}
+
+%\ExplSyntaxOn %as in http://tex.stackexchange.com/questions/312785/colored-text-with-linebreaks
+%\NewDocumentCommand{\bcode}{m}
+% {
+%  \texttt{\lukelr_split_class:n { #1 }}
+% }
+%\cs_new_protected:Nn \lukelr_split_class:n
+% {
+%  \tl_map_inline:nn { #1 }
+%   {
+%    \int_compare:nT { \char_value_uccode:n { `##1 } =`##1 }
+%     { \discretionary{}{}{} }
+%    ##1
+%   }
+% }
+%\ExplSyntaxOff
+
+\newcommand{\code}[1]{\textcolor{Firebrick4}{\bcode{#1}}}
+\newcommand{\class}[1]{\textcolor{Green4}{\bcode{#1}}}
+\newcommand{\package}[1]{Package \npackage{#1}}
+\newcommand{\npackage}[1]{\textcolor{Blue4}{\bcode{#1}}}
+\newcommand{\fullclass}[2]{\npackage{#1}.\class{#2}}
+\newcommand{\method}[1]{\textcolor{Orange3}{\bcode{#1()}}}
+\newcommand{\function}[2]{\textcolor{Orange3}{\bcode{#1 (\attribute{#2})}}}
+\newcommand{\attribute}[1]{\textcolor{SkyBlue3}{\bcode{#1}}}
+\newcommand{\classattribute}[2]{\class{#1} \attribute{#2}}
+\newcommand{\methodcall}[2]{\class{#1}.\method{#2}}
+\newcommand{\functioncall}[3]{\class{#1}. \function{#2}{#3}}
+\newcommand{\bcode}[1]{\texttt{\EnableHyphenationInTexttt#1}}
+%\newcommand{\bcode}[1]{\EnableLineBreaksBeforeTexttt\texttt{#1}}
+\newcommand{\emphasize}[1]{\textsl{#1}}
+\newenvironment{codeblock}{\ttfamily{}{}}
+
+\begin{document}
+\setlength{\parindent}{0pt} %Dummes Absatz-Eingerücke abstellen
+\setlength{\parskip}{5pt}
+\cofoot{}
+\rofoot{\pagemark}
+\floatstyle{boxed}
+\restylefloat{figure}
+
+\begin{center}
+\Huge{Minesweeper Documentation} \par
+\Large{HHU-Programmierpraktikum SS2016 Projekt 6}
+\end{center}
+
+\tableofcontents
+
+\section{Graphical User Interface}
+Die Klassen, welche die grafische Benutzeroberfläche repräsentieren, befinden sich im \package{gui}.
+
+\subsection{\class{Main Window.java}}
+Diese Klasse repräsentiert das \glqq Hauptfenster\grqq, welches die zentrale GUI des Programmes darstellt. Sie enthält die \method{public static void main}-Methode, welche beim Start des Programmes aufgerufen wird und das Hauptfenster aufruft. Das Hauptfenster selbst enthält zugleich das Spielfeld als auch die Konfigurationsmöglichkeiten zum Spiel.
+
+Diese bestehen aus einer \classattribute{ComboBox<String>}{difficulty}, einer Auswahlbox, welche die vier Schwierigkeitsgrade \glqq Easy\grqq, \glqq Intermediate\grqq, \glqq Hard\grqq und \glqq Custom\grqq zur Auswahl anbietet. (\textit{Siehe \ref{sec:Schwierigkeitsgrade}. Schwierigkeitsgrade}) Daneben wird ein \attribute{TextField name} zur Eingabe des Spielernamens angeboten, welcher in den Highscore-Listen veröffentlicht wird. Sowohl die \classattribute{ComboBox}{difficulty} und das \classattribute{TextField}{name} werden von einem \attribute{Text}-Label beschrieben.
+
+Zu guter Letzt existieren in diesem Menü noch ein \classattribute{Button}{newGame}, welcher ein neues Spiel startet, und ein \classattribute{Button}{highscores}, welcher das Highscore-Fenster aufruft.
+
+\subsubsection{Panels}
+Das Fenster selbst enthält ein großes \class{BorderPane}, in dessen \attribute{Top}-Feld ein \class{GridPane} zur Repräsentation der Einstellungsmenüs gesetzt wurde. Letzteres enthält wiederum zwei \class{GridPane}s, von denen das erste die regulären Einstellmöglichkeiten (Schwierigkeitsgrad, Name, Neues Spiel, Highscores anzeigen) bieten, und das zweite die erweiterten Einstellmöglichkeiten für den benutzerdefinierten Spielmodus repräsentiert.
+
+Im \attribute{Center} des \class{BorderPane}s befindet sich das eigentliche Spielfeld, welche durch die Klasse \class{GamePane} realisiert wird. (\textit{Siehe \ref{sec:GamePane} GamePane.java})
+
+Im \attribute{Bottom}-Feld des \class{BorderPane} befindet sich wiederum ein weiteres \classattribute{GridPane}{stats}, welches die \glqq Statistiken\grqq des aktuellen Spiels repräsentiert. Dazu zählen die Anzahl der Minen, welche stets aktuell die Anzahl der im Spiel befindlichen Minen minus der bereits gesetzten Flags anzeigt, sowohl der Timer, welche laufend die Dauer des aktuellen Spiels anzeigt.
+
+\subsubsection{Benutzerdefinierte Spieleinstellungen}
+Der Nutzer kann durch Auswählen des Schwierigkeitsgrades \glqq Custom\grqq ein benutzerdefiniertes Spiel erstellen. Dazu erscheint wird ein \attribute{GridPane difficultyMenu} sichtbar gemacht, welches drei \attribute{AutoCommitSpinner}-Objekte \attribute{xTilesSpinner}, \attribute{yTilesSpinner} und \attribute{minesSpinner} erzeugt. \class{AutoCommitSpinner} ist eine modifizierte Version des \class{Spinner}-GUI-Elements von JavaFX (\textit{Siehe dazu \ref{sec:AutoCommitSpinner} AutoCommitSpinner}).
+
+In diesen drei Eingabefeldern kann der Nutzer die gewünschte Breite und Höhe des Feldes (in Anzahl Feldern) sowie die gewünschte Anzahl der Minen eingeben. Die Werte sind standardmäßig auf die Werte des letzten Spiels gesetzt, also z.B. auf die Einstellungen bei einem Spiel auf dem Schwierigkeitsgrad \glqq Easy\grqq, falls zuletzt ein solches gespielt / initialisiert wurde.
+
+\subsection{\class{GamePane.java}}
+\label{sec:GamePane}
+Das eigentliche Spielfeld wird durch ein modifiziertes \class{GridPane} repräsentiert, welches jedes einzelne Feld im Spielfeld als ein \class{Field}-Objekt (\textit{Siehe \ref{sec:Field} Field}) speichert und im GridPane verwaltet. Es existieren Methoden zum Erzeugen eines neuen Spiels, zum Erzeugen eines neuen Spiels mit veränderten Einstellungen, zum Aufrufen des Spielstatusses \glqq Gewonnen\grqq oder \glqq Verloren\grqq sowohl zum Abfragen der aktuellen Spieleinstellungen.
+
+\subsection{\class{Field.java}}
+\label{sec:Field}
+Diese Klasse repräsentiert ein einzelnes Feld im Spielfeld. Sie ist wiederum eine abgewandelte Form eines \class{GridPane}s, welche im Wesentlichen nur einen \class{Button} enthält. Dieser ist aktiv, wenn zugedeckt, und inaktiv, wenn aufgedeckt (Grafisch sichtbar).
+
+Es wurde ein GridPane gewählt, statt nur einen Button zu verwenden, da sonst beim Deaktivieren des Buttons ebenfalls die enthaltenen \attribute{Child}-Elemente (z.B. eine Grafik, die die Bombe oder die Flagge repräsentiert, oder ein Text, welcher die Anzahl der Minen angibt) ebenfalls deaktiviert und somit "transparent" und schlecht lesbar erscheinen. Da diese Elemente nun direkt auf das \class{GridPane} gesetzt werden können und nicht auf den \class{Button} ist diesem Problem vorgebeugt.
+
+Das Feld erstellt beim Erzeugen automatisch einen Listener per Lambda-Expression, welcher beim Klick überprüft, ob die rechte oder die linke Maustaste gedrückt wurde. Im Falle der Linken Maustaste wird \methodcall{Field}{open} aufgerufen, im anderen Fall \methodcall{Field}{flag}.
+
+\subsection{\methodcall{Field}{open}}
+Die Methode \methodcall{Field}{open} 
+
+\section{Custom GUI}
+Für einige Funktionen meines Programms habe ich die von JavaFX bereitgestellten GUI-Objekte modifiziert. Diese Klassen befinden sich im \package{metagui}.
+
+\subsection{\class{AutoCommitSpinner.java}}
+\label{sec:AutoCommitSpinner}
+
+\subsection{\class{RowNumberCell.java}}
+
+\section{User Experience}
+\subsection{Neues Spiel}
+\begin{itemize}
+\item Beim Starten des Programmes wird automatisch ein neues Spiel mit den zuletzt gewählten Einstellungen (bei der letzten Verwendung des Programmes) erstellt. Ist das Programm zuvor noch nicht verwendet worden, bzw. sind keine lesbaren Speicherdaten vorhanden, wird automatisch ein neues Spiel auf Schwierigkeitsgrad \glqq Easy\grqq erstellt.
+\item Ein neues Spiel wird automatisch beim Wechseln des Schwierigkeitsgrades auf \glqq Easy\grqq, \glqq Intermediate\grqq oder \glqq Hard\grqq erstellt,
+\item Beim Wechseln des Schwierigkeitsgrades auf \glqq Custom\grqq wird kein neues Spiel erstellt, da hierzu zunächst die Einstellungen des benutzerdefinierten Spiels erforderlich sind. Der Nutzer muss mit einem Klick auf den \glqq New Game\grqq-Knopf ein neues Spiel starten.
+\item Das Spiel wird allgemein nur initialisiert, gestartet wird es erst, sobald der Nutzer das erste Feld anklickt. Erst dann wird der Timer gestartet.
+\end{itemize}
+
+\subsection{Highscores}
+
+\section{Interna}
+Diese Klassen realisieren interne Funktionen des Programmes und befinden sich im Wesentlichen im \package{meta}.
+
+\subsection{Neues Spiel}
+
+\subsection{Highscores}
+
+\subsection{Timer}
+
+\subsection{Datenverwaltung}
+
+\subsection{Aktualisierung der Spielinfos}
+
+\section{Schwierigkeitsgrade}
+\label{sec:Schwierigkeitsgrade}
+
+\section{Speichern + Laden}
+
+\end{document}

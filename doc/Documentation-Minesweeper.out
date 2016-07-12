@@ -1,0 +1,21 @@
+\BOOKMARK [1][-]{section.1}{Graphical User Interface}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{=45Main Window.java}{section.1}% 2
+\BOOKMARK [3][-]{subsubsection.1.1.1}{Panels}{subsection.1.1}% 3
+\BOOKMARK [3][-]{subsubsection.1.1.2}{Benutzerdefinierte Spieleinstellungen}{subsection.1.1}% 4
+\BOOKMARK [2][-]{subsection.1.2}{=45GamePane.java}{section.1}% 5
+\BOOKMARK [2][-]{subsection.1.3}{=45Field.java}{section.1}% 6
+\BOOKMARK [2][-]{subsection.1.4}{=45Field.=45open\(\)}{section.1}% 7
+\BOOKMARK [1][-]{section.2}{Custom GUI}{}% 8
+\BOOKMARK [2][-]{subsection.2.1}{=45AutoCommitSpinner.java}{section.2}% 9
+\BOOKMARK [2][-]{subsection.2.2}{=45RowNumberCell.java}{section.2}% 10
+\BOOKMARK [1][-]{section.3}{User Experience}{}% 11
+\BOOKMARK [2][-]{subsection.3.1}{Neues Spiel}{section.3}% 12
+\BOOKMARK [2][-]{subsection.3.2}{Highscores}{section.3}% 13
+\BOOKMARK [1][-]{section.4}{Interna}{}% 14
+\BOOKMARK [2][-]{subsection.4.1}{Neues Spiel}{section.4}% 15
+\BOOKMARK [2][-]{subsection.4.2}{Highscores}{section.4}% 16
+\BOOKMARK [2][-]{subsection.4.3}{Timer}{section.4}% 17
+\BOOKMARK [2][-]{subsection.4.4}{Datenverwaltung}{section.4}% 18
+\BOOKMARK [2][-]{subsection.4.5}{Aktualisierung der Spielinfos}{section.4}% 19
+\BOOKMARK [1][-]{section.5}{Schwierigkeitsgrade}{}% 20
+\BOOKMARK [1][-]{section.6}{Speichern + Laden}{}% 21
