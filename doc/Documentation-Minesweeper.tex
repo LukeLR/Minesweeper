@@ -50,6 +50,7 @@
 \begin{document}
 \setlength{\parindent}{0pt} %Dummes Absatz-Eingerücke abstellen
 \setlength{\parskip}{5pt}
+\lofoot{Minesweeper-Documentation HHU-Programmierpraktikum SS2016 Projekt 6}
 \cofoot{}
 \rofoot{\pagemark}
 \floatstyle{boxed}
@@ -68,7 +69,7 @@ Die Klassen, welche die grafische Benutzeroberfläche repräsentieren, befinden 
 \subsection{\class{Main Window.java}}
 Diese Klasse repräsentiert das \glqq Hauptfenster\grqq, welches die zentrale GUI des Programmes darstellt. Sie enthält die \method{public static void main}-Methode, welche beim Start des Programmes aufgerufen wird und das Hauptfenster aufruft. Das Hauptfenster selbst enthält zugleich das Spielfeld als auch die Konfigurationsmöglichkeiten zum Spiel.
 
-Diese bestehen aus einer \classattribute{ComboBox<String>}{difficulty}, einer Auswahlbox, welche die vier Schwierigkeitsgrade \glqq Easy\grqq, \glqq Intermediate\grqq, \glqq Hard\grqq und \glqq Custom\grqq zur Auswahl anbietet. (\textit{Siehe \ref{sec:Schwierigkeitsgrade}. Schwierigkeitsgrade}) Daneben wird ein \attribute{TextField name} zur Eingabe des Spielernamens angeboten, welcher in den Highscore-Listen veröffentlicht wird. Sowohl die \classattribute{ComboBox}{difficulty} und das \classattribute{TextField}{name} werden von einem \attribute{Text}-Label beschrieben.
+Diese bestehen aus einer \classattribute{ComboBox<String>}{difficulty}, einer Auswahlbox, welche die vier Schwierigkeitsgrade \glqq Easy\grqq, \glqq Intermediate\grqq, \glqq Hard\grqq\ und \glqq Custom\grqq\ zur Auswahl anbietet. Daneben wird ein \attribute{TextField name} zur Eingabe des Spielernamens angeboten, welcher in den Highscore-Listen veröffentlicht wird. Sowohl die \classattribute{ComboBox}{difficulty} und das \classattribute{TextField}{name} werden von einem \attribute{Text}-Label beschrieben.
 
 Zu guter Letzt existieren in diesem Menü noch ein \classattribute{Button}{newGame}, welcher ein neues Spiel startet, und ein \classattribute{Button}{highscores}, welcher das Highscore-Fenster aufruft.
 
@@ -77,16 +78,16 @@ Das Fenster selbst enthält ein großes \class{BorderPane}, in dessen \attribute
 
 Im \attribute{Center} des \class{BorderPane}s befindet sich das eigentliche Spielfeld, welche durch die Klasse \class{GamePane} realisiert wird. (\textit{Siehe \ref{sec:GamePane} GamePane.java})
 
-Im \attribute{Bottom}-Feld des \class{BorderPane} befindet sich wiederum ein weiteres \classattribute{GridPane}{stats}, welches die \glqq Statistiken\grqq des aktuellen Spiels repräsentiert. Dazu zählen die Anzahl der Minen, welche stets aktuell die Anzahl der im Spiel befindlichen Minen minus der bereits gesetzten Flags anzeigt, sowohl der Timer, welche laufend die Dauer des aktuellen Spiels anzeigt.
+Im \attribute{Bottom}-Feld des \class{BorderPane} befindet sich wiederum ein weiteres \classattribute{GridPane}{stats}, welches die \glqq Statistiken\grqq\ des aktuellen Spiels repräsentiert. Dazu zählen die Anzahl der Minen, welche stets aktuell die Anzahl der im Spiel befindlichen Minen minus der bereits gesetzten Flags anzeigt, sowohl der Timer, welche laufend die Dauer des aktuellen Spiels anzeigt.
 
 \subsubsection{Benutzerdefinierte Spieleinstellungen}
-Der Nutzer kann durch Auswählen des Schwierigkeitsgrades \glqq Custom\grqq ein benutzerdefiniertes Spiel erstellen. Dazu erscheint wird ein \attribute{GridPane difficultyMenu} sichtbar gemacht, welches drei \attribute{AutoCommitSpinner}-Objekte \attribute{xTilesSpinner}, \attribute{yTilesSpinner} und \attribute{minesSpinner} erzeugt. \class{AutoCommitSpinner} ist eine modifizierte Version des \class{Spinner}-GUI-Elements von JavaFX (\textit{Siehe dazu \ref{sec:AutoCommitSpinner} AutoCommitSpinner}).
+Der Nutzer kann durch Auswählen des Schwierigkeitsgrades \glqq Custom\grqq\ ein benutzerdefiniertes Spiel erstellen. Dazu erscheint wird ein \attribute{GridPane difficultyMenu} sichtbar gemacht, welches drei \attribute{AutoCommitSpinner}-Objekte \attribute{xTilesSpinner}, \attribute{yTilesSpinner} und \attribute{minesSpinner} erzeugt. \class{AutoCommitSpinner} ist eine modifizierte Version des \class{Spinner}-GUI-Elements von JavaFX (\textit{Siehe dazu \ref{sec:AutoCommitSpinner} AutoCommitSpinner}).
 
 In diesen drei Eingabefeldern kann der Nutzer die gewünschte Breite und Höhe des Feldes (in Anzahl Feldern) sowie die gewünschte Anzahl der Minen eingeben. Die Werte sind standardmäßig auf die Werte des letzten Spiels gesetzt, also z.B. auf die Einstellungen bei einem Spiel auf dem Schwierigkeitsgrad \glqq Easy\grqq, falls zuletzt ein solches gespielt / initialisiert wurde.
 
 \subsection{\class{GamePane.java}}
 \label{sec:GamePane}
-Das eigentliche Spielfeld wird durch ein modifiziertes \class{GridPane} repräsentiert, welches jedes einzelne Feld im Spielfeld als ein \class{Field}-Objekt (\textit{Siehe \ref{sec:Field} Field}) speichert und im GridPane verwaltet. Es existieren Methoden zum Erzeugen eines neuen Spiels, zum Erzeugen eines neuen Spiels mit veränderten Einstellungen, zum Aufrufen des Spielstatusses \glqq Gewonnen\grqq oder \glqq Verloren\grqq sowohl zum Abfragen der aktuellen Spieleinstellungen.
+Das eigentliche Spielfeld wird durch ein modifiziertes \class{GridPane} repräsentiert, welches jedes einzelne Feld im Spielfeld als ein \class{Field}-Objekt (\textit{Siehe \ref{sec:Field} Field}) speichert und im GridPane verwaltet. Es existieren Methoden zum Erzeugen eines neuen Spiels, zum Erzeugen eines neuen Spiels mit veränderten Einstellungen, zum Aufrufen des Spielstatusses \glqq Gewonnen\grqq\ oder \glqq Verloren\grqq\ sowohl zum Abfragen der aktuellen Spieleinstellungen.
 
 \subsection{\class{Field.java}}
 \label{sec:Field}
@@ -96,23 +97,57 @@ Es wurde ein GridPane gewählt, statt nur einen Button zu verwenden, da sonst be
 
 Das Feld erstellt beim Erzeugen automatisch einen Listener per Lambda-Expression, welcher beim Klick überprüft, ob die rechte oder die linke Maustaste gedrückt wurde. Im Falle der Linken Maustaste wird \methodcall{Field}{open} aufgerufen, im anderen Fall \methodcall{Field}{flag}.
 
-\subsection{\methodcall{Field}{open}}
-Die Methode \methodcall{Field}{open} 
+Das Feld speichert den \classattribute{Button}{button}, welcher das grafische \glqq Feld\grqq\ darstellt, \class{boolean}s \attribute{mine}, \attribute{flagged} und \attribute{hidden}, welche respektive speichern, ob das Feld eine Mine, mit einer Flagge versehen und noch geschlossen / bereits geöffnet ist, sowie einen \classattribute{int}{neighbourMines}, welcher speichert, wie viele Minen dieses Feld umgeben.
+
+\subsubsection{\methodcall{Field}{open}}
+Die Methode \methodcall{Field}{open} enthält die gesamte Logik, die beim Aufdecken des Feldes erforderlich ist. Es wird unterschieden, ob das Feld eine Bombe ist oder nicht. Wenn das Feld eine Bombe ist, wird abgefragt, ob dies der erste Klick auf ein Feld ist. Falls ja, wird die Bombe von dem Feld entfernt und es wird zufällig ein Feld gefunden, welches noch keine Bombe hat und auf dieses die Bombe gesetzt wird, anschließend wird das Feld aufgedeckt. Ist es nicht der erste Klick, so wird das Feld geöffnet, eine Bombe angezeigt, falls das Feld geflaggt war, die Flagge in die untere rechte Ecke verkleinert, und das Spiel als verloren markiert.
+
+Ist das Feld keine Bombe, so wird das Feld selbst aufgedeckt. Ist die Zahl der angrenzenden Minen \texttt{0}, so wird keine Zahl angezeigt und alle umliegenden Felder ebenfalls aufgedeckt. Ist die Zahl nicht null, so wird sie auf dem Feld angezeigt und keine weiteren Felder aufgedeckt. Der erste Klick ist in diesem Fall irrelevant.
+
+\subsection{\class{HighscoreStage.java}}
+Das Anzeigen der Highscores wird von der Klasse \class{HighscoreStage} übernommen. Wie der Name schon sagt, stellt diese Klasse eine spezifizierte Version der JavaFX-Klasse \class{Stage} dar, und initialisiert sich beim Erzeugen einer neuer Instanz dieser Klasse automatisch. Die Highscores werden bei Klick auf den Highscores-Button in einem eigenen Fenster angezeigt.
+
+Das Fenster enthält ein großes \classattribute{BorderPane}{root}, welches im \attribute{center} die eigentlichen Highscores, und im \attribute{Bottom} zwei Knöpfe zum Zurücksetzen der Highscores und zum Schließen des Fensters besitzt.
+
+Die eigentlichen Highscores im \attribute{center} werden durch ein \class{GridPane} realisiert, welches einen \classattribute{Text}{title} als Titel und ein \class{TabPane} bietet, um durch die Highscore-Tabellen der einzelnen Schwierigkeitsgrade zu schalten. Das \class{TabPane} enthält also vier \class{Tab}s, \attribute{easyTab}, \attribute{intermediateTab}, \attribute{hardTab} und \attribute{customTab}, welche jeweils eine Instanz \classattribute{HighscoreTableView}{easyTable}, \attribute{intermediateTable}, \attribute{hardTable} bzw. \attribute{customTable} enthalten (\textit{Siehe \ref{sec:HighscoreTableView} HighscoreTableView.java}). Diese \class{HighscoreTableView}s sind die eigentliche grafische Darstellung der Highscores.
+
+Die Highscores enthalten dabei die folgenden Daten, und sind somit recht ausführlich:
+\begin{enumerate}
+\item Highscore-Platzierung
+\item Name
+\item Startzeit
+\item Spieldauer
+\item Anzahl Spielzüge
+\item Breite des Spielfelds (in Feldern)
+\item Höhe des Spielfelds (in Feldern)
+\item Anzahl der Minen
+\end{enumerate}
+... wobei die letzten drei Werte nur für den benutzerdefinierten Schwierigkeitsgrad angezeigt werden. Der Benutzer ist in der Lage, die Datensätze nach den jeweiligen Feldern sowohl auf- als auch absteigend zu sortieren, sowie eine Reihenfolge festzulegen, um nach mehreren Feldern zugleich zu sortieren (z.B. vorrangig nach Spieldauer, bei gleicher Spieldauer nach Name, bei gleichem Namen nach Startzeit).
+
+\subsection{\class{HighscoreTableView.java}}
+\label{sec:HighscoreTableView}
+Wie der Name schon sagt, handelt es sich hier erneut um eine Spezifikation einer JavaFX-Klasse, in diesem Falle der Klasse \class{TableView}. Bei der Erzeugung eines solchen Objektes werden automatisch die entsprechenden \class{TableColumn}s dem \class{TableView} hinzugefügt (die Spalten vorbereitet) und die Daten geladen (\textit{siehe \ref{sec:Datenverwaltung} Datenverwaltung}).
+
+\subsection{\class{FacePane.java}}
+Das \class{FacePane} stellt den Smiley dar, der in der oberen rechten Ecke des Hauptfensters angezeigt wird, und den Status des Spiels (laufend, verloren, gewonnen) repräsentiert. Es ist ein \class{GridPane}, welches die vier verschiedenen Smileys als \class{ImageView} enthält, und Methoden bereitstellt, um den sichtbaren dieser vier \class{ImageView}s zu wechseln.
 
 \section{Custom GUI}
 Für einige Funktionen meines Programms habe ich die von JavaFX bereitgestellten GUI-Objekte modifiziert. Diese Klassen befinden sich im \package{metagui}.
 
 \subsection{\class{AutoCommitSpinner.java}}
 \label{sec:AutoCommitSpinner}
+Es gibt einen bekannten Bug in aktuellen Versionen von Java, welcher dafür sorgt, dass manuell per Tastatur eingegebene Werte in den \class{Spinner}-Elementen nicht übernommen werden. Das bedeutet, der \class{Spinner} trägt z.B. momentan den Wert 10. Nun wird per Tastatur der Wert 15 eingegeben, dieser wird aber aufgrund dieses Bugs nicht übernommen. Wird nun die Pfeil-nach-oben-Taste oder Pfeil-nach-unten-Taste des Spinners verwendet, um den Wert entsprechend zu erhöhen oder zu vermindern, wird weiterhin vom ursprünglichen Wert 10 ausgegangen, und somit z.B. die Werte 9 und 11 produziert, statt wie zu erwarten 14 oder 16. Genauso ist es beim Abfragen des Wertes des Spinners, dort würde weiterhin der Wert 10 ausgegeben werden, obwohl bereits 15 eingegeben wurde.
+
+In dieser Modifikation sorgt ein TextListener dafür, dass bei einer Tastatureingabe im Spinner sofort der Wert des Textfeldes abgefragt wird. Es wird versucht, diesen Wert zu parsen, und als neuen Wert des Spinners zu übernehmen. Schlägt das Parsen fehl, weil z.B. ein nicht-numerischer Wert eingegeben wurde, so wird der Wert des Spinners automatisch auf den zuletzt akzeptierten Wert zurückgesetzt.
 
 \subsection{\class{RowNumberCell.java}}
+Diese Klasse repräsentiert eine modifizierte Version der \class{TableCell}, welche immer den Wert ihres Zeilenindexes enthält. Werden solche Zellen zu einem \class{TableView} hinzugefügt, so zeigen sie immer die Nummer der Zeile an, in der sie stehen. Auf diese Weise habe ich das Nummerieren der Highscore-Einträge realisiert.
 
-\section{User Experience}
-\subsection{Neues Spiel}
+\section{Neues Spiel}
 \begin{itemize}
-\item Beim Starten des Programmes wird automatisch ein neues Spiel mit den zuletzt gewählten Einstellungen (bei der letzten Verwendung des Programmes) erstellt. Ist das Programm zuvor noch nicht verwendet worden, bzw. sind keine lesbaren Speicherdaten vorhanden, wird automatisch ein neues Spiel auf Schwierigkeitsgrad \glqq Easy\grqq erstellt.
-\item Ein neues Spiel wird automatisch beim Wechseln des Schwierigkeitsgrades auf \glqq Easy\grqq, \glqq Intermediate\grqq oder \glqq Hard\grqq erstellt,
-\item Beim Wechseln des Schwierigkeitsgrades auf \glqq Custom\grqq wird kein neues Spiel erstellt, da hierzu zunächst die Einstellungen des benutzerdefinierten Spiels erforderlich sind. Der Nutzer muss mit einem Klick auf den \glqq New Game\grqq-Knopf ein neues Spiel starten.
+\item Beim Starten des Programmes wird automatisch ein neues Spiel mit den zuletzt gewählten Einstellungen (bei der letzten Verwendung des Programmes) erstellt. Ist das Programm zuvor noch nicht verwendet worden, bzw. sind keine lesbaren Speicherdaten vorhanden, wird automatisch ein neues Spiel auf Schwierigkeitsgrad \glqq Easy\grqq\ erstellt.
+\item Ein neues Spiel wird automatisch beim Wechseln des Schwierigkeitsgrades auf \glqq Easy\grqq, \glqq Intermediate\grqq\ oder \glqq Hard\grqq\ erstellt,
+\item Beim Wechseln des Schwierigkeitsgrades auf \glqq Custom\grqq\ wird kein neues Spiel erstellt, da hierzu zunächst die Einstellungen des benutzerdefinierten Spiels erforderlich sind. Der Nutzer muss mit einem Klick auf den \glqq New Game\grqq-Knopf ein neues Spiel starten.
 \item Das Spiel wird allgemein nur initialisiert, gestartet wird es erst, sobald der Nutzer das erste Feld anklickt. Erst dann wird der Timer gestartet.
 \end{itemize}
 
@@ -121,19 +156,26 @@ Für einige Funktionen meines Programms habe ich die von JavaFX bereitgestellten
 \section{Interna}
 Diese Klassen realisieren interne Funktionen des Programmes und befinden sich im Wesentlichen im \package{meta}.
 
-\subsection{Neues Spiel}
-
-\subsection{Highscores}
-
 \subsection{Timer}
+Der Timer wird durch die Klasse \class{TimerText} realisiert, welche ein JavaFX-\class{Text}-Objekt darstellt. Der Timer enthält also sowohl den Thread, der alle x Millisekunden die angezeigte Zeit aktualisiert, als auch das Textfeld, worin die Zeit angezeigt wird. Somit kann der Timer einfach als GUI-Element verwendet werden.
+
+Der Timer speichert beim starten oder resetten eine Startzeit als \class{LocalDateTime}-Objekt. Es kann die Dauer mittels der Methode \methodcall{TimerText}{getDuration} abgefragt werden, welche ein \fullclass{java.time}{Duration}-Objekt zurückgibt. Dazu wird ein neues \class{LocalDateTime}-Objekt mit der aktuellen Systemzeit erstellt, und die Differenz zwischen dieser Zeit und der Startzeit mittels der Methode \methodcall{Duration}{between} berechnet und zurückgegeben. Die Startzeit kann ebenfalls durch einen getter Abgefragt werden, diese und die Duration werden ebenfalls für die Highscores verwendet.
 
 \subsection{Datenverwaltung}
+\label{sec:Datenverwaltung}
+Die Daten werden in den Klassen \class{DataManager} und \class{Data} bereitgestellt. Dabei ist \class{DataManager} eine statische Klasse, welche jeweils das zur Laufzeit aktuelle \class{Data}-Objekt enthält. Dieses Objekt kann neu erzeugt, aus einer Datei geladen, in eine Datei geschrieben, oder im Programm abgefragt werden. Somit können sich die Klassen automatisch Daten holen, die sie brauchen, oder Daten schreiben.
+
+Die Einstellmöglichkeiten im Hauptfenster speichern etwaige Änderungen z.B. immer sofort im \class{Data}-Objekt ab, wird dann ein neues Spiel erstellt, werden diese Daten automatisch aus dem \class{Data}-Objekt gelesen. Ebenfalls wird im \class{Data}-Objekt verfolgt, wie viele Flaggen gesetzt sind, wodurch der Minenzähler aktualisiert werden kann, ob das Spiel bereits gewonnen oder verloren ist, oder ob der erste Klick bereits gemacht wurde. Auch wird die Zahl der aufgedeckten Felder gezählt, dadurch kann festgestellt werden, ob das Spiel gewonnen wurde (alle Felder sind aufgedeckt). Diese Informationen werden an verschiedenen Stellen des Programmes gebraucht.
 
 \subsection{Aktualisierung der Spielinfos}
-
-\section{Schwierigkeitsgrade}
-\label{sec:Schwierigkeitsgrade}
+Die Aktualisierung der Spielinfos wird im Wesentlichen von den \class{Field}-Feldern des Spielfeldes übernommen. Bei einem Klick und dem damit einhergehenden Aufdecken eines Feldes wird z.B. der Zähler der aufgedeckten Felder in dem \class{Data}-Objekt verändert, um zu verfolgen, ob das Spiel gewonnen wurde oder nicht. Die Zustände Gewonnen und Verloren werden ebenfalls von der \class{Field}-Klasse aus gesteuert. Ebenfalls wird beim Setzen eines Flags der entsprechende Counter im \class{Data}-Objekt und damit der Zähler am unteren Bildschirmrand aktualisiert.
 
 \section{Speichern + Laden}
+Um die Highscores und Einstellungen zu sichern, bietet die Klasse \class{DataManager} Methoden zum Speichern des \class{Data}-Objektes in eine Datei und zum Lesen aus einer Datei. Dazu wird ein \class{ObjectOutputStream} bzw. \class{ObjectInputStream} auf einen \class{FileOutputStream} bzw. \class{FileInputStream} gesetzt, welcher das Objekt serialisiert und in eine Datei schreibt bzw. aus ihr liest. Nach dem Einlesen eines gespeicherten \class{Data}-Objektes ist somit der alte Zustand des \class{Data}-Objektes mit allen Feldern wiederhergestellt, also sowohl den Einstellungen als auch den Highscores.
 
+Da in der Datenstruktur der Highscores, \class{HighscoreEntry}, Instanzen der \EnableLineBreaksBeforeTexttt\fullclass{javafx.beans.property}{SimpleIntegerProperty}, \EnableLineBreaksBeforeTexttt\fullclass{javafx.beans.property}{SimpleStringProperty} und \EnableLineBreaksBeforeTexttt\fullclass{javafx.beans.property}{SimpleObjectProperty} verwendet werden, um die Werte zu speichern und das automatische Einlesen dieser Werte in die Highscore-Tabelle zu ermöglichen, entsteht ein Problem, denn diese Klassen sind nicht serialisierbar. Somit wäre es unmöglich, das \class{Data}-Objekt mit den Highscores zu serialisieren.
+
+Um dies zu umgehen, habe ich die Methoden \methodcall{Object HighscoreEntry}{writeReplace} und \methodcall{Object HighscoreEntrySerializable}{readResolve} implementiert, sowie die Klasse \class{HighscoreEntrySerializable} erstellt, welche der Klasse \class{HighscoreEntry} ähnelt, aber keine Schnittstellen aufweist und keine \EnableLineBreaksBeforeTexttt\fullclass{javafx.beans.property}{SimpleIntegerProperty}, \EnableLineBreaksBeforeTexttt\fullclass{javafx.beans.property}{SimpleStringProperty} oder \EnableLineBreaksBeforeTexttt\fullclass{javafx.beans.property}{SimpleObjectProperty} verwendet, sondern einfach nur \class{Integer}, \class{String}s oder die entsprechenden Objekte direkt speichert. Somit ist diese Version der \class{HighscoreEntry} serialisierbar. Durch das Bereitstellen dieser Methoden werden diese automatisch beim Schreiben bzw. Lesen eines Objektes ausgeführt.
+
+Die Methode \methodcall{Object HighscoreEntry}{writeReplace} wird beim Schreiben des \class{Data}-Objektes aufgerufen und wandelt alle \class{HighscoreEntry}-Objekte, die im \class{Data}-Objekt gespeichert sind und geschrieben werden sollen, automatisch in \class{HighscoreEntrySerializable}-Objekte um. Die Methode \methodcall{Object HighscoreEntrySerializable}{readResolve} wird beim Lesen eines \class{Data}-Objektes aus der Datei aufgerufen, und wandelt alle gespeicherten \class{HighscoreEntrySerializable}-Instanzen wieder zurück in \class{HighscoreEntry}-Objekte.
 \end{document}
